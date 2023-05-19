@@ -66,10 +66,7 @@ export default class RuntimeBackground {
 
         if (this.lockedVaultPendingNotifications?.length > 0) {
           item = this.lockedVaultPendingNotifications.pop();
-          /** CG BEEEP */
-          // BrowserApi.closeBitwardenExtensionTab();
           await BrowserApi.closeBitwardenLoginPromptWindow();
-          /** END BEEEP */
         }
 
         await this.main.refreshBadge();
@@ -109,10 +106,7 @@ export default class RuntimeBackground {
         break;
       case "promptForLogin":
       case "bgReopenPromptForLogin":
-        /** CG BEEEP */
-        //  BrowserApi.openBitwardenExtensionTab("popup/index.html", true);
         this.handlePromptForLoginMessage(sender);
-        /** END BEEEP */
         break;
       case "openAddEditCipher": {
         const addEditCipherUrl =

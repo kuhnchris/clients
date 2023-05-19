@@ -170,7 +170,6 @@ export class BrowserApi {
 
   private static registeredMessageListeners: any[] = [];
 
-  /** CG BEEEP */
   static getWindow(windowId?: number): Promise<chrome.windows.Window> | void {
     if (!windowId) {
       return;
@@ -212,7 +211,6 @@ export class BrowserApi {
     });
     tabs.forEach((tab) => chrome.tabs.remove(tab.id));
   }
-  /** END BEEEP */
 
   static messageListener(
     name: string,

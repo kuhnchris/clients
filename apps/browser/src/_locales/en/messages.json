@@ -631,7 +631,7 @@
     "message": "Update"
   },
   "notificationUnlockDesc": {
-    "message": "Unlock your Bitwarden vault to auto-fill this login."
+    "message": "Unlock your Bitwarden vault to complete the auto-fill request."
   },
   "notificationUnlock": {
     "message": "Unlock"

@@ -319,7 +319,8 @@ export default class NotificationBackground {
   }
 
   private async unlockVault(tab: chrome.tabs.Tab) {
-    if ((await this.authService.getAuthStatus()) !== AuthenticationStatus.Locked) {
+    const currentAuthStatus = await this.authService.getAuthStatus();
+    if (currentAuthStatus !== AuthenticationStatus.Locked) {
       return;
     }
 
