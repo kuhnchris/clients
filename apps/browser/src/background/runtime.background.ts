@@ -106,7 +106,7 @@ export default class RuntimeBackground {
         break;
       case "promptForLogin":
       case "bgReopenPromptForLogin":
-        this.handlePromptForLoginMessage(sender);
+        BrowserApi.openBitwardenLoginPromptWindow(sender.tab?.windowId);
         break;
       case "openAddEditCipher": {
         const addEditCipherUrl =
@@ -250,9 +250,5 @@ export default class RuntimeBackground {
         this.onInstalledReason = null;
       }
     }, 100);
-  }
-
-  private handlePromptForLoginMessage(sender: chrome.runtime.MessageSender) {
-    BrowserApi.openBitwardenLoginPromptWindow(sender.tab?.windowId);
   }
 }
