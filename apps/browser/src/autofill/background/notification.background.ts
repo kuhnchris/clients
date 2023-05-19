@@ -325,7 +325,7 @@ export default class NotificationBackground {
     }
 
     const loginDomain = Utils.getDomain(tab.url);
-    if (loginDomain == null) {
+    if (!loginDomain) {
       return;
     }
 
