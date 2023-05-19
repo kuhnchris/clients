@@ -194,13 +194,13 @@ export class BrowserApi {
       width: 375,
       height: 600,
     };
-    const windowOptions = !senderWindow
-      ? defaultWindowOptions
-      : {
+    const windowOptions = senderWindow
+      ? {
           ...defaultWindowOptions,
-          left: senderWindow.left + 25,
-          top: senderWindow.top + 25,
-        };
+          left: senderWindow.left + senderWindow.width - defaultWindowOptions.width - 15,
+          top: senderWindow.top + 90,
+        }
+      : defaultWindowOptions;
     await chrome.windows.create(windowOptions);
   }
 
