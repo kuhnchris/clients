@@ -4,7 +4,7 @@ import { CryptoFunctionService } from "../../abstractions/crypto-function.servic
 import { EncryptService } from "../../abstractions/encrypt.service";
 import { LogService } from "../../abstractions/log.service";
 import { Decryptable } from "../../interfaces/decryptable.interface";
-import { encrypted } from "../../interfaces/encrypted";
+import { Encrypted } from "../../interfaces/encrypted";
 import { InitializerMetadata } from "../../interfaces/initializer-metadata.interface";
 import { EncArrayBuffer } from "../../models/domain/enc-array-buffer";
 import { EncString } from "../../models/domain/enc-string";
@@ -102,7 +102,7 @@ export class EncryptServiceImplementation implements EncryptService {
     return await this.cryptoFunctionService.aesDecryptFast(fastParams);
   }
 
-  async decryptToBytes(encThing: encrypted, key: SymmetricCryptoKey): Promise<ArrayBuffer> {
+  async decryptToBytes(encThing: Encrypted, key: SymmetricCryptoKey): Promise<ArrayBuffer> {
     if (key == null) {
       throw new Error("No encryption key provided.");
     }
@@ -187,7 +187,7 @@ export class EncryptServiceImplementation implements EncryptService {
    * Transform into new key for the old encrypt-then-mac scheme if required, otherwise return the current key unchanged
    * @param encThing The encrypted object (e.g. encString or encArrayBuffer) that you want to decrypt
    */
-  resolveLegacyKey(key: SymmetricCryptoKey, encThing: encrypted): SymmetricCryptoKey {
+  resolveLegacyKey(key: SymmetricCryptoKey, encThing: Encrypted): SymmetricCryptoKey {
     if (
       encThing.encryptionType === EncryptionType.AesCbc128_HmacSha256_B64 &&
       key.encType === EncryptionType.AesCbc256_B64

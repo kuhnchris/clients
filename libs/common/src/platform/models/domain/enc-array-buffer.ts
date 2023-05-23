@@ -1,13 +1,13 @@
 import { EncryptionType } from "../../../enums";
 import { Utils } from "../../../platform/misc/utils";
-import { encrypted } from "../../interfaces/encrypted";
+import { Encrypted } from "../../interfaces/encrypted";
 
 const ENC_TYPE_LENGTH = 1;
 const IV_LENGTH = 16;
 const MAC_LENGTH = 32;
 const MIN_DATA_LENGTH = 1;
 
-export class EncArrayBuffer implements encrypted {
+export class EncArrayBuffer implements Encrypted {
   readonly encryptionType: EncryptionType = null;
   readonly dataBytes: ArrayBuffer = null;
   readonly ivBytes: ArrayBuffer = null;

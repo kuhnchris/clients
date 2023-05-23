@@ -1,8 +1,3 @@
-// import { onAlarmListener } from "./alarms/on-alarm-listener";
-// import { registerAlarms } from "./alarms/register-alarms";
-// import MainBackground from "./background/main.background";
-// import { BrowserApi } from "./browser/browserApi";
-
 import MainBackground from "../background/main.background";
 
 import { onAlarmListener } from "./alarms/on-alarm-listener";

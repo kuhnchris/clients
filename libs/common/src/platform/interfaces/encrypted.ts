@@ -1,6 +1,6 @@
 import { EncryptionType } from "../../enums";
 
-export interface encrypted {
+export interface Encrypted {
   encryptionType?: EncryptionType;
   dataBytes: ArrayBuffer;
   macBytes: ArrayBuffer;
