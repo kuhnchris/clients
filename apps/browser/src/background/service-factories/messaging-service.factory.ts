@@ -1,4 +1,4 @@
-import { MessagingService as AbstractMessagingService } from "@bitwarden/common/abstractions/messaging.service";
+import { MessagingService as AbstractMessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
 
 import {
   CachedServices,

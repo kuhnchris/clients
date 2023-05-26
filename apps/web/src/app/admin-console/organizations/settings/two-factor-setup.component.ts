@@ -3,9 +3,9 @@ import { ActivatedRoute } from "@angular/router";
 
 import { ModalService } from "@bitwarden/angular/services/modal.service";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
-import { MessagingService } from "@bitwarden/common/abstractions/messaging.service";
 import { PolicyService } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
 import { TwoFactorProviderType } from "@bitwarden/common/auth/enums/two-factor-provider-type";
+import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 
 import { TwoFactorDuoComponent } from "../../../auth/settings/two-factor-duo.component";

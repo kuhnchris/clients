@@ -5,9 +5,7 @@ import { UserNamePipe } from "@bitwarden/angular/pipes/user-name.pipe";
 import { DialogServiceAbstraction, SimpleDialogType } from "@bitwarden/angular/services/dialog";
 import { ModalService } from "@bitwarden/angular/services/modal.service";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
 import { SearchService } from "@bitwarden/common/abstractions/search.service";
-import { ValidationService } from "@bitwarden/common/abstractions/validation.service";
 import {
   OrganizationUserStatusType,
   OrganizationUserType,
@@ -19,7 +17,9 @@ import { ListResponse } from "@bitwarden/common/models/response/list.response";
 import { CryptoService } from "@bitwarden/common/platform/abstractions/crypto.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
+import { ValidationService } from "@bitwarden/common/platform/abstractions/validation.service";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 
 import { OrganizationUserView } from "../admin-console/organizations/core/views/organization-user.view";

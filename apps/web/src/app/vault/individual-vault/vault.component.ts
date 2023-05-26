@@ -31,11 +31,7 @@ import {
 import { SearchPipe } from "@bitwarden/angular/pipes/search.pipe";
 import { DialogServiceAbstraction, SimpleDialogType } from "@bitwarden/angular/services/dialog";
 import { ModalService } from "@bitwarden/angular/services/modal.service";
-import { BroadcasterService } from "@bitwarden/common/abstractions/broadcaster.service";
-import { ConfigServiceAbstraction } from "@bitwarden/common/abstractions/config/config.service.abstraction";
 import { EventCollectionService } from "@bitwarden/common/abstractions/event/event-collection.service";
-import { MessagingService } from "@bitwarden/common/abstractions/messaging.service";
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
 import { SearchService } from "@bitwarden/common/abstractions/search.service";
 import { TotpService } from "@bitwarden/common/abstractions/totp.service";
 import { CollectionService } from "@bitwarden/common/admin-console/abstractions/collection.service";
@@ -47,9 +43,13 @@ import { DEFAULT_PBKDF2_ITERATIONS, EventType, KdfType } from "@bitwarden/common
 import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
 import { ServiceUtils } from "@bitwarden/common/misc/serviceUtils";
 import { TreeNode } from "@bitwarden/common/models/domain/tree-node";
+import { BroadcasterService } from "@bitwarden/common/platform/abstractions/broadcaster.service";
+import { ConfigServiceAbstraction } from "@bitwarden/common/platform/abstractions/config/config.service.abstraction";
 import { CryptoService } from "@bitwarden/common/platform/abstractions/crypto.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
+import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";

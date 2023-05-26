@@ -4,11 +4,11 @@ import { Meta, moduleMetadata, Story } from "@storybook/angular";
 import { BehaviorSubject } from "rxjs";
 
 import { AvatarUpdateService } from "@bitwarden/common/abstractions/account/avatar-update.service";
-import { EnvironmentService } from "@bitwarden/common/abstractions/environment.service";
 import { SettingsService } from "@bitwarden/common/abstractions/settings.service";
 import { OrganizationUserType } from "@bitwarden/common/admin-console/enums";
 import { Organization } from "@bitwarden/common/admin-console/models/domain/organization";
 import { TokenService } from "@bitwarden/common/auth/abstractions/token.service";
+import { EnvironmentService } from "@bitwarden/common/platform/abstractions/environment.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { SymmetricCryptoKey } from "@bitwarden/common/platform/models/domain/symmetric-crypto-key";
 import { CipherType } from "@bitwarden/common/vault/enums/cipher-type";

@@ -1,4 +1,4 @@
-import { FileDownloadRequest } from "./fileDownloadRequest";
+import { FileDownloadRequest } from "./file-download.request";
 
 export class FileDownloadBuilder {
   get blobOptions(): any {

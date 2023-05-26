@@ -4,9 +4,6 @@ import { firstValueFrom, Subject } from "rxjs";
 import { concatMap, take, takeUntil } from "rxjs/operators";
 
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
-import { EnvironmentService } from "@bitwarden/common/abstractions/environment.service";
-import { MessagingService } from "@bitwarden/common/abstractions/messaging.service";
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
 import { VaultTimeoutService } from "@bitwarden/common/abstractions/vaultTimeout/vaultTimeout.service";
 import { VaultTimeoutSettingsService } from "@bitwarden/common/abstractions/vaultTimeout/vaultTimeoutSettings.service";
 import { PolicyApiServiceAbstraction } from "@bitwarden/common/admin-console/abstractions/policy/policy-api.service.abstraction";
@@ -18,8 +15,11 @@ import { SecretVerificationRequest } from "@bitwarden/common/auth/models/request
 import { MasterPasswordPolicyResponse } from "@bitwarden/common/auth/models/response/master-password-policy.response";
 import { HashPurpose, KeySuffixOptions } from "@bitwarden/common/enums";
 import { CryptoService } from "@bitwarden/common/platform/abstractions/crypto.service";
+import { EnvironmentService } from "@bitwarden/common/platform/abstractions/environment.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
+import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 import { EncString } from "@bitwarden/common/platform/models/domain/enc-string";

@@ -1,9 +1,9 @@
 import { mock, mockReset } from "jest-mock-extended";
 
-import { PlatformUtilsService } from "../../abstractions/platformUtils.service";
 import { CryptoFunctionService } from "../abstractions/crypto-function.service";
 import { EncryptService } from "../abstractions/encrypt.service";
 import { LogService } from "../abstractions/log.service";
+import { PlatformUtilsService } from "../abstractions/platform-utils.service";
 import { StateService } from "../abstractions/state.service";
 import { CryptoService } from "../services/crypto.service";
 

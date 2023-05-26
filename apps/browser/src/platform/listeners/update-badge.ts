@@ -5,7 +5,7 @@ import { EncryptService } from "@bitwarden/common/platform/abstractions/encrypt.
 import { StateFactory } from "@bitwarden/common/platform/factories/state-factory";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 import { GlobalState } from "@bitwarden/common/platform/models/domain/global-state";
-import { ContainerService } from "@bitwarden/common/services/container.service";
+import { ContainerService } from "@bitwarden/common/platform/services/container.service";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
 
 import { authServiceFactory } from "../../auth/background/service-factories/auth-service.factory";

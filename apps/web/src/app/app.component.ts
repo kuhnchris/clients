@@ -8,11 +8,8 @@ import { Subject, takeUntil } from "rxjs";
 import Swal from "sweetalert2";
 
 import { DialogServiceAbstraction, SimpleDialogType } from "@bitwarden/angular/services/dialog";
-import { BroadcasterService } from "@bitwarden/common/abstractions/broadcaster.service";
-import { ConfigServiceAbstraction } from "@bitwarden/common/abstractions/config/config.service.abstraction";
 import { EventUploadService } from "@bitwarden/common/abstractions/event/event-upload.service";
 import { NotificationsService } from "@bitwarden/common/abstractions/notifications.service";
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
 import { SearchService } from "@bitwarden/common/abstractions/search.service";
 import { SettingsService } from "@bitwarden/common/abstractions/settings.service";
 import { VaultTimeoutService } from "@bitwarden/common/abstractions/vaultTimeout/vaultTimeout.service";
@@ -20,8 +17,11 @@ import { CollectionService } from "@bitwarden/common/admin-console/abstractions/
 import { InternalPolicyService } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
 import { AuthService } from "@bitwarden/common/auth/abstractions/auth.service";
 import { KeyConnectorService } from "@bitwarden/common/auth/abstractions/key-connector.service";
+import { BroadcasterService } from "@bitwarden/common/platform/abstractions/broadcaster.service";
+import { ConfigServiceAbstraction } from "@bitwarden/common/platform/abstractions/config/config.service.abstraction";
 import { CryptoService } from "@bitwarden/common/platform/abstractions/crypto.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { PasswordGenerationServiceAbstraction } from "@bitwarden/common/tools/generator/password";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";

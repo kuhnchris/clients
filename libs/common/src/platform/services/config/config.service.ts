@@ -1,13 +1,13 @@
 import { BehaviorSubject, concatMap, timer } from "rxjs";
 
+import { AuthService } from "../../../auth/abstractions/auth.service";
+import { AuthenticationStatus } from "../../../auth/enums/authentication-status";
+import { FeatureFlag } from "../../../enums/feature-flag.enum";
 import { ConfigApiServiceAbstraction } from "../../abstractions/config/config-api.service.abstraction";
 import { ConfigServiceAbstraction } from "../../abstractions/config/config.service.abstraction";
 import { ServerConfig } from "../../abstractions/config/server-config";
-import { AuthService } from "../../auth/abstractions/auth.service";
-import { AuthenticationStatus } from "../../auth/enums/authentication-status";
-import { FeatureFlag } from "../../enums/feature-flag.enum";
+import { StateService } from "../../abstractions/state.service";
 import { ServerConfigData } from "../../models/data/server-config.data";
-import { StateService } from "../../platform/abstractions/state.service";
 
 export class ConfigService implements ConfigServiceAbstraction {
   protected _serverConfig = new BehaviorSubject<ServerConfig | null>(null);

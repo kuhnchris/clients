@@ -8,8 +8,8 @@ import {
   Observable,
 } from "rxjs";
 
-import { EnvironmentService } from "@bitwarden/common/abstractions/environment.service";
 import { SettingsService } from "@bitwarden/common/abstractions/settings.service";
+import { EnvironmentService } from "@bitwarden/common/platform/abstractions/environment.service";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 import { CipherType } from "@bitwarden/common/vault/enums/cipher-type";
 import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";

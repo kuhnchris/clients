@@ -1,5 +1,5 @@
-import { Utils } from "../platform/misc/utils";
-import { EncArrayBuffer } from "../platform/models/domain/enc-array-buffer";
+import { Utils } from "../misc/utils";
+import { EncArrayBuffer } from "../models/domain/enc-array-buffer";
 
 export class BitwardenFileUploadService {
   async upload(

@@ -1,4 +1,4 @@
-import { ApiService } from "../../abstractions/api.service";
+import { ApiService } from "../../../abstractions/api.service";
 import { ConfigApiServiceAbstraction as ConfigApiServiceAbstraction } from "../../abstractions/config/config-api.service.abstraction";
 import { ServerConfigResponse } from "../../models/response/server-config.response";
 

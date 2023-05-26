@@ -1,19 +1,19 @@
 import { Observable, Subject } from "rxjs";
 
 import { ApiService } from "../../abstractions/api.service";
-import { AppIdService } from "../../abstractions/appId.service";
-import { EnvironmentService } from "../../abstractions/environment.service";
-import { MessagingService } from "../../abstractions/messaging.service";
-import { PlatformUtilsService } from "../../abstractions/platformUtils.service";
 import { PolicyService } from "../../admin-console/abstractions/policy/policy.service.abstraction";
 import { KdfType, KeySuffixOptions } from "../../enums";
 import { PreloginRequest } from "../../models/request/prelogin.request";
 import { ErrorResponse } from "../../models/response/error.response";
 import { AuthRequestPushNotification } from "../../models/response/notification.response";
+import { AppIdService } from "../../platform/abstractions/app-id.service";
 import { CryptoService } from "../../platform/abstractions/crypto.service";
 import { EncryptService } from "../../platform/abstractions/encrypt.service";
+import { EnvironmentService } from "../../platform/abstractions/environment.service";
 import { I18nService } from "../../platform/abstractions/i18n.service";
 import { LogService } from "../../platform/abstractions/log.service";
+import { MessagingService } from "../../platform/abstractions/messaging.service";
+import { PlatformUtilsService } from "../../platform/abstractions/platform-utils.service";
 import { StateService } from "../../platform/abstractions/state.service";
 import { Utils } from "../../platform/misc/utils";
 import { SymmetricCryptoKey } from "../../platform/models/domain/symmetric-crypto-key";

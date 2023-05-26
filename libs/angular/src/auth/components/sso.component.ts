@@ -3,16 +3,16 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { first } from "rxjs/operators";
 
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
-import { EnvironmentService } from "@bitwarden/common/abstractions/environment.service";
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
 import { AuthService } from "@bitwarden/common/auth/abstractions/auth.service";
 import { AuthResult } from "@bitwarden/common/auth/models/domain/auth-result";
 import { ForceResetPasswordReason } from "@bitwarden/common/auth/models/domain/force-reset-password-reason";
 import { SsoLogInCredentials } from "@bitwarden/common/auth/models/domain/log-in-credentials";
 import { SsoPreValidateResponse } from "@bitwarden/common/auth/models/response/sso-pre-validate.response";
 import { CryptoFunctionService } from "@bitwarden/common/platform/abstractions/crypto-function.service";
+import { EnvironmentService } from "@bitwarden/common/platform/abstractions/environment.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 import { PasswordGenerationServiceAbstraction } from "@bitwarden/common/tools/generator/password";

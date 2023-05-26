@@ -4,11 +4,11 @@ import { map, Observable, Subject, takeUntil } from "rxjs";
 
 import { notAllowedValueAsync } from "@bitwarden/angular/validators/notAllowedValueAsync.validator";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
 import { OrganizationService } from "@bitwarden/common/admin-console/abstractions/organization/organization.service.abstraction";
 import { Organization } from "@bitwarden/common/admin-console/models/domain/organization";
 import { PlanSponsorshipType } from "@bitwarden/common/billing/enums/";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { SyncService } from "@bitwarden/common/vault/abstractions/sync/sync.service.abstraction";
 

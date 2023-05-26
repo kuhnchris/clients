@@ -1,9 +1,9 @@
 import { ApiService } from "../../../abstractions/api.service";
+import { ErrorResponse } from "../../../models/response/error.response";
 import {
   FileUploadApiMethods,
   FileUploadService,
-} from "../../../abstractions/file-upload/file-upload.service";
-import { ErrorResponse } from "../../../models/response/error.response";
+} from "../../../platform/abstractions/file-upload/file-upload.service";
 import { Utils } from "../../../platform/misc/utils";
 import { EncArrayBuffer } from "../../../platform/models/domain/enc-array-buffer";
 import { EncString } from "../../../platform/models/domain/enc-string";

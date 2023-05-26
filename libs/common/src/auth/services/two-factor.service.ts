@@ -1,5 +1,5 @@
-import { PlatformUtilsService } from "../../abstractions/platformUtils.service";
 import { I18nService } from "../../platform/abstractions/i18n.service";
+import { PlatformUtilsService } from "../../platform/abstractions/platform-utils.service";
 import {
   TwoFactorProviderDetails,
   TwoFactorService as TwoFactorServiceAbstraction,

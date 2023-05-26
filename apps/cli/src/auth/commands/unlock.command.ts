@@ -1,11 +1,11 @@
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
-import { EnvironmentService } from "@bitwarden/common/abstractions/environment.service";
 import { OrganizationApiServiceAbstraction } from "@bitwarden/common/admin-console/abstractions/organization/organization-api.service.abstraction";
 import { KeyConnectorService } from "@bitwarden/common/auth/abstractions/key-connector.service";
 import { SecretVerificationRequest } from "@bitwarden/common/auth/models/request/secret-verification.request";
 import { HashPurpose } from "@bitwarden/common/enums";
 import { CryptoFunctionService } from "@bitwarden/common/platform/abstractions/crypto-function.service";
 import { CryptoService } from "@bitwarden/common/platform/abstractions/crypto.service";
+import { EnvironmentService } from "@bitwarden/common/platform/abstractions/environment.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 import { ConsoleLogService } from "@bitwarden/common/platform/services/console-log.service";

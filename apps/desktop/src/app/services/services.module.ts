@@ -12,31 +12,31 @@ import {
 } from "@bitwarden/angular/services/injection-tokens";
 import { JslibServicesModule } from "@bitwarden/angular/services/jslib-services.module";
 import { AbstractThemingService } from "@bitwarden/angular/services/theming/theming.service.abstraction";
-import { BroadcasterService as BroadcasterServiceAbstraction } from "@bitwarden/common/abstractions/broadcaster.service";
-import { FileDownloadService } from "@bitwarden/common/abstractions/fileDownload/fileDownload.service";
-import { MessagingService as MessagingServiceAbstraction } from "@bitwarden/common/abstractions/messaging.service";
-import { PlatformUtilsService as PlatformUtilsServiceAbstraction } from "@bitwarden/common/abstractions/platformUtils.service";
-import { SystemService as SystemServiceAbstraction } from "@bitwarden/common/abstractions/system.service";
 import { PolicyService as PolicyServiceAbstraction } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
 import { AuthService as AuthServiceAbstraction } from "@bitwarden/common/auth/abstractions/auth.service";
 import { LoginService as LoginServiceAbstraction } from "@bitwarden/common/auth/abstractions/login.service";
 import { LoginService } from "@bitwarden/common/auth/services/login.service";
 import { ClientType } from "@bitwarden/common/enums";
+import { BroadcasterService as BroadcasterServiceAbstraction } from "@bitwarden/common/platform/abstractions/broadcaster.service";
 import { CryptoFunctionService as CryptoFunctionServiceAbstraction } from "@bitwarden/common/platform/abstractions/crypto-function.service";
 import { CryptoService as CryptoServiceAbstraction } from "@bitwarden/common/platform/abstractions/crypto.service";
 import { EncryptService } from "@bitwarden/common/platform/abstractions/encrypt.service";
+import { FileDownloadService } from "@bitwarden/common/platform/abstractions/file-download/file-download.service";
 import { I18nService as I18nServiceAbstraction } from "@bitwarden/common/platform/abstractions/i18n.service";
 import {
   LogService,
   LogService as LogServiceAbstraction,
 } from "@bitwarden/common/platform/abstractions/log.service";
+import { MessagingService as MessagingServiceAbstraction } from "@bitwarden/common/platform/abstractions/messaging.service";
+import { PlatformUtilsService as PlatformUtilsServiceAbstraction } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateMigrationService as StateMigrationServiceAbstraction } from "@bitwarden/common/platform/abstractions/state-migration.service";
 import { StateService as StateServiceAbstraction } from "@bitwarden/common/platform/abstractions/state.service";
 import { AbstractStorageService } from "@bitwarden/common/platform/abstractions/storage.service";
+import { SystemService as SystemServiceAbstraction } from "@bitwarden/common/platform/abstractions/system.service";
 import { StateFactory } from "@bitwarden/common/platform/factories/state-factory";
 import { GlobalState } from "@bitwarden/common/platform/models/domain/global-state";
 import { MemoryStorageService } from "@bitwarden/common/platform/services/memory-storage.service";
-import { SystemService } from "@bitwarden/common/services/system.service";
+import { SystemService } from "@bitwarden/common/platform/services/system.service";
 import { PasswordGenerationServiceAbstraction } from "@bitwarden/common/tools/generator/password";
 import { CipherService as CipherServiceAbstraction } from "@bitwarden/common/vault/abstractions/cipher.service";
 import { PasswordRepromptService as PasswordRepromptServiceAbstraction } from "@bitwarden/common/vault/abstractions/password-reprompt.service";

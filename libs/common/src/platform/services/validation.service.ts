@@ -1,7 +1,7 @@
-import { PlatformUtilsService } from "../abstractions/platformUtils.service";
+import { ErrorResponse } from "../../models/response/error.response";
+import { I18nService } from "../abstractions/i18n.service";
+import { PlatformUtilsService } from "../abstractions/platform-utils.service";
 import { ValidationService as ValidationServiceAbstraction } from "../abstractions/validation.service";
-import { ErrorResponse } from "../models/response/error.response";
-import { I18nService } from "../platform/abstractions/i18n.service";
 
 export class ValidationService implements ValidationServiceAbstraction {
   constructor(

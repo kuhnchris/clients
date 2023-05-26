@@ -1,7 +1,7 @@
 import * as child_process from "child_process";
 
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
 import { ClientType, DeviceType } from "@bitwarden/common/enums";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 
 // eslint-disable-next-line
 const open = require("open");

@@ -1,13 +1,11 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 
-import { MessagingService } from "@bitwarden/common/abstractions/messaging.service";
 import { OrganizationUserService } from "@bitwarden/common/abstractions/organization-user/organization-user.service";
 import {
   OrganizationUserAcceptInitRequest,
   OrganizationUserAcceptRequest,
 } from "@bitwarden/common/abstractions/organization-user/requests";
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
 import { OrganizationApiServiceAbstraction } from "@bitwarden/common/admin-console/abstractions/organization/organization-api.service.abstraction";
 import { PolicyApiServiceAbstraction } from "@bitwarden/common/admin-console/abstractions/policy/policy-api.service.abstraction";
 import { PolicyService } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
@@ -16,6 +14,8 @@ import { OrganizationKeysRequest } from "@bitwarden/common/admin-console/models/
 import { CryptoService } from "@bitwarden/common/platform/abstractions/crypto.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
+import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 

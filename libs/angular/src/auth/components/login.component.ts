@@ -4,21 +4,21 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { take } from "rxjs/operators";
 
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
-import { AppIdService } from "@bitwarden/common/abstractions/appId.service";
-import { EnvironmentService } from "@bitwarden/common/abstractions/environment.service";
-import {
-  AllValidationErrors,
-  FormValidationErrorsService,
-} from "@bitwarden/common/abstractions/formValidationErrors.service";
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
 import { AuthService } from "@bitwarden/common/auth/abstractions/auth.service";
 import { LoginService } from "@bitwarden/common/auth/abstractions/login.service";
 import { AuthResult } from "@bitwarden/common/auth/models/domain/auth-result";
 import { ForceResetPasswordReason } from "@bitwarden/common/auth/models/domain/force-reset-password-reason";
 import { PasswordLogInCredentials } from "@bitwarden/common/auth/models/domain/log-in-credentials";
+import { AppIdService } from "@bitwarden/common/platform/abstractions/app-id.service";
 import { CryptoFunctionService } from "@bitwarden/common/platform/abstractions/crypto-function.service";
+import { EnvironmentService } from "@bitwarden/common/platform/abstractions/environment.service";
+import {
+  AllValidationErrors,
+  FormValidationErrorsService,
+} from "@bitwarden/common/platform/abstractions/form-validation-errors.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 import { PasswordGenerationServiceAbstraction } from "@bitwarden/common/tools/generator/password";

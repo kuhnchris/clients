@@ -16,9 +16,8 @@ import { PolicyService } from "../admin-console/services/policy/policy.service";
 import { ListResponse } from "../models/response/list.response";
 import { CryptoService } from "../platform/abstractions/crypto.service";
 import { EncryptService } from "../platform/abstractions/encrypt.service";
+import { ContainerService } from "../platform/services/container.service";
 import { StateService } from "../platform/services/state.service";
-
-import { ContainerService } from "./container.service";
 
 describe("PolicyService", () => {
   let policyService: PolicyService;

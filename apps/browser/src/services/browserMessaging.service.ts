@@ -1,4 +1,4 @@
-import { MessagingService } from "@bitwarden/common/abstractions/messaging.service";
+import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
 
 import { BrowserApi } from "../platform/browser/browser-api";
 

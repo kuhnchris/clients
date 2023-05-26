@@ -7,7 +7,7 @@ import { EncryptService } from "../../../platform/abstractions/encrypt.service";
 import { I18nService } from "../../../platform/abstractions/i18n.service";
 import { StateService } from "../../../platform/abstractions/state.service";
 import { EncString } from "../../../platform/models/domain/enc-string";
-import { ContainerService } from "../../../services/container.service";
+import { ContainerService } from "../../../platform/services/container.service";
 import { SendData } from "../models/data/send.data";
 import { Send } from "../models/domain/send";
 import { SendView } from "../models/view/send.view";

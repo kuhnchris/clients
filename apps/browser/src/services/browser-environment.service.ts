@@ -1,6 +1,6 @@
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
-import { EnvironmentService } from "@bitwarden/common/services/environment.service";
+import { EnvironmentService } from "@bitwarden/common/platform/services/environment.service";
 
 import { GroupPolicyEnvironment } from "../admin-console/types/group-policy-environment";
 import { devFlagEnabled, devFlagValue } from "../platform/flags";

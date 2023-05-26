@@ -6,11 +6,11 @@ import { DialogServiceAbstraction, SimpleDialogType } from "@bitwarden/angular/s
 import { OrgDomainApiServiceAbstraction } from "@bitwarden/common/abstractions/organization-domain/org-domain-api.service.abstraction";
 import { OrgDomainServiceAbstraction } from "@bitwarden/common/abstractions/organization-domain/org-domain.service.abstraction";
 import { OrganizationDomainResponse } from "@bitwarden/common/abstractions/organization-domain/responses/organization-domain.response";
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
-import { ValidationService } from "@bitwarden/common/abstractions/validation.service";
 import { HttpStatusCode } from "@bitwarden/common/enums";
 import { ErrorResponse } from "@bitwarden/common/models/response/error.response";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
+import { ValidationService } from "@bitwarden/common/platform/abstractions/validation.service";
 
 import {
   DomainAddEditDialogComponent,

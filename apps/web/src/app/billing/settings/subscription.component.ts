@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 
 @Component({

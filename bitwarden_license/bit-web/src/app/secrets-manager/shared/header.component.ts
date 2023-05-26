@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { combineLatest, map, Observable } from "rxjs";
 
-import { MessagingService } from "@bitwarden/common/abstractions/messaging.service";
+import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { AccountProfile } from "@bitwarden/common/platform/models/domain/account";
 

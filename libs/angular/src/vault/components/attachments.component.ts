@@ -1,12 +1,12 @@
 import { Directive, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
-import { FileDownloadService } from "@bitwarden/common/abstractions/fileDownload/fileDownload.service";
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
 import { ErrorResponse } from "@bitwarden/common/models/response/error.response";
 import { CryptoService } from "@bitwarden/common/platform/abstractions/crypto.service";
+import { FileDownloadService } from "@bitwarden/common/platform/abstractions/file-download/file-download.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { EncArrayBuffer } from "@bitwarden/common/platform/models/domain/enc-array-buffer";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";

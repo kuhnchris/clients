@@ -1,7 +1,8 @@
 import { Observable, ReplaySubject } from "rxjs";
 
-import { TranslationService } from "../../services/translation.service";
 import { I18nService as I18nServiceAbstraction } from "../abstractions/i18n.service";
+
+import { TranslationService } from "./translation.service";
 
 export class I18nService extends TranslationService implements I18nServiceAbstraction {
   protected _locale = new ReplaySubject<string>(1);

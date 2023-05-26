@@ -1,6 +1,6 @@
 import { Observable } from "rxjs";
 
-import { FeatureFlag } from "../../enums/feature-flag.enum";
+import { FeatureFlag } from "../../../enums/feature-flag.enum";
 
 import { ServerConfig } from "./server-config";
 

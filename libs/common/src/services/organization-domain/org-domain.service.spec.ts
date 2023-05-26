@@ -2,8 +2,8 @@ import { mock, mockReset } from "jest-mock-extended";
 import { lastValueFrom } from "rxjs";
 
 import { OrganizationDomainResponse } from "../../abstractions/organization-domain/responses/organization-domain.response";
-import { PlatformUtilsService } from "../../abstractions/platformUtils.service";
 import { I18nService } from "../../platform/abstractions/i18n.service";
+import { PlatformUtilsService } from "../../platform/abstractions/platform-utils.service";
 
 import { OrgDomainService } from "./org-domain.service";
 

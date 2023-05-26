@@ -2,12 +2,12 @@ import * as program from "commander";
 import * as inquirer from "inquirer";
 
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
-import { EnvironmentService } from "@bitwarden/common/abstractions/environment.service";
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
 import { NodeUtils } from "@bitwarden/common/misc/nodeUtils";
 import { ErrorResponse } from "@bitwarden/common/models/response/error.response";
 import { CryptoFunctionService } from "@bitwarden/common/platform/abstractions/crypto-function.service";
 import { CryptoService } from "@bitwarden/common/platform/abstractions/crypto.service";
+import { EnvironmentService } from "@bitwarden/common/platform/abstractions/environment.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 import { SymmetricCryptoKey } from "@bitwarden/common/platform/models/domain/symmetric-crypto-key";
 import { SendType } from "@bitwarden/common/tools/send/enums/send-type";

@@ -21,7 +21,6 @@ import {
 } from "../../enums";
 import { VaultTimeoutAction } from "../../enums/vault-timeout-action.enum";
 import { EventData } from "../../models/data/event.data";
-import { ServerConfigData } from "../../models/data/server-config.data";
 import { WindowState } from "../../models/domain/window-state";
 import { GeneratedPasswordHistory } from "../../tools/generator/password";
 import { SendData } from "../../tools/send/models/data/send.data";
@@ -40,6 +39,7 @@ import {
 } from "../abstractions/storage.service";
 import { StateFactory } from "../factories/state-factory";
 import { Utils } from "../misc/utils";
+import { ServerConfigData } from "../models/data/server-config.data";
 import {
   Account,
   AccountData,

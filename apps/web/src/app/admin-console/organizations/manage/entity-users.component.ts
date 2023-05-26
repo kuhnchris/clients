@@ -4,7 +4,6 @@ import { SearchPipe } from "@bitwarden/angular/pipes/search.pipe";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
 import { OrganizationUserService } from "@bitwarden/common/abstractions/organization-user/organization-user.service";
 import { OrganizationUserUserDetailsResponse } from "@bitwarden/common/abstractions/organization-user/responses";
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
 import {
   OrganizationUserStatusType,
   OrganizationUserType,
@@ -12,6 +11,7 @@ import {
 import { SelectionReadOnlyRequest } from "@bitwarden/common/admin-console/models/request/selection-read-only.request";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { Utils } from "@bitwarden/common/platform/misc/utils";
 
 @Component({

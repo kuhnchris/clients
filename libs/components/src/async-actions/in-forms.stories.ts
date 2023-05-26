@@ -4,7 +4,7 @@ import { action } from "@storybook/addon-actions";
 import { Meta, moduleMetadata, Story } from "@storybook/angular";
 import { delay, of } from "rxjs";
 
-import { ValidationService } from "@bitwarden/common/abstractions/validation.service";
+import { ValidationService } from "@bitwarden/common/platform/abstractions/validation.service";
 import { I18nService } from "@bitwarden/common/src/platform/abstractions/i18n.service";
 
 import { ButtonModule } from "../button";

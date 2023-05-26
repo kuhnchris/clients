@@ -4,7 +4,7 @@ import {
   FormGroupControls,
   FormValidationErrorsService as FormValidationErrorsAbstraction,
   AllValidationErrors,
-} from "../abstractions/formValidationErrors.service";
+} from "../abstractions/form-validation-errors.service";
 
 export class FormValidationErrorsService implements FormValidationErrorsAbstraction {
   getFormValidationErrors(controls: FormGroupControls): AllValidationErrors[] {

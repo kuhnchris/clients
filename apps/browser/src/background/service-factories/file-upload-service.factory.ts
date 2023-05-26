@@ -1,5 +1,5 @@
-import { FileUploadService as FileUploadServiceAbstraction } from "@bitwarden/common/abstractions/file-upload/file-upload.service";
-import { FileUploadService } from "@bitwarden/common/services/file-upload/file-upload.service";
+import { FileUploadService as FileUploadServiceAbstraction } from "@bitwarden/common/platform/abstractions/file-upload/file-upload.service";
+import { FileUploadService } from "@bitwarden/common/platform/services/file-upload/file-upload.service";
 
 import {
   CachedServices,

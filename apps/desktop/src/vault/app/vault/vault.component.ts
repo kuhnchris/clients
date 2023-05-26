@@ -15,13 +15,13 @@ import { DialogServiceAbstraction, SimpleDialogType } from "@bitwarden/angular/s
 import { ModalService } from "@bitwarden/angular/services/modal.service";
 import { VaultFilter } from "@bitwarden/angular/vault/vault-filter/models/vault-filter.model";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
-import { BroadcasterService } from "@bitwarden/common/abstractions/broadcaster.service";
 import { EventCollectionService } from "@bitwarden/common/abstractions/event/event-collection.service";
-import { MessagingService } from "@bitwarden/common/abstractions/messaging.service";
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
 import { TotpService } from "@bitwarden/common/abstractions/totp.service";
 import { EventType } from "@bitwarden/common/enums";
+import { BroadcasterService } from "@bitwarden/common/platform/abstractions/broadcaster.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
+import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 import { PasswordRepromptService } from "@bitwarden/common/vault/abstractions/password-reprompt.service";
 import { SyncService } from "@bitwarden/common/vault/abstractions/sync/sync.service.abstraction";

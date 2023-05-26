@@ -1,4 +1,4 @@
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 
 import {
   CachedServices,

@@ -29,9 +29,7 @@ import {
   OrganizationUserBulkResponse,
   OrganizationUserUserDetailsResponse,
 } from "@bitwarden/common/abstractions/organization-user/responses";
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
 import { SearchService } from "@bitwarden/common/abstractions/search.service";
-import { ValidationService } from "@bitwarden/common/abstractions/validation.service";
 import { CollectionService } from "@bitwarden/common/admin-console/abstractions/collection.service";
 import { OrganizationApiServiceAbstraction } from "@bitwarden/common/admin-console/abstractions/organization/organization-api.service.abstraction";
 import { OrganizationService } from "@bitwarden/common/admin-console/abstractions/organization/organization.service.abstraction";
@@ -52,7 +50,9 @@ import { ListResponse } from "@bitwarden/common/models/response/list.response";
 import { CryptoService } from "@bitwarden/common/platform/abstractions/crypto.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
+import { ValidationService } from "@bitwarden/common/platform/abstractions/validation.service";
 import { SyncService } from "@bitwarden/common/vault/abstractions/sync/sync.service.abstraction";
 
 import { EntityEventsComponent } from "../../../admin-console/organizations/manage/entity-events.component";

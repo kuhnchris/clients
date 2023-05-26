@@ -1,6 +1,6 @@
-import { FileUploadType } from "../../enums";
-import { EncArrayBuffer } from "../../platform/models/domain/enc-array-buffer";
-import { EncString } from "../../platform/models/domain/enc-string";
+import { FileUploadType } from "../../../enums";
+import { EncArrayBuffer } from "../../models/domain/enc-array-buffer";
+import { EncString } from "../../models/domain/enc-string";
 
 export abstract class FileUploadService {
   upload: (

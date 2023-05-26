@@ -1,4 +1,4 @@
-import { BaseResponse } from "./base.response";
+import { BaseResponse } from "../../../models/response/base.response";
 
 export class ServerConfigResponse extends BaseResponse {
   version: string;

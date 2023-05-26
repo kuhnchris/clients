@@ -1,4 +1,4 @@
-import { TranslationService as TranslationServiceAbstraction } from "../platform/abstractions/translation.service";
+import { TranslationService as TranslationServiceAbstraction } from "../abstractions/translation.service";
 
 export abstract class TranslationService implements TranslationServiceAbstraction {
   // First locale is the default (English)

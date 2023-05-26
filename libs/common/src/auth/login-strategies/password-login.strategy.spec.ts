@@ -1,13 +1,13 @@
 import { mock, MockProxy } from "jest-mock-extended";
 
 import { ApiService } from "../../abstractions/api.service";
-import { AppIdService } from "../../abstractions/appId.service";
-import { MessagingService } from "../../abstractions/messaging.service";
-import { PlatformUtilsService } from "../../abstractions/platformUtils.service";
 import { PolicyService } from "../../admin-console/abstractions/policy/policy.service.abstraction";
 import { HashPurpose } from "../../enums";
+import { AppIdService } from "../../platform/abstractions/app-id.service";
 import { CryptoService } from "../../platform/abstractions/crypto.service";
 import { LogService } from "../../platform/abstractions/log.service";
+import { MessagingService } from "../../platform/abstractions/messaging.service";
+import { PlatformUtilsService } from "../../platform/abstractions/platform-utils.service";
 import { StateService } from "../../platform/abstractions/state.service";
 import { Utils } from "../../platform/misc/utils";
 import { SymmetricCryptoKey } from "../../platform/models/domain/symmetric-crypto-key";

@@ -1,9 +1,9 @@
 import { Directive, OnInit } from "@angular/core";
 
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
 
 import { DialogServiceAbstraction, SimpleDialogType } from "../../services/dialog";

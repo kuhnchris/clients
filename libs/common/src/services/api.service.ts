@@ -1,7 +1,4 @@
 import { ApiService as ApiServiceAbstraction } from "../abstractions/api.service";
-import { AppIdService } from "../abstractions/appId.service";
-import { EnvironmentService } from "../abstractions/environment.service";
-import { PlatformUtilsService } from "../abstractions/platformUtils.service";
 import { OrganizationConnectionType } from "../admin-console/enums";
 import { CollectionRequest } from "../admin-console/models/request/collection.request";
 import { OrganizationSponsorshipCreateRequest } from "../admin-console/models/request/organization/organization-sponsorship-create.request";
@@ -134,6 +131,9 @@ import { EventResponse } from "../models/response/event.response";
 import { ListResponse } from "../models/response/list.response";
 import { ProfileResponse } from "../models/response/profile.response";
 import { UserKeyResponse } from "../models/response/user-key.response";
+import { AppIdService } from "../platform/abstractions/app-id.service";
+import { EnvironmentService } from "../platform/abstractions/environment.service";
+import { PlatformUtilsService } from "../platform/abstractions/platform-utils.service";
 import { Utils } from "../platform/misc/utils";
 import { AttachmentRequest } from "../vault/models/request/attachment.request";
 import { CipherBulkDeleteRequest } from "../vault/models/request/cipher-bulk-delete.request";
