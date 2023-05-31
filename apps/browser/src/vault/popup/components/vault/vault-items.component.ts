@@ -99,6 +99,7 @@ export class VaultItemsComponent extends BaseVaultItemsComponent implements OnIn
         this.type = parseInt(params.type, null);
         switch (this.type) {
           case CipherType.Login:
+          case CipherType.Fido2Key:
             this.groupingTitle = this.i18nService.t("logins");
             break;
           case CipherType.Card:
@@ -264,7 +265,12 @@ export class VaultItemsComponent extends BaseVaultItemsComponent implements OnIn
         cipherPassesFilter = cipher.isDeleted;
       }
       if (this.type != null && cipherPassesFilter) {
-        cipherPassesFilter = cipher.type === this.type;
+        //Fido2Key's should also be included in the Login type
+        if (this.type === 1) {
+          cipherPassesFilter = cipher.type === this.type || cipher.type === 5;
+        } else {
+          cipherPassesFilter = cipher.type === this.type;
+        }
       }
       if (this.folderId != null && this.folderId != "none" && cipherPassesFilter) {
         cipherPassesFilter = cipher.folderId === this.folderId;
