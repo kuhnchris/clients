@@ -355,6 +355,10 @@ export class VaultFilterComponent implements OnInit, OnDestroy {
     this.collectionCounts = collectionCounts;
   }
 
+  getTypeCountsSum(typeCounts: Map<CipherType, number>, ...types: CipherType[]): number {
+    return types.reduce((sum, type) => sum + (typeCounts.get(type) || 0), 0);
+  }
+
   showSearching() {
     return (
       this.hasSearched || (!this.searchPending && this.searchService.isSearchable(this.searchText))
