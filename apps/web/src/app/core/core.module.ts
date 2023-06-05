@@ -25,10 +25,9 @@ import { MemoryStorageService } from "@bitwarden/common/platform/services/memory
 import { PasswordRepromptService as PasswordRepromptServiceAbstraction } from "@bitwarden/common/vault/abstractions/password-reprompt.service";
 
 import { PolicyListService } from "../admin-console/core/policy-list.service";
-import { HtmlStorageService } from "../platform/core/html-storage.service";
-import { I18nService } from "../platform/core/i18n.service";
-import { Account, GlobalState, StateService } from "../platform/core/state";
-import { StateMigrationService } from "../platform/core/state-migration.service";
+import { HtmlStorageService } from "../core/html-storage.service";
+import { I18nService } from "../core/i18n.service";
+import { StateMigrationService } from "../core/state-migration.service";
 import { PasswordRepromptService } from "../vault/core/password-reprompt.service";
 
 import { BroadcasterMessagingService } from "./broadcaster-messaging.service";
@@ -36,6 +35,7 @@ import { EventService } from "./event.service";
 import { InitService } from "./init.service";
 import { ModalService } from "./modal.service";
 import { RouterService } from "./router.service";
+import { Account, GlobalState, StateService } from "./state";
 import { WebFileDownloadService } from "./web-file-download.service";
 import { WebPlatformUtilsService } from "./web-platform-utils.service";
 

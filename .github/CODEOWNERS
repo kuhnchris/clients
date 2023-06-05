@@ -64,6 +64,9 @@ libs/common/src/platform @bitwarden/team-platform-dev
 libs/node @bitwarden/team-platform-dev
 # Web utils used across app and connectors
 apps/web/src/utils/ @bitwarden/team-platform-dev
+# Web core and shared files
+apps/web/src/app/core @bitwarden/team-platform-dev
+apps/web/src/app/shared @bitwarden/team-platform-dev
 
 ## Component Library ##
 libs/components @bitwarden/team-platform-dev

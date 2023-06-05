@@ -22,7 +22,7 @@ import {
   CollectionAdminView,
   GroupView,
 } from "../../../admin-console/organizations/core";
-import { PreloadedEnglishI18nModule } from "../../../platform/tests/preloaded-english-i18n.module";
+import { PreloadedEnglishI18nModule } from "../../../core/tests";
 import { Unassigned } from "../../individual-vault/vault-filter/shared/models/routed-vault-filter.model";
 
 import { VaultItemsComponent } from "./vault-items.component";

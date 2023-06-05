@@ -18,7 +18,7 @@ import {
   TypographyModule,
 } from "@bitwarden/components";
 import { InputModule } from "@bitwarden/components/src/input/input.module";
-import { PreloadedEnglishI18nModule } from "@bitwarden/web-vault/app/platform/tests/preloaded-english-i18n.module";
+import { PreloadedEnglishI18nModule } from "@bitwarden/web-vault/app/core/tests";
 
 import { HeaderComponent } from "./header.component";
 
