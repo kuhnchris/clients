@@ -15,7 +15,7 @@ import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.servic
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { VaultExportServiceAbstraction } from "@bitwarden/exporter/vault-export";
 
-import { UserVerificationPromptComponent } from "../../components/user-verification-prompt.component";
+import { UserVerificationPromptComponent } from "../../shared/components/user-verification";
 
 @Component({
   selector: "app-export",

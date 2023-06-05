@@ -26,7 +26,7 @@ import { AddEditCipherInfo } from "../../vault/types/add-edit-cipher-info";
 import { Account, AccountSettingsSettings } from "../models/domain/account";
 import { EncString } from "../models/domain/enc-string";
 import { StorageOptions } from "../models/domain/storage-options";
-import { SymmetricCryptoKey } from "../models/domain/symmetric-crypto-key";
+import { DeviceKey, SymmetricCryptoKey } from "../models/domain/symmetric-crypto-key";
 
 export abstract class StateService<T extends Account = Account> {
   accounts$: Observable<{ [userId: string]: T }>;
@@ -163,6 +163,8 @@ export abstract class StateService<T extends Account = Account> {
   setDontShowIdentitiesCurrentTab: (value: boolean, options?: StorageOptions) => Promise<void>;
   getDuckDuckGoSharedKey: (options?: StorageOptions) => Promise<string>;
   setDuckDuckGoSharedKey: (value: string, options?: StorageOptions) => Promise<void>;
+  getDeviceKey: (options?: StorageOptions) => Promise<DeviceKey | null>;
+  setDeviceKey: (value: DeviceKey, options?: StorageOptions) => Promise<void>;
   getEmail: (options?: StorageOptions) => Promise<string>;
   setEmail: (value: string, options?: StorageOptions) => Promise<void>;
   getEmailVerified: (options?: StorageOptions) => Promise<boolean>;
