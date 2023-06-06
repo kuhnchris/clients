@@ -5,7 +5,7 @@ import { Subject, takeUntil } from "rxjs";
 import { first } from "rxjs/operators";
 
 import { LoginComponent as BaseLoginComponent } from "@bitwarden/angular/auth/components/login.component";
-import { ApiService } from "@bitwarden/common/abstractions/api.service";
+import { DevicesApiServiceAbstraction } from "@bitwarden/common/abstractions/devices/devices-api.service.abstraction";
 import { PolicyApiServiceAbstraction } from "@bitwarden/common/admin-console/abstractions/policy/policy-api.service.abstraction";
 import { InternalPolicyService } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
 import { PolicyData } from "@bitwarden/common/admin-console/models/data/policy.data";
@@ -41,7 +41,7 @@ export class LoginComponent extends BaseLoginComponent implements OnInit, OnDest
   private destroy$ = new Subject<void>();
 
   constructor(
-    apiService: ApiService,
+    devicesApiService: DevicesApiServiceAbstraction,
     appIdService: AppIdService,
     authService: AuthService,
     router: Router,
@@ -63,7 +63,7 @@ export class LoginComponent extends BaseLoginComponent implements OnInit, OnDest
     loginService: LoginService
   ) {
     super(
-      apiService,
+      devicesApiService,
       appIdService,
       authService,
       router,

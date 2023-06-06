@@ -18,7 +18,7 @@ import { ContainerService } from "@bitwarden/common/platform/services/container.
 import { EventUploadService } from "@bitwarden/common/services/event/event-upload.service";
 import { VaultTimeoutService as VaultTimeoutService } from "@bitwarden/common/services/vaultTimeout/vaultTimeout.service";
 
-import { I18nService } from "../platform/core/i18n.service";
+import { I18nService } from "../core/i18n.service";
 
 @Injectable()
 export class InitService {

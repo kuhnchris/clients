@@ -3,7 +3,7 @@ import { FormBuilder } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { LoginComponent as BaseLoginComponent } from "@bitwarden/angular/auth/components/login.component";
-import { ApiService } from "@bitwarden/common/abstractions/api.service";
+import { DevicesApiServiceAbstraction } from "@bitwarden/common/abstractions/devices/devices-api.service.abstraction";
 import { AuthService } from "@bitwarden/common/auth/abstractions/auth.service";
 import { LoginService } from "@bitwarden/common/auth/abstractions/login.service";
 import { AppIdService } from "@bitwarden/common/platform/abstractions/app-id.service";
@@ -27,7 +27,7 @@ import { flagEnabled } from "../../platform/flags";
 export class LoginComponent extends BaseLoginComponent {
   showPasswordless = false;
   constructor(
-    apiService: ApiService,
+    devicesApiService: DevicesApiServiceAbstraction,
     appIdService: AppIdService,
     authService: AuthService,
     router: Router,
@@ -46,7 +46,7 @@ export class LoginComponent extends BaseLoginComponent {
     loginService: LoginService
   ) {
     super(
-      apiService,
+      devicesApiService,
       appIdService,
       authService,
       router,

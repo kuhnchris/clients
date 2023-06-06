@@ -32,7 +32,7 @@ import {
 } from "@bitwarden/components";
 
 // Register the locales for the application
-import "../platform/shared/locales";
+import "./locales";
 
 /**
  * This NgModule should contain the most basic shared directives, pipes, and components. They

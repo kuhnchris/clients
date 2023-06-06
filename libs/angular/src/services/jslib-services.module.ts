@@ -4,6 +4,8 @@ import { AvatarUpdateService as AccountUpdateServiceAbstraction } from "@bitward
 import { AnonymousHubService as AnonymousHubServiceAbstraction } from "@bitwarden/common/abstractions/anonymousHub.service";
 import { ApiService as ApiServiceAbstraction } from "@bitwarden/common/abstractions/api.service";
 import { AuditService as AuditServiceAbstraction } from "@bitwarden/common/abstractions/audit.service";
+import { DeviceCryptoServiceAbstraction } from "@bitwarden/common/abstractions/device-crypto.service.abstraction";
+import { DevicesApiServiceAbstraction } from "@bitwarden/common/abstractions/devices/devices-api.service.abstraction";
 import { EventCollectionService as EventCollectionServiceAbstraction } from "@bitwarden/common/abstractions/event/event-collection.service";
 import { EventUploadService as EventUploadServiceAbstraction } from "@bitwarden/common/abstractions/event/event-upload.service";
 import { NotificationsService as NotificationsServiceAbstraction } from "@bitwarden/common/abstractions/notifications.service";
@@ -97,6 +99,8 @@ import { AvatarUpdateService } from "@bitwarden/common/services/account/avatar-u
 import { AnonymousHubService } from "@bitwarden/common/services/anonymousHub.service";
 import { ApiService } from "@bitwarden/common/services/api.service";
 import { AuditService } from "@bitwarden/common/services/audit.service";
+import { DeviceCryptoService } from "@bitwarden/common/services/device-crypto.service.implementation";
+import { DevicesApiServiceImplementation } from "@bitwarden/common/services/devices/devices-api.service.implementation";
 import { EventCollectionService } from "@bitwarden/common/services/event/event-collection.service";
 import { EventUploadService } from "@bitwarden/common/services/event/event-upload.service";
 import { NotificationsService } from "@bitwarden/common/services/notifications.service";
@@ -351,6 +355,8 @@ import { AbstractThemingService } from "./theming/theming.service.abstraction";
         PlatformUtilsServiceAbstraction,
         LogService,
         StateServiceAbstraction,
+        AppIdServiceAbstraction,
+        DevicesApiServiceAbstraction,
       ],
     },
     {
@@ -615,7 +621,12 @@ import { AbstractThemingService } from "./theming/theming.service.abstraction";
     {
       provide: ConfigServiceAbstraction,
       useClass: ConfigService,
-      deps: [StateServiceAbstraction, ConfigApiServiceAbstraction, AuthServiceAbstraction],
+      deps: [
+        StateServiceAbstraction,
+        ConfigApiServiceAbstraction,
+        AuthServiceAbstraction,
+        EnvironmentServiceAbstraction,
+      ],
     },
     {
       provide: ConfigApiServiceAbstraction,
@@ -650,6 +661,23 @@ import { AbstractThemingService } from "./theming/theming.service.abstraction";
       provide: OrgDomainApiServiceAbstraction,
       useClass: OrgDomainApiService,
       deps: [OrgDomainServiceAbstraction, ApiServiceAbstraction],
+    },
+    {
+      provide: DevicesApiServiceAbstraction,
+      useClass: DevicesApiServiceImplementation,
+      deps: [ApiServiceAbstraction],
+    },
+    {
+      provide: DeviceCryptoServiceAbstraction,
+      useClass: DeviceCryptoService,
+      deps: [
+        CryptoFunctionServiceAbstraction,
+        CryptoServiceAbstraction,
+        EncryptService,
+        StateServiceAbstraction,
+        AppIdServiceAbstraction,
+        DevicesApiServiceAbstraction,
+      ],
     },
   ],
 })

@@ -1,6 +1,6 @@
-import { Component } from "@angular/core";
+import { importProvidersFrom } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { Meta, moduleMetadata, Story } from "@storybook/angular";
+import { applicationConfig, Meta, moduleMetadata, Story } from "@storybook/angular";
 import { BehaviorSubject } from "rxjs";
 
 import { AvatarUpdateService } from "@bitwarden/common/abstractions/account/avatar-update.service";
@@ -22,16 +22,11 @@ import {
   CollectionAdminView,
   GroupView,
 } from "../../../admin-console/organizations/core";
-import { PreloadedEnglishI18nModule } from "../../../platform/tests/preloaded-english-i18n.module";
+import { PreloadedEnglishI18nModule } from "../../../core/tests";
 import { Unassigned } from "../../individual-vault/vault-filter/shared/models/routed-vault-filter.model";
 
 import { VaultItemsComponent } from "./vault-items.component";
 import { VaultItemsModule } from "./vault-items.module";
-
-@Component({
-  template: "",
-})
-class EmptyComponent {}
 
 const organizations = [...new Array(3).keys()].map(createOrganization);
 const groups = [...Array(3).keys()].map(createGroupView);
@@ -46,11 +41,7 @@ export default {
   component: VaultItemsComponent,
   decorators: [
     moduleMetadata({
-      imports: [
-        VaultItemsModule,
-        PreloadedEnglishI18nModule,
-        RouterModule.forRoot([{ path: "**", component: EmptyComponent }], { useHash: true }),
-      ],
+      imports: [VaultItemsModule, RouterModule],
       providers: [
         {
           provide: EnvironmentService,
@@ -101,6 +92,12 @@ export default {
             },
           } as Partial<TokenService>,
         },
+      ],
+    }),
+    applicationConfig({
+      providers: [
+        importProvidersFrom(RouterModule.forRoot([], { useHash: true })),
+        importProvidersFrom(PreloadedEnglishI18nModule),
       ],
     }),
   ],

@@ -9,7 +9,7 @@ import { FileDownloadService } from "@bitwarden/common/platform/abstractions/fil
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
-import { UserVerificationPromptComponent } from "@bitwarden/web-vault/app/components/user-verification-prompt.component";
+import { UserVerificationPromptComponent } from "@bitwarden/web-vault/app/shared/components/user-verification";
 
 import { SecretsManagerPortingApiService } from "../services/sm-porting-api.service";
 import { SecretsManagerPortingService } from "../services/sm-porting.service";
@@ -82,7 +82,7 @@ export class SecretsManagerExportComponent implements OnInit, OnDestroy {
 
   private async doExport() {
     const fileExtension = this.exportFormats[this.formGroup.get("format").value].fileExtension;
-    const exportData = await this.secretsManagerApiService.export(this.orgId, fileExtension);
+    const exportData = await this.secretsManagerApiService.export(this.orgId);
 
     await this.downloadFile(exportData, fileExtension);
     this.platformUtilsService.showToast("success", null, this.i18nService.t("dataExportSuccess"));
