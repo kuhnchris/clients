@@ -262,6 +262,8 @@ $icons: (
   "up-down-btn": "\e99c",
   "caret-up": "\e99d",
   "caret-down": "\e99e",
+  "passkey": "\e99f",
+  "lock-encrypted": "\e9a0",
 );
 
 @each $name, $glyph in $icons {
