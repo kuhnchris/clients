@@ -210,7 +210,15 @@ export class VaultItemsComponent extends BaseVaultItemsComponent implements OnIn
   }
 
   async launchCipher(cipher: CipherView) {
-    if (cipher.type !== CipherType.Login || !cipher.login.canLaunch) {
+    let launchUri: string;
+
+    if (cipher.type !== CipherType.Login && cipher.login.canLaunch) {
+      launchUri = cipher.login.launchUri;
+    } else if (cipher.type === CipherType.Fido2Key && cipher.fido2Key.canLaunch) {
+      launchUri = cipher.fido2Key.launchUri;
+    }
+
+    if (!launchUri) {
       return;
     }
 
@@ -219,7 +227,7 @@ export class VaultItemsComponent extends BaseVaultItemsComponent implements OnIn
     }
     this.preventSelected = true;
     await this.cipherService.updateLastLaunchedDate(cipher.id);
-    BrowserApi.createNewTab(cipher.login.launchUri);
+    BrowserApi.createNewTab(launchUri);
     if (this.popupUtils.inPopup(window)) {
       BrowserApi.closePopup(window);
     }

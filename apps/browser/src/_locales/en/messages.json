@@ -2246,5 +2246,11 @@
   "us": {
     "message": "US",
     "description": "United States"
+  },
+  "loginPasskey": {
+    "message": "This login uses a passkey"
+  },
+  "application": {
+    "message": "Application"
   }
 }

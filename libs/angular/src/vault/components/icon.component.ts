@@ -118,7 +118,7 @@ export class IconComponent implements OnInit {
             icon = "bwi-id-card";
             break;
           case CipherType.Fido2Key:
-            icon = "bwi-key"; // TODO: Verify if this icon should be classified as "Bitwarden Object"
+            icon = "bwi-passkey";
             break;
           default:
             break;
