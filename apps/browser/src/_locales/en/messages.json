@@ -2252,5 +2252,8 @@
   },
   "application": {
     "message": "Application"
+  },
+  "passkeyEditInformation": {
+    "message": "You cannot edit passkey application because it would invalidate the passkey."
   }
 }
