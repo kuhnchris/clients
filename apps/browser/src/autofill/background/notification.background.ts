@@ -11,10 +11,10 @@ import { FolderService } from "@bitwarden/common/vault/abstractions/folder/folde
 import { CipherType } from "@bitwarden/common/vault/enums/cipher-type";
 import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
 
+import AddUnlockVaultQueueMessage from "../../background/models/add-unlock-vault-queue-message";
 import AddChangePasswordQueueMessage from "../../background/models/addChangePasswordQueueMessage";
 import AddLoginQueueMessage from "../../background/models/addLoginQueueMessage";
 import AddLoginRuntimeMessage from "../../background/models/addLoginRuntimeMessage";
-import AddUnlockVaultQueueMessage from "../../background/models/addUnlockVaultQueueMessage";
 import ChangePasswordRuntimeMessage from "../../background/models/changePasswordRuntimeMessage";
 import LockedVaultPendingNotificationsItem from "../../background/models/lockedVaultPendingNotificationsItem";
 import { NotificationQueueMessageType } from "../../background/models/notificationQueueMessageType";
