@@ -58,7 +58,6 @@
 ./apps/browser/src/background/nativeMessaging.background.ts
 ./apps/browser/src/background/models/addLoginRuntimeMessage.ts
 ./apps/browser/src/background/models/addChangePasswordQueueMessage.ts
-./apps/browser/src/background/models/addUnlockVaultQueueMessage.ts
 ./apps/browser/src/background/models/addLoginQueueMessage.ts
 ./apps/browser/src/background/models/changePasswordRuntimeMessage.ts
 ./apps/browser/src/background/models/notificationQueueMessage.ts
