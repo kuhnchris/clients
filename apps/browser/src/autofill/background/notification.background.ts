@@ -56,11 +56,7 @@ export default class NotificationBackground {
   async processMessage(msg: any, sender: chrome.runtime.MessageSender) {
     switch (msg.command) {
       case "unlockCompleted":
-        await BrowserApi.tabSendMessageData(sender.tab, "closeNotificationBar");
-        if (msg.data.target !== "notification.background") {
-          return;
-        }
-        await this.processMessage(msg.data.commandToRetry.msg, msg.data.commandToRetry.sender);
+        await this.handleUnlockCompleted(msg.data, sender);
         break;
       case "bgGetDataForTab":
         await this.getDataForTab(sender.tab, msg.responseCommand);
@@ -86,7 +82,9 @@ export default class NotificationBackground {
         if ((await this.authService.getAuthStatus()) < AuthenticationStatus.Unlocked) {
           const retryMessage: LockedVaultPendingNotificationsItem = {
             commandToRetry: {
-              msg: msg,
+              msg: {
+                command: msg,
+              },
               sender: sender,
             },
             target: "notification.background",
@@ -320,7 +318,7 @@ export default class NotificationBackground {
 
   private async unlockVault(tab: chrome.tabs.Tab) {
     const currentAuthStatus = await this.authService.getAuthStatus();
-    if (currentAuthStatus !== AuthenticationStatus.Locked) {
+    if (currentAuthStatus !== AuthenticationStatus.Locked || this.notificationQueue.length) {
       return;
     }
 
@@ -502,6 +500,24 @@ export default class NotificationBackground {
   private async removeIndividualVault(): Promise<boolean> {
     return await firstValueFrom(
       this.policyService.policyAppliesToActiveUser$(PolicyType.PersonalOwnership)
+    );
+  }
+
+  private async handleUnlockCompleted(
+    messageData: LockedVaultPendingNotificationsItem,
+    sender: chrome.runtime.MessageSender
+  ): Promise<void> {
+    if (messageData.commandToRetry.msg.command === "autofill_login") {
+      await BrowserApi.tabSendMessageData(sender.tab, "closeNotificationBar");
+    }
+
+    if (messageData.target !== "notification.background") {
+      return;
+    }
+
+    await this.processMessage(
+      messageData.commandToRetry.msg.command,
+      messageData.commandToRetry.sender
     );
   }
 }
