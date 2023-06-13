@@ -479,6 +479,7 @@
           <div class="box-content-row" appBoxRow>
             <label for="fido2KeyUsername">{{ "typePasskey" | i18n }}</label>
             <input
+              class="text-muted"
               id="fido2KeyCreationDate"
               type="text"
               [value]="'Created ' + (cipher.creationDate | date : 'MM/dd/y')"
@@ -491,9 +492,10 @@
               <div class="box-content-row" appBoxRow>
                 <label for="fido2KeyApplication">{{ "application" | i18n }}</label>
                 <input
+                  class="text-muted"
                   id="fido2KeyApplication"
                   type="text"
-                  [value]="cipher.fido2Key.launchUri"
+                  [value]="cipher.fido2Key.rpId"
                   readonly
                 />
               </div>

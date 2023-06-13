@@ -446,12 +446,7 @@
                   >{{ "application" | i18n }}</label
                 >
                 <span title="{{ cipher.fido2Key.launchUri }}">
-                  <input
-                    type="text"
-                    [value]="cipher.fido2Key.launchUri"
-                    readonly
-                    aria-readonly="true"
-                  />
+                  <input type="text" [value]="cipher.fido2Key.rpId" readonly aria-readonly="true" />
                 </span>
               </div>
               <div class="action-buttons">
