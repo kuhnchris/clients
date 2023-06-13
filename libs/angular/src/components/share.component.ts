@@ -150,8 +150,8 @@ export class ShareComponent implements OnInit, OnDestroy {
 
     return exisitingOrgCiphers.some(
       (c) =>
-        c.fido2Key.rpId + c.fido2Key.userHandle ===
-        cipher.fido2Key.rpId + cipher.fido2Key.userHandle
+        c.fido2Key.rpId === cipher.fido2Key.rpId &&
+        c.fido2Key.userHandle === cipher.fido2Key.userHandle
     );
   }
 }
