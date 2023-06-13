@@ -13,6 +13,7 @@ import { Utils } from "@bitwarden/common/misc/utils";
 import { Checkable, isChecked } from "@bitwarden/common/types/checkable";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
 import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
+import { CipherType } from "@bitwarden/common/vault/enums/cipher-type";
 
 @Directive()
 export class ShareComponent implements OnInit, OnDestroy {
@@ -83,6 +84,7 @@ export class ShareComponent implements OnInit, OnDestroy {
   }
 
   async submit(): Promise<boolean> {
+    debugger;
     const selectedCollectionIds = this.collections.filter(isChecked).map((c) => c.id);
     if (selectedCollectionIds.length === 0) {
       this.platformUtilsService.showToast(
@@ -98,6 +100,15 @@ export class ShareComponent implements OnInit, OnDestroy {
     const orgs = await firstValueFrom(this.organizations$);
     const orgName =
       orgs.find((o) => o.id === this.organizationId)?.name ?? this.i18nService.t("organization");
+
+    if (await this.checkFido2KeyExistsInOrg(cipherView, this.organizationId)) {
+      this.platformUtilsService.showToast(
+        "error",
+        this.i18nService.t("errorOccurred"),
+        this.i18nService.t("duplicatePasskey")
+      );
+      return;
+    }
 
     try {
       this.formPromise = this.cipherService
@@ -127,5 +138,21 @@ export class ShareComponent implements OnInit, OnDestroy {
       }
     }
     return false;
+  }
+
+  private async checkFido2KeyExistsInOrg(cipher: CipherView, orgId: string): Promise<boolean> {
+    if (cipher.type != CipherType.Fido2Key) {
+      return false;
+    }
+
+    const exisitingOrgCiphers = await this.cipherService.getAllFromApiForOrganization(
+      this.organizationId
+    );
+
+    return exisitingOrgCiphers.some(
+      (c) =>
+        c.fido2Key.rpId + c.fido2Key.userHandle ===
+        cipher.fido2Key.rpId + cipher.fido2Key.userHandle
+    );
   }
 }
