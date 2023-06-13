@@ -12,8 +12,8 @@ import { CollectionView } from "@bitwarden/common/admin-console/models/view/coll
 import { Utils } from "@bitwarden/common/misc/utils";
 import { Checkable, isChecked } from "@bitwarden/common/types/checkable";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
-import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
 import { CipherType } from "@bitwarden/common/vault/enums/cipher-type";
+import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
 
 @Directive()
 export class ShareComponent implements OnInit, OnDestroy {
@@ -84,7 +84,6 @@ export class ShareComponent implements OnInit, OnDestroy {
   }
 
   async submit(): Promise<boolean> {
-    debugger;
     const selectedCollectionIds = this.collections.filter(isChecked).map((c) => c.id);
     if (selectedCollectionIds.length === 0) {
       this.platformUtilsService.showToast(
