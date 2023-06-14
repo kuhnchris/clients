@@ -39,6 +39,7 @@ export class ViewComponent extends BaseViewComponent {
   showAttachments = true;
   pageDetails: any[] = [];
   tab: any;
+  senderTabId: number;
   loadPageDetailsTimeout: number;
   inPopout = false;
   cipherType = CipherType;
@@ -93,6 +94,8 @@ export class ViewComponent extends BaseViewComponent {
   }
 
   ngOnInit() {
+    this.senderTabId =
+      parseInt((this.route.queryParams as any).value?.senderTabId, 10) || undefined;
     this.inPopout = this.popupUtilsService.inPopout(window);
     // eslint-disable-next-line rxjs-angular/prefer-takeuntil, rxjs/no-async-subscribe
     this.route.queryParams.pipe(first()).subscribe(async (params) => {
@@ -141,6 +144,10 @@ export class ViewComponent extends BaseViewComponent {
   async load() {
     await super.load();
     await this.loadPageDetails();
+
+    if (this.senderTabId) {
+      this.fillCipher();
+    }
   }
 
   async edit() {
@@ -191,6 +198,10 @@ export class ViewComponent extends BaseViewComponent {
     const didAutofill = await this.doAutofill();
     if (didAutofill) {
       this.platformUtilsService.showToast("success", null, this.i18nService.t("autoFillSuccess"));
+
+      if (this.senderTabId) {
+        this.close();
+      }
     }
   }
 
@@ -255,15 +266,29 @@ export class ViewComponent extends BaseViewComponent {
   }
 
   close() {
-    this.location.back();
+    if (this.senderTabId) {
+      BrowserApi.focusTab(this.tab.id);
+      window.close();
+    } else {
+      this.location.back();
+    }
   }
 
   private async loadPageDetails() {
     this.pageDetails = [];
     this.tab = await BrowserApi.getTabFromCurrentWindow();
+
+    if (this.senderTabId) {
+      // @TODO `BrowserApi.getTab(this.senderTabId)`?
+      this.tab = (await BrowserApi.tabsQuery({ currentWindow: true }))?.find(({ id }) => {
+        return id === this.senderTabId;
+      });
+    }
+
     if (this.tab == null) {
       return;
     }
+
     BrowserApi.tabSendMessage(this.tab, {
       command: "collectPageDetails",
       tab: this.tab,
