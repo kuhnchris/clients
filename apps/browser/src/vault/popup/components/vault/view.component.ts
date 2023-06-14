@@ -31,6 +31,11 @@ import { PopupUtilsService } from "../../../../popup/services/popup-utils.servic
 
 const BroadcasterSubscriptionId = "ChildViewComponent";
 
+export const AUTOFILL_ID = "autofill";
+export const COPY_USERNAME_ID = "copy-username";
+export const COPY_PASSWORD_ID = "copy-password";
+export const COPY_VERIFICATIONCODE_ID = "copy-totp";
+
 @Component({
   selector: "app-vault-view",
   templateUrl: "view.component.html",
@@ -40,6 +45,7 @@ export class ViewComponent extends BaseViewComponent {
   pageDetails: any[] = [];
   tab: any;
   senderTabId: number;
+  loadAction: string;
   loadPageDetailsTimeout: number;
   inPopout = false;
   cipherType = CipherType;
@@ -96,6 +102,7 @@ export class ViewComponent extends BaseViewComponent {
   ngOnInit() {
     this.senderTabId =
       parseInt((this.route.queryParams as any).value?.senderTabId, 10) || undefined;
+    this.loadAction = (this.route.queryParams as any).value?.action || undefined;
     this.inPopout = this.popupUtilsService.inPopout(window);
     // eslint-disable-next-line rxjs-angular/prefer-takeuntil, rxjs/no-async-subscribe
     this.route.queryParams.pipe(first()).subscribe(async (params) => {
@@ -145,8 +152,21 @@ export class ViewComponent extends BaseViewComponent {
     await super.load();
     await this.loadPageDetails();
 
-    if (this.senderTabId) {
-      this.fillCipher();
+    switch (this.loadAction) {
+      case AUTOFILL_ID:
+        this.fillCipher();
+        break;
+      case COPY_USERNAME_ID:
+        this.copy(this.cipher.login.username, "username", "Username");
+        break;
+      case COPY_PASSWORD_ID:
+        this.copy(this.cipher.login.password, "password", "Password");
+        break;
+      case COPY_VERIFICATIONCODE_ID:
+        this.copy(this.cipher.login.totp, "verificationCodeTotp", "TOTP");
+        break;
+      default:
+        break;
     }
   }
 

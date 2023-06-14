@@ -113,7 +113,7 @@ export default class RuntimeBackground {
       case "passwordReprompt":
         if (cipherId) {
           BrowserApi.openBitwardenExtensionTab(
-            `popup/index.html#/view-cipher?cipherId=${cipherId}&senderTabId=${sender.tab.id}`,
+            `popup/index.html#/view-cipher?cipherId=${cipherId}&senderTabId=${sender.tab.id}&action=${msg.data?.action}`,
             true
           );
         }

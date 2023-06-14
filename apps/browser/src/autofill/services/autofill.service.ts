@@ -239,7 +239,11 @@ export default class AutofillService implements AutofillServiceInterface {
     }
 
     if (cipher.reprompt !== CipherRepromptType.None) {
-      await BrowserApi.tabSendMessageData(tab, "passwordReprompt", { cipherId: cipher.id });
+      await BrowserApi.tabSendMessageData(tab, "passwordReprompt", {
+        cipherId: cipher.id,
+        action: "autofill",
+      });
+
       return null;
     }
 
