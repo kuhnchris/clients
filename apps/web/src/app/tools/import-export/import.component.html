@@ -1,9 +1,9 @@
 <div class="page-header">
   <h1>{{ "importData" | i18n }}</h1>
 </div>
-<app-callout type="info" *ngIf="importBlockedByPolicy">
+<bit-callout type="info" *ngIf="importBlockedByPolicy">
   {{ "personalOwnershipPolicyInEffectImports" | i18n }}
-</app-callout>
+</bit-callout>
 <form #form (ngSubmit)="submit()" ngNativeValidate>
   <bit-form-field class="tw-w-1/2">
     <bit-label for="type">1. {{ "selectFormat" | i18n }}</bit-label>
@@ -22,7 +22,7 @@
       </ng-container>
     </bit-select>
   </bit-form-field>
-  <app-callout type="info" title="{{ getFormatInstructionTitle() }}" *ngIf="format">
+  <bit-callout type="info" title="{{ getFormatInstructionTitle() }}" *ngIf="format">
     <ng-container *ngIf="format === 'bitwardencsv' || format === 'bitwardenjson'">
       See detailed instructions on our help site at
       <a target="_blank" rel="noopener" href="https://bitwarden.com/help/export-your-data/">
@@ -292,7 +292,7 @@
       Log in to "https://vault.passky.org" &rarr; "Import & Export" &rarr; "Export" in the Passky
       section. ("Backup" is unsupported as it is encrypted).
     </ng-container>
-  </app-callout>
+  </bit-callout>
   <div class="row">
     <div class="col-6">
       <div class="form-group">
