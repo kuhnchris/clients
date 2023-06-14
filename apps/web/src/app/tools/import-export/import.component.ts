@@ -1,18 +1,23 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import * as JSZip from "jszip";
-import { Subject } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import Swal, { SweetAlertIcon } from "sweetalert2";
 
 import { DialogServiceAbstraction } from "@bitwarden/angular/services/dialog";
 import { ModalService } from "@bitwarden/angular/services/modal.service";
+import { CollectionService } from "@bitwarden/common/admin-console/abstractions/collection.service";
 import { PolicyService } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
 import { PolicyType } from "@bitwarden/common/admin-console/enums";
+import { CollectionView } from "@bitwarden/common/admin-console/models/view/collection.view";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
+import { Utils } from "@bitwarden/common/platform/misc/utils";
+import { FolderService } from "@bitwarden/common/vault/abstractions/folder/folder.service.abstraction";
 import { SyncService } from "@bitwarden/common/vault/abstractions/sync/sync.service.abstraction";
+import { FolderView } from "@bitwarden/common/vault/models/view/folder.view";
 import {
   ImportOption,
   ImportResult,
@@ -30,9 +35,13 @@ export class ImportComponent implements OnInit, OnDestroy {
   featuredImportOptions: ImportOption[];
   importOptions: ImportOption[];
   format: ImportType = null;
+  selectedImportTarget: string = null;
   fileContents: string;
   fileSelected: File;
   loading = false;
+
+  folders$: Observable<FolderView[]>;
+  collections$: Observable<CollectionView[]>;
 
   protected organizationId: string = null;
   protected destroy$ = new Subject<void>();
@@ -48,7 +57,9 @@ export class ImportComponent implements OnInit, OnDestroy {
     private logService: LogService,
     protected modalService: ModalService,
     protected syncService: SyncService,
-    protected dialogService: DialogServiceAbstraction
+    protected dialogService: DialogServiceAbstraction,
+    protected folderService: FolderService,
+    protected collectionService: CollectionService
   ) {}
 
   protected get importBlockedByPolicy(): boolean {
@@ -71,6 +82,18 @@ export class ImportComponent implements OnInit, OnDestroy {
       .subscribe((policyAppliesToActiveUser) => {
         this._importBlockedByPolicy = policyAppliesToActiveUser;
       });
+
+    if (this.organizationId) {
+      this.collections$ = Utils.asyncToObservable(() =>
+        this.collectionService
+          .getAllDecrypted()
+          .then((c) => c.filter((c2) => c2.organizationId === this.organizationId))
+      );
+    }
+
+    if (!this.organizationId) {
+      this.folders$ = this.folderService.folderViews$;
+    }
   }
 
   async submit() {

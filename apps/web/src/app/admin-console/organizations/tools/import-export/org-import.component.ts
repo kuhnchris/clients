@@ -4,6 +4,7 @@ import { switchMap, takeUntil } from "rxjs/operators";
 
 import { DialogServiceAbstraction, SimpleDialogType } from "@bitwarden/angular/services/dialog";
 import { ModalService } from "@bitwarden/angular/services/modal.service";
+import { CollectionService } from "@bitwarden/common/admin-console/abstractions/collection.service";
 import {
   canAccessVaultTab,
   OrganizationService,
@@ -13,6 +14,7 @@ import { Organization } from "@bitwarden/common/admin-console/models/domain/orga
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
+import { FolderService } from "@bitwarden/common/vault/abstractions/folder/folder.service.abstraction";
 import { SyncService } from "@bitwarden/common/vault/abstractions/sync/sync.service.abstraction";
 import { ImportServiceAbstraction } from "@bitwarden/importer";
 
@@ -41,7 +43,9 @@ export class OrganizationImportComponent extends ImportComponent {
     logService: LogService,
     modalService: ModalService,
     syncService: SyncService,
-    dialogService: DialogServiceAbstraction
+    dialogService: DialogServiceAbstraction,
+    folderService: FolderService,
+    collectionService: CollectionService
   ) {
     super(
       i18nService,
@@ -52,7 +56,9 @@ export class OrganizationImportComponent extends ImportComponent {
       logService,
       modalService,
       syncService,
-      dialogService
+      dialogService,
+      folderService,
+      collectionService
     );
   }
 

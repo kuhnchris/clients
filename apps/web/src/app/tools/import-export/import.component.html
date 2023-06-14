@@ -332,6 +332,20 @@
       [disabled]="importBlockedByPolicy"
     ></textarea>
   </div>
+
+  <bit-form-field>
+    <bit-label for="importTarget">3. {{ "selectFormat" | i18n }}</bit-label>
+    <bit-select bitInput name="importTarget" [(ngModel)]="selectedImportTarget">
+      <ng-container *ngIf="!organizationId">
+        <bit-option *ngFor="let f of folders$ | async" [value]="f.id" [label]="f.name" />
+      </ng-container>
+      <ng-container *ngIf="organizationId">
+        <bit-option value="-" disabled />
+        <bit-option *ngFor="let f of collections$ | async" [value]="f.id" [label]="f.name" />
+      </ng-container>
+    </bit-select>
+  </bit-form-field>
+
   <button
     type="submit"
     class="btn btn-primary btn-submit"
