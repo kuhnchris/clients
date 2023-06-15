@@ -152,7 +152,8 @@ export class ShareComponent implements OnInit, OnDestroy {
         return (
           !c.isDeleted &&
           existingFido2key.rpId === newFido2Key.rpId &&
-          existingFido2key.userHandle === newFido2Key.userHandle
+          existingFido2key.userHandle === newFido2Key.userHandle &&
+          existingFido2key.nonDiscoverableId === newFido2Key.nonDiscoverableId
         );
       });
     }
