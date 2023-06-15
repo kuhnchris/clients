@@ -180,11 +180,11 @@ export class BrowserApi {
 
   private static registeredMessageListeners: any[] = [];
 
-  static async openBitwardenLoginPromptWindow(senderWindowId?: number) {
-    const senderWindow = await BrowserApi.getWindow(senderWindowId);
-    await BrowserApi.closeBitwardenLoginPromptWindow();
+  static async openBitwardenPromptWindow(senderWindowId?: number, promptWindowURL?: string) {
+    const senderWindow = senderWindowId && (await BrowserApi.getWindow(senderWindowId));
+    await BrowserApi.closeBitwardenPromptWindow();
 
-    const url = chrome.extension.getURL("popup/index.html?uilocation=popout");
+    const url = chrome.extension.getURL(promptWindowURL || "popup/index.html?uilocation=popout");
 
     const defaultWindowOptions: chrome.windows.CreateData = {
       url,
@@ -203,9 +203,12 @@ export class BrowserApi {
     await chrome.windows.create(windowOptions);
   }
 
-  static async closeBitwardenLoginPromptWindow() {
-    const url = chrome.extension.getURL("popup/index.html?uilocation=popout");
-    const tabs = await BrowserApi.tabsQuery({ url });
+  static async closeBitwardenPromptWindow(promptWindowURL?: string) {
+    const url = chrome.extension.getURL(promptWindowURL || "popup/index.html?uilocation=popout");
+    const tabs = await BrowserApi.tabsQuery({
+      url,
+      windowType: "popup",
+    });
     tabs.forEach((tab) => chrome.tabs.remove(tab.id));
   }
 

@@ -44,10 +44,11 @@ export class ViewComponent extends BaseViewComponent {
   showAttachments = true;
   pageDetails: any[] = [];
   tab: any;
-  senderTabId: number;
-  loadAction: string;
+  senderTabId?: number;
+  loadAction?: "autofill" | "copy-username" | "copy-password" | "copy-totp";
+  uilocation?: "popout" | "popup" | "sidebar" | "tab";
   loadPageDetailsTimeout: number;
-  inPopout = false;
+  inPopout: boolean = false;
   cipherType = CipherType;
 
   constructor(
@@ -102,8 +103,10 @@ export class ViewComponent extends BaseViewComponent {
   ngOnInit() {
     this.senderTabId =
       parseInt((this.route.queryParams as any).value?.senderTabId, 10) || undefined;
-    this.loadAction = (this.route.queryParams as any).value?.action || undefined;
-    this.inPopout = this.popupUtilsService.inPopout(window);
+    this.loadAction = (this.route.queryParams as any).value?.action;
+    this.uilocation = (this.route.queryParams as any).value?.uilocation;
+    this.inPopout = this.uilocation === "popout" || this.popupUtilsService.inPopout(window);
+
     // eslint-disable-next-line rxjs-angular/prefer-takeuntil, rxjs/no-async-subscribe
     this.route.queryParams.pipe(first()).subscribe(async (params) => {
       if (params.cipherId) {
@@ -157,13 +160,22 @@ export class ViewComponent extends BaseViewComponent {
         this.fillCipher();
         break;
       case COPY_USERNAME_ID:
-        this.copy(this.cipher.login.username, "username", "Username");
+        await this.copy(this.cipher.login.username, "username", "Username");
+        if (this.inPopout) {
+          this.close();
+        }
         break;
       case COPY_PASSWORD_ID:
-        this.copy(this.cipher.login.password, "password", "Password");
+        await this.copy(this.cipher.login.password, "password", "Password");
+        if (this.inPopout) {
+          this.close();
+        }
         break;
       case COPY_VERIFICATIONCODE_ID:
-        this.copy(this.cipher.login.totp, "verificationCodeTotp", "TOTP");
+        await this.copy(this.cipher.login.totp, "verificationCodeTotp", "TOTP");
+        if (this.inPopout) {
+          this.close();
+        }
         break;
       default:
         break;
@@ -219,7 +231,7 @@ export class ViewComponent extends BaseViewComponent {
     if (didAutofill) {
       this.platformUtilsService.showToast("success", null, this.i18nService.t("autoFillSuccess"));
 
-      if (this.senderTabId) {
+      if (this.inPopout) {
         this.close();
       }
     }
@@ -287,7 +299,10 @@ export class ViewComponent extends BaseViewComponent {
 
   close() {
     if (this.senderTabId) {
-      BrowserApi.focusTab(this.tab.id);
+      BrowserApi.focusTab(this.senderTabId);
+    }
+
+    if (this.inPopout) {
       window.close();
     } else {
       this.location.back();
@@ -300,7 +315,7 @@ export class ViewComponent extends BaseViewComponent {
 
     if (this.senderTabId) {
       // @TODO `BrowserApi.getTab(this.senderTabId)`?
-      this.tab = (await BrowserApi.tabsQuery({ currentWindow: true }))?.find(({ id }) => {
+      this.tab = (await BrowserApi.tabsQuery({ currentWindow: false }))?.find(({ id }) => {
         return id === this.senderTabId;
       });
     }
