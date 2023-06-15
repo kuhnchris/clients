@@ -166,6 +166,7 @@
                 class="monospaced"
                 type="{{ showCardNumber ? 'text' : 'password' }}"
                 name="Card.Number"
+                (input)="onCardNumberChange()"
                 [(ngModel)]="cipher.card.number"
                 appInputVerbatim
                 [readonly]="!cipher.edit && editMode"
