@@ -48,7 +48,7 @@ export class ViewComponent extends BaseViewComponent {
   loadAction?: "autofill" | "copy-username" | "copy-password" | "copy-totp";
   uilocation?: "popout" | "popup" | "sidebar" | "tab";
   loadPageDetailsTimeout: number;
-  inPopout: boolean = false;
+  inPopout = false;
   cipherType = CipherType;
 
   constructor(
