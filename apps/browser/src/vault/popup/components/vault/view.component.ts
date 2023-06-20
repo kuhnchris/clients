@@ -313,13 +313,10 @@ export class ViewComponent extends BaseViewComponent {
     this.tab = await BrowserApi.getTabFromCurrentWindow();
 
     if (this.senderTabId) {
-      // @TODO `BrowserApi.getTab(this.senderTabId)`?
-      this.tab = (await BrowserApi.tabsQuery({ currentWindow: false }))?.find(({ id }) => {
-        return id === this.senderTabId;
-      });
+      this.tab = await BrowserApi.getTab(this.senderTabId);
     }
 
-    if (this.tab == null) {
+    if (!this.tab) {
       return;
     }
 
