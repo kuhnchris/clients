@@ -345,12 +345,12 @@
   </bit-form-field>
 
   <button
+    bitButton
     type="submit"
-    class="btn btn-primary btn-submit"
-    [disabled]="loading || importBlockedByPolicy"
-    [ngClass]="{ manual: importBlockedByPolicy }"
+    buttonType="primary"
+    [loading]="loading"
+    [disabled]="importBlockedByPolicy"
   >
-    <i class="bwi bwi-spinner bwi-spin" title="{{ 'loading' | i18n }}" aria-hidden="true"></i>
-    <span>{{ "importData" | i18n }}</span>
+    {{ "importData" | i18n }}
   </button>
 </form>
