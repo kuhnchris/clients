@@ -158,7 +158,7 @@ export class ViewComponent extends BaseViewComponent {
     switch (this.loadAction) {
       case AUTOFILL_ID:
         this.fillCipher();
-        break;
+        return;
       case COPY_USERNAME_ID:
         await this.copy(this.cipher.login.username, "username", "Username");
         break;
@@ -172,10 +172,7 @@ export class ViewComponent extends BaseViewComponent {
         break;
     }
 
-    if (
-      this.inPopout &&
-      [COPY_USERNAME_ID, COPY_PASSWORD_ID, COPY_VERIFICATIONCODE_ID].includes(this.loadAction)
-    ) {
+    if (this.inPopout) {
       this.close();
     }
   }
