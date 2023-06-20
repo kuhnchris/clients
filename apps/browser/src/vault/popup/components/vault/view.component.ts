@@ -161,24 +161,22 @@ export class ViewComponent extends BaseViewComponent {
         break;
       case COPY_USERNAME_ID:
         await this.copy(this.cipher.login.username, "username", "Username");
-        if (this.inPopout) {
-          this.close();
-        }
         break;
       case COPY_PASSWORD_ID:
         await this.copy(this.cipher.login.password, "password", "Password");
-        if (this.inPopout) {
-          this.close();
-        }
         break;
       case COPY_VERIFICATIONCODE_ID:
         await this.copy(this.cipher.login.totp, "verificationCodeTotp", "TOTP");
-        if (this.inPopout) {
-          this.close();
-        }
         break;
       default:
         break;
+    }
+
+    if (
+      this.inPopout &&
+      [COPY_USERNAME_ID, COPY_PASSWORD_ID, COPY_VERIFICATIONCODE_ID].includes(this.loadAction)
+    ) {
+      this.close();
     }
   }
 
@@ -304,9 +302,10 @@ export class ViewComponent extends BaseViewComponent {
 
     if (this.inPopout) {
       window.close();
-    } else {
-      this.location.back();
+      return;
     }
+
+    this.location.back();
   }
 
   private async loadPageDetails() {
