@@ -477,15 +477,9 @@
               [readonly]="!cipher.edit && editMode"
             />
           </div>
-          <div class="box-content-row" appBoxRow>
-            <label for="fido2KeyUsername">{{ "typePasskey" | i18n }}</label>
-            <input
-              class="text-muted"
-              id="fido2KeyCreationDate"
-              type="text"
-              [value]="'Created ' + (cipher.creationDate | date : 'MM/dd/y')"
-              readonly
-            />
+          <div class="box-content-row text-muted" appBoxRow>
+            <span class="row-label">{{ "typePasskey" | i18n }}</span>
+            {{ "dateCreated" | i18n }} {{ cipher.creationDate | date : "MM/dd/y" }}
           </div>
 
           <div class="box" *ngIf="cipher.fido2Key.canLaunch">

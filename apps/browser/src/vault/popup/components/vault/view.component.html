@@ -456,7 +456,7 @@
                   appStopClick
                   (click)="launch(cipher.fido2Key)"
                   attr.aria-label="{{ 'launch' | i18n }} {{ cipher.fido2Key.launchUri }}"
-                  appA11yTitle="{{ 'launch' | i18n }}"
+                  [appA11yTitle]="'launch' | i18n"
                 >
                   <i class="bwi bwi-lg bwi-share-square" aria-hidden="true"></i>
                 </button>
@@ -465,7 +465,7 @@
                   class="row-btn"
                   appStopClick
                   attr.aria-label="{{ 'copyUri' | i18n }} {{ cipher.fido2Key.launchUri }}"
-                  appA11yTitle="{{ 'copyUri' | i18n }}"
+                  [appA11yTitle]="'copyUri' | i18n"
                   (click)="copy(cipher.fido2Key.launchUri, 'uri', 'URI')"
                 >
                   <i class="bwi bwi-lg bwi-clone" aria-hidden="true"></i>

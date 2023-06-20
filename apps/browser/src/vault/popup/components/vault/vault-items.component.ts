@@ -274,8 +274,8 @@ export class VaultItemsComponent extends BaseVaultItemsComponent implements OnIn
       }
       if (this.type != null && cipherPassesFilter) {
         //Fido2Key's should also be included in the Login type
-        if (this.type === 1) {
-          cipherPassesFilter = cipher.type === this.type || cipher.type === 5;
+        if (this.type === CipherType.Login) {
+          cipherPassesFilter = cipher.type === this.type || cipher.type === CipherType.Fido2Key;
         } else {
           cipherPassesFilter = cipher.type === this.type;
         }
