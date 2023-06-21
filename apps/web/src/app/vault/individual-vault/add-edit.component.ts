@@ -20,6 +20,7 @@ import { CollectionService } from "@bitwarden/common/vault/abstractions/collecti
 import { FolderService } from "@bitwarden/common/vault/abstractions/folder/folder.service.abstraction";
 import { PasswordRepromptService } from "@bitwarden/common/vault/abstractions/password-reprompt.service";
 import { CipherType } from "@bitwarden/common/vault/enums/cipher-type";
+import { Fido2KeyView } from "@bitwarden/common/vault/models/view/fido2-key.view";
 import { LoginUriView } from "@bitwarden/common/vault/models/view/login-uri.view";
 
 @Component({
@@ -131,7 +132,7 @@ export class AddEditComponent extends BaseAddEditComponent implements OnInit, On
     }
   }
 
-  launch(uri: LoginUriView) {
+  launch(uri: LoginUriView | Fido2KeyView) {
     if (!uri.canLaunch) {
       return;
     }
