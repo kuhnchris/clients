@@ -165,7 +165,12 @@ export class ImportComponent implements OnInit, OnDestroy {
     }
 
     try {
-      const result = await this.importService.import(importer, fileContents, this.organizationId);
+      const result = await this.importService.import(
+        importer,
+        fileContents,
+        this.organizationId,
+        this.selectedImportTarget
+      );
 
       //No errors, display success message
       this.dialogService.open<unknown, ImportResult>(ImportSuccessDialogComponent, {

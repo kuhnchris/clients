@@ -1,5 +1,6 @@
 import { CollectionService } from "@bitwarden/common/admin-console/abstractions/collection.service";
 import { CollectionWithIdRequest } from "@bitwarden/common/admin-console/models/request/collection-with-id.request";
+import { CollectionView } from "@bitwarden/common/admin-console/models/view/collection.view";
 import { ImportCiphersRequest } from "@bitwarden/common/models/request/import-ciphers.request";
 import { ImportOrganizationCiphersRequest } from "@bitwarden/common/models/request/import-organization-ciphers.request";
 import { KvpRequest } from "@bitwarden/common/models/request/kvp.request";
@@ -13,6 +14,7 @@ import { CipherType } from "@bitwarden/common/vault/enums/cipher-type";
 import { CipherRequest } from "@bitwarden/common/vault/models/request/cipher.request";
 import { FolderWithIdRequest } from "@bitwarden/common/vault/models/request/folder-with-id.request";
 import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
+import { FolderView } from "@bitwarden/common/vault/models/view/folder.view";
 
 import {
   AscendoCsvImporter,
@@ -106,7 +108,8 @@ export class ImportService implements ImportServiceAbstraction {
   async import(
     importer: Importer,
     fileContents: string,
-    organizationId: string = null
+    organizationId: string = null,
+    selectedImportTarget: string = null
   ): Promise<ImportResult> {
     const importResult = await importer.parse(fileContents);
     if (!importResult.success) {
@@ -134,6 +137,7 @@ export class ImportService implements ImportServiceAbstraction {
     }
 
     try {
+      this.setImportTarget(importResult, organizationId, selectedImportTarget);
       if (organizationId != null) {
         await this.handleOrganizationalImport(importResult, organizationId);
       } else {
@@ -393,5 +397,59 @@ export class ImportService implements ImportServiceAbstraction {
     });
 
     return new Error(errorMessage);
+  }
+
+  private setImportTarget(
+    importResult: ImportResult,
+    organizationId: string,
+    importTarget: string
+  ) {
+    if (Utils.isNullOrWhitespace(importTarget)) {
+      return;
+    }
+
+    // Replace backslashes with forward slashes, ensuring we create sub-folders
+    importTarget = importTarget.replace("\\", "/");
+
+    if (organizationId) {
+      const collections: CollectionView[] = [...importResult.collections];
+      importResult.collections = [];
+      collections.map((x) => {
+        const f = new CollectionView();
+        f.name = `${importTarget}/${x.name}`;
+        importResult.collections.push(f);
+      });
+
+      const importTargetCollection = new CollectionView();
+      importTargetCollection.name = importTarget;
+      importResult.collections.unshift(importTargetCollection);
+
+      const relationships: [number, number][] = [...importResult.collectionRelationships];
+      importResult.collectionRelationships = [];
+      relationships.map((x) => {
+        importResult.collectionRelationships.push([x[0], x[1] + 1]);
+      });
+
+      return;
+    }
+
+    const folders: FolderView[] = [...importResult.folders];
+    importResult.folders = [];
+    folders.map((x) => {
+      const newFolderName = `${importTarget}/${x.name}`;
+      const f = new FolderView();
+      f.name = newFolderName;
+      importResult.folders.push(f);
+    });
+
+    const importTargetFolder = new FolderView();
+    importTargetFolder.name = importTarget;
+    importResult.folders.unshift(importTargetFolder);
+
+    const relationships: [number, number][] = [...importResult.folderRelationships];
+    importResult.folderRelationships = [];
+    relationships.map((x) => {
+      importResult.folderRelationships.push([x[0], x[1] + 1]);
+    });
   }
 }
