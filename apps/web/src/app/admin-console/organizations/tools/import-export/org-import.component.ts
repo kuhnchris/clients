@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { FormBuilder } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { switchMap, takeUntil } from "rxjs/operators";
 
@@ -39,13 +40,14 @@ export class OrganizationImportComponent extends ImportComponent {
     private route: ActivatedRoute,
     platformUtilsService: PlatformUtilsService,
     policyService: PolicyService,
-    private organizationService: OrganizationService,
+    organizationService: OrganizationService,
     logService: LogService,
     modalService: ModalService,
     syncService: SyncService,
     dialogService: DialogServiceAbstraction,
     folderService: FolderService,
-    collectionService: CollectionService
+    collectionService: CollectionService,
+    formBuilder: FormBuilder
   ) {
     super(
       i18nService,
@@ -58,7 +60,9 @@ export class OrganizationImportComponent extends ImportComponent {
       syncService,
       dialogService,
       folderService,
-      collectionService
+      collectionService,
+      organizationService,
+      formBuilder
     );
   }
 

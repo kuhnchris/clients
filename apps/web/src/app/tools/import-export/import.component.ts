@@ -1,15 +1,21 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormBuilder, FormControl, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import * as JSZip from "jszip";
-import { Observable, Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+import { concat, Observable, Subject } from "rxjs";
+import { map, takeUntil } from "rxjs/operators";
 import Swal, { SweetAlertIcon } from "sweetalert2";
 
 import { DialogServiceAbstraction } from "@bitwarden/angular/services/dialog";
 import { ModalService } from "@bitwarden/angular/services/modal.service";
 import { CollectionService } from "@bitwarden/common/admin-console/abstractions/collection.service";
+import {
+  canAccessImportExport,
+  OrganizationService,
+} from "@bitwarden/common/admin-console/abstractions/organization/organization.service.abstraction";
 import { PolicyService } from "@bitwarden/common/admin-console/abstractions/policy/policy.service.abstraction";
 import { PolicyType } from "@bitwarden/common/admin-console/enums";
+import { Organization } from "@bitwarden/common/admin-console/models/domain/organization";
 import { CollectionView } from "@bitwarden/common/admin-console/models/view/collection.view";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
@@ -27,6 +33,7 @@ import {
 
 import { FilePasswordPromptComponent, ImportSuccessDialogComponent } from "./dialog";
 
+
 @Component({
   selector: "app-import",
   templateUrl: "import.component.html",
@@ -42,11 +49,19 @@ export class ImportComponent implements OnInit, OnDestroy {
 
   folders$: Observable<FolderView[]>;
   collections$: Observable<CollectionView[]>;
+  organizations$: Observable<Organization[]>;
 
   protected organizationId: string = null;
   protected destroy$ = new Subject<void>();
 
   private _importBlockedByPolicy = false;
+
+  importForm = this.formBuilder.group({
+    vaultSelector: new FormControl(),
+    targetSelector: new FormControl(),
+    format: new FormControl<ImportType | null>(null, [Validators.required]),
+    fileContents: new FormControl(),
+  });
 
   constructor(
     protected i18nService: I18nService,
@@ -59,7 +74,9 @@ export class ImportComponent implements OnInit, OnDestroy {
     protected syncService: SyncService,
     protected dialogService: DialogServiceAbstraction,
     protected folderService: FolderService,
-    protected collectionService: CollectionService
+    protected collectionService: CollectionService,
+    protected organizationService: OrganizationService,
+    protected formBuilder: FormBuilder
   ) {}
 
   protected get importBlockedByPolicy(): boolean {
@@ -83,17 +100,46 @@ export class ImportComponent implements OnInit, OnDestroy {
         this._importBlockedByPolicy = policyAppliesToActiveUser;
       });
 
+    this.organizations$ = concat(
+      this.organizationService.memberOrganizations$.pipe(
+        canAccessImportExport(this.i18nService),
+        map((orgs) => orgs.sort(Utils.getSortFunction(this.i18nService, "name")))
+      )
+    );
+
     if (this.organizationId) {
+      this.importForm.get("vaultSelector").patchValue(this.organizationId);
+      this.importForm.get("vaultSelector").disable();
+
       this.collections$ = Utils.asyncToObservable(() =>
         this.collectionService
           .getAllDecrypted()
           .then((c) => c.filter((c2) => c2.organizationId === this.organizationId))
       );
-    }
-
-    if (!this.organizationId) {
+    } else {
       this.folders$ = this.folderService.folderViews$;
+      this.importForm.get("vaultSelector").patchValue("undefined");
+
+      this.importForm
+        .get("vaultSelector")
+        .valueChanges.pipe(takeUntil(this.destroy$))
+        .subscribe((value) => {
+          this.organizationId = value;
+          if (value) {
+            this.collections$ = Utils.asyncToObservable(() =>
+              this.collectionService
+                .getAllDecrypted()
+                .then((c) => c.filter((c2) => c2.organizationId === value))
+            );
+          }
+        });
     }
+    this.importForm
+      .get("format")
+      .valueChanges.pipe(takeUntil(this.destroy$))
+      .subscribe((value) => {
+        this.format = value;
+      });
   }
 
   async submit() {
@@ -127,11 +173,22 @@ export class ImportComponent implements OnInit, OnDestroy {
       return;
     }
 
+    if (this.importForm.get("targetSelector") === null) {
+      this.platformUtilsService.showToast(
+        "error",
+        this.i18nService.t("errorOccurred"),
+        "Select target" //this.i18nService.t("selectFormat")
+      );
+      this.loading = false;
+      return;
+    }
+
     const fileEl = document.getElementById("file") as HTMLInputElement;
     const files = fileEl.files;
     if (
       (files == null || files.length === 0) &&
-      (this.fileContents == null || this.fileContents === "")
+      (this.importForm.get("fileContents").value == null ||
+        this.importForm.get("fileContents").value === "")
     ) {
       this.platformUtilsService.showToast(
         "error",
@@ -142,7 +199,7 @@ export class ImportComponent implements OnInit, OnDestroy {
       return;
     }
 
-    let fileContents = this.fileContents;
+    let fileContents = this.importForm.get("fileContents").value;
     if (files != null && files.length > 0) {
       try {
         const content = await this.getFileContents(files[0]);
@@ -169,7 +226,7 @@ export class ImportComponent implements OnInit, OnDestroy {
         importer,
         fileContents,
         this.organizationId,
-        this.selectedImportTarget
+        this.importForm.get("targetSelector").value
       );
 
       //No errors, display success message
