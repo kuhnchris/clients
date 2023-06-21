@@ -137,7 +137,7 @@ export class ImportService implements ImportServiceAbstraction {
     }
 
     try {
-      this.setImportTarget(importResult, organizationId, selectedImportTarget);
+      await this.setImportTarget(importResult, organizationId, selectedImportTarget);
       if (organizationId != null) {
         await this.handleOrganizationalImport(importResult, organizationId);
       } else {
@@ -399,7 +399,7 @@ export class ImportService implements ImportServiceAbstraction {
     return new Error(errorMessage);
   }
 
-  private setImportTarget(
+  private async setImportTarget(
     importResult: ImportResult,
     organizationId: string,
     importTarget: string
@@ -408,24 +408,28 @@ export class ImportService implements ImportServiceAbstraction {
       return;
     }
 
-    // Replace backslashes with forward slashes, ensuring we create sub-folders
-    importTarget = importTarget.replace("\\", "/");
-
     if (organizationId) {
+      const collectionViews: CollectionView[] = await this.collectionService.getAllDecrypted();
+      const targetCollection = collectionViews.find((c) => c.id === importTarget);
+
+      const noCollectionRelationShips: [number, number][] = [];
+      importResult.ciphers.forEach((c, index) => {
+        if (!Array.isArray(c.collectionIds) || c.collectionIds.length == 0) {
+          c.collectionIds = [targetCollection.id];
+          noCollectionRelationShips.push([index, 0]);
+        }
+      });
+
       const collections: CollectionView[] = [...importResult.collections];
-      importResult.collections = [];
+      importResult.collections = [targetCollection];
       collections.map((x) => {
         const f = new CollectionView();
-        f.name = `${importTarget}/${x.name}`;
+        f.name = `${targetCollection.name}/${x.name}`;
         importResult.collections.push(f);
       });
 
-      const importTargetCollection = new CollectionView();
-      importTargetCollection.name = importTarget;
-      importResult.collections.unshift(importTargetCollection);
-
       const relationships: [number, number][] = [...importResult.collectionRelationships];
-      importResult.collectionRelationships = [];
+      importResult.collectionRelationships = [...noCollectionRelationShips];
       relationships.map((x) => {
         importResult.collectionRelationships.push([x[0], x[1] + 1]);
       });
@@ -433,21 +437,28 @@ export class ImportService implements ImportServiceAbstraction {
       return;
     }
 
+    const folderViews = await this.folderService.getAllDecryptedFromState();
+    const targetFolder = folderViews.find((f) => f.id === importTarget);
+
+    const noFolderRelationShips: [number, number][] = [];
+    importResult.ciphers.forEach((c, index) => {
+      if (Utils.isNullOrEmpty(c.folderId)) {
+        c.folderId = targetFolder.id;
+        noFolderRelationShips.push([index, 0]);
+      }
+    });
+
     const folders: FolderView[] = [...importResult.folders];
-    importResult.folders = [];
+    importResult.folders = [targetFolder];
     folders.map((x) => {
-      const newFolderName = `${importTarget}/${x.name}`;
+      const newFolderName = `${targetFolder.name}/${x.name}`;
       const f = new FolderView();
       f.name = newFolderName;
       importResult.folders.push(f);
     });
 
-    const importTargetFolder = new FolderView();
-    importTargetFolder.name = importTarget;
-    importResult.folders.unshift(importTargetFolder);
-
     const relationships: [number, number][] = [...importResult.folderRelationships];
-    importResult.folderRelationships = [];
+    importResult.folderRelationships = [...noFolderRelationShips];
     relationships.map((x) => {
       importResult.folderRelationships.push([x[0], x[1] + 1]);
     });
