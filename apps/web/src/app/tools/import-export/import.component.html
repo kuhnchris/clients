@@ -339,14 +339,16 @@
       [disabled]="importBlockedByPolicy"
     />
   </div>
-  <label for="fileContents">{{ "orCopyPasteFileContents" | i18n }}</label>
-  <textarea
-    id="fileContents"
-    class="form-control"
-    name="FileContents"
-    formControlName="fileContents"
-    [disabled]="importBlockedByPolicy"
-  ></textarea>
+  <bit-form-field>
+    <bit-label for="fileContents">{{ "orCopyPasteFileContents" | i18n }}</bit-label>
+    <textarea
+      id="fileContents"
+      bitInput
+      name="FileContents"
+      formControlName="fileContents"
+      [disabled]="importBlockedByPolicy"
+    ></textarea>
+  </bit-form-field>
 
   <button
     bitButton
