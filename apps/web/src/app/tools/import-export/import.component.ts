@@ -33,7 +33,6 @@ import {
 
 import { FilePasswordPromptComponent, ImportSuccessDialogComponent } from "./dialog";
 
-
 @Component({
   selector: "app-import",
   templateUrl: "import.component.html",
