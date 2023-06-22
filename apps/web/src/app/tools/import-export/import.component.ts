@@ -57,7 +57,7 @@ export class ImportComponent implements OnInit, OnDestroy {
 
   formGroup = this.formBuilder.group({
     vaultSelector: new FormControl("", [Validators.required]),
-    targetSelector: new FormControl("", [Validators.required]),
+    targetSelector: new FormControl(""),
     format: new FormControl<ImportType | null>(null, [Validators.required]),
     fileContents: new FormControl(),
     file: new FormControl(),
@@ -166,17 +166,6 @@ export class ImportComponent implements OnInit, OnDestroy {
       this.organizationId
     );
 
-    const selectedTarget = this.formGroup.controls.targetSelector.value;
-    if (selectedTarget === null || selectedTarget.length == 0) {
-      this.platformUtilsService.showToast(
-        "error",
-        this.i18nService.t("errorOccurred"),
-        this.i18nService.t("importTarget")
-      );
-      this.loading = false;
-      return;
-    }
-
     if (importer === null) {
       this.platformUtilsService.showToast(
         "error",
@@ -226,7 +215,7 @@ export class ImportComponent implements OnInit, OnDestroy {
         importer,
         fileContents,
         this.organizationId,
-        selectedTarget
+        this.formGroup.controls.targetSelector.value
       );
 
       //No errors, display success message
