@@ -314,11 +314,12 @@
       section. ("Backup" is unsupported as it is encrypted).
     </ng-container>
   </bit-callout>
-  <div class="form-group">
-    <label for="file">4. {{ "selectImportFile" | i18n }}</label>
+  <bit-form-field>
+    <bit-label for="file">4. {{ "selectImportFile" | i18n }}</bit-label>
     <br />
     <div class="file-selector">
       <button
+        bitButton
         type="button"
         class="btn btn-outline-primary"
         (click)="fileSelector.click()"
@@ -329,6 +330,7 @@
       {{ this.fileSelected ? this.fileSelected.name : ("noFileChosen" | i18n) }}
     </div>
     <input
+      bitInput
       #fileSelector
       type="file"
       id="file"
@@ -338,7 +340,7 @@
       hidden
       [disabled]="importBlockedByPolicy"
     />
-  </div>
+  </bit-form-field>
   <bit-form-field>
     <bit-label for="fileContents">{{ "orCopyPasteFileContents" | i18n }}</bit-label>
     <textarea
