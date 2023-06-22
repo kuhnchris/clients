@@ -169,7 +169,7 @@ export class ImportComponent implements OnInit, OnDestroy {
       this.platformUtilsService.showToast(
         "error",
         this.i18nService.t("errorOccurred"),
-        "Select target" //this.i18nService.t("selectFormat")
+        this.i18nService.t("importTarget")
       );
       this.loading = false;
       return;
