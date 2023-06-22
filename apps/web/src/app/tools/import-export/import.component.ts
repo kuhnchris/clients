@@ -127,8 +127,10 @@ export class ImportComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroy$))
         .subscribe((value) => {
           this.organizationId = value != "0" ? value : undefined;
-          if (value) {
+          if (!this._importBlockedByPolicy) {
             this.formGroup.controls.targetSelector.enable();
+          }
+          if (value) {
             this.collections$ = Utils.asyncToObservable(() =>
               this.collectionService
                 .getAllDecrypted()
