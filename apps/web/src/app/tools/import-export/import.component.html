@@ -3,14 +3,12 @@
 <bit-callout type="info" *ngIf="importBlockedByPolicy">
   {{ "personalOwnershipPolicyInEffectImports" | i18n }}
 </bit-callout>
-<form #form [formGroup]="importForm" (ngSubmit)="submit()" ngNativeValidate>
+<form #form [formGroup]="formGroup" (ngSubmit)="submit()" ngNativeValidate>
   <bit-form-field>
     <bit-label for="importVault">1. Import Location {{ "selectVault" | i18n }}</bit-label>
     <bit-select bitInput name="importVault" formControlName="vaultSelector">
-      <ng-container>
-        <bit-option [label]="'myVault' | i18n" [value]="undefined"> </bit-option>
-        <bit-option *ngFor="let o of organizations$ | async" [value]="o.id" [label]="o.name" />
-      </ng-container>
+      <bit-option [label]="'myVault' | i18n" [value]="0"> </bit-option>
+      <bit-option *ngFor="let o of organizations$ | async" [value]="o.id" [label]="o.name" />
     </bit-select>
   </bit-form-field>
 
@@ -28,14 +26,7 @@
 
   <bit-form-field class="tw-w-1/2">
     <bit-label for="type">3. {{ "selectFormat" | i18n }}</bit-label>
-    <bit-select
-      id="type"
-      name="Format"
-      bitInput
-      formControlName="format"
-      [disabled]="importBlockedByPolicy"
-      required
-    >
+    <bit-select id="type" name="Format" bitInput formControlName="format" required>
       <bit-option *ngFor="let o of featuredImportOptions" [value]="o.id" [label]="o.name" />
       <ng-container *ngIf="importOptions && importOptions.length">
         <bit-option value="-" disabled />
@@ -336,9 +327,9 @@
       id="file"
       class="form-control-file"
       name="file"
+      formControlName="file"
       (change)="setSelectedFile($event)"
       hidden
-      [disabled]="importBlockedByPolicy"
     />
   </bit-form-field>
   <bit-form-field>
@@ -348,10 +339,8 @@
       bitInput
       name="FileContents"
       formControlName="fileContents"
-      [disabled]="importBlockedByPolicy"
     ></textarea>
   </bit-form-field>
-
   <button
     bitButton
     type="submit"

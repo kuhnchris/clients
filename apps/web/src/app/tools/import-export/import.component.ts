@@ -33,7 +33,6 @@ import {
 
 import { FilePasswordPromptComponent, ImportSuccessDialogComponent } from "./dialog";
 
-
 @Component({
   selector: "app-import",
   templateUrl: "import.component.html",
@@ -56,11 +55,12 @@ export class ImportComponent implements OnInit, OnDestroy {
 
   private _importBlockedByPolicy = false;
 
-  importForm = this.formBuilder.group({
-    vaultSelector: new FormControl(),
-    targetSelector: new FormControl(),
+  formGroup = this.formBuilder.group({
+    vaultSelector: new FormControl("", [Validators.required]),
+    targetSelector: new FormControl("", [Validators.required]),
     format: new FormControl<ImportType | null>(null, [Validators.required]),
     fileContents: new FormControl(),
+    file: new FormControl(),
   });
 
   constructor(
@@ -98,6 +98,9 @@ export class ImportComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((policyAppliesToActiveUser) => {
         this._importBlockedByPolicy = policyAppliesToActiveUser;
+        if (this._importBlockedByPolicy) {
+          this.disableControls();
+        }
       });
 
     this.organizations$ = concat(
@@ -108,8 +111,8 @@ export class ImportComponent implements OnInit, OnDestroy {
     );
 
     if (this.organizationId) {
-      this.importForm.get("vaultSelector").patchValue(this.organizationId);
-      this.importForm.get("vaultSelector").disable();
+      this.formGroup.controls.vaultSelector.patchValue(this.organizationId);
+      this.formGroup.controls.vaultSelector.disable();
 
       this.collections$ = Utils.asyncToObservable(() =>
         this.collectionService
@@ -118,14 +121,14 @@ export class ImportComponent implements OnInit, OnDestroy {
       );
     } else {
       this.folders$ = this.folderService.folderViews$;
-      this.importForm.get("vaultSelector").patchValue("undefined");
+      this.formGroup.controls.targetSelector.disable();
 
-      this.importForm
-        .get("vaultSelector")
-        .valueChanges.pipe(takeUntil(this.destroy$))
+      this.formGroup.controls.vaultSelector.valueChanges
+        .pipe(takeUntil(this.destroy$))
         .subscribe((value) => {
-          this.organizationId = value;
+          this.organizationId = value != "0" ? value : undefined;
           if (value) {
+            this.formGroup.controls.targetSelector.enable();
             this.collections$ = Utils.asyncToObservable(() =>
               this.collectionService
                 .getAllDecrypted()
@@ -134,9 +137,8 @@ export class ImportComponent implements OnInit, OnDestroy {
           }
         });
     }
-    this.importForm
-      .get("format")
-      .valueChanges.pipe(takeUntil(this.destroy$))
+    this.formGroup.controls.format.valueChanges
+      .pipe(takeUntil(this.destroy$))
       .subscribe((value) => {
         this.format = value;
       });
@@ -151,9 +153,7 @@ export class ImportComponent implements OnInit, OnDestroy {
       );
       return;
     }
-
     this.loading = true;
-
     const promptForPassword_callback = async () => {
       return await this.getFilePassword();
     };
@@ -163,6 +163,18 @@ export class ImportComponent implements OnInit, OnDestroy {
       promptForPassword_callback,
       this.organizationId
     );
+
+    const selectedTarget = this.formGroup.controls.targetSelector.value;
+    if (selectedTarget === null || selectedTarget.length == 0) {
+      this.platformUtilsService.showToast(
+        "error",
+        this.i18nService.t("errorOccurred"),
+        "Select target" //this.i18nService.t("selectFormat")
+      );
+      this.loading = false;
+      return;
+    }
+
     if (importer === null) {
       this.platformUtilsService.showToast(
         "error",
@@ -173,23 +185,10 @@ export class ImportComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.importForm.get("targetSelector") === null) {
-      this.platformUtilsService.showToast(
-        "error",
-        this.i18nService.t("errorOccurred"),
-        "Select target" //this.i18nService.t("selectFormat")
-      );
-      this.loading = false;
-      return;
-    }
-
     const fileEl = document.getElementById("file") as HTMLInputElement;
     const files = fileEl.files;
-    if (
-      (files == null || files.length === 0) &&
-      (this.importForm.get("fileContents").value == null ||
-        this.importForm.get("fileContents").value === "")
-    ) {
+    let fileContents = this.formGroup.controls.fileContents.value;
+    if ((files == null || files.length === 0) && (fileContents == null || fileContents === "")) {
       this.platformUtilsService.showToast(
         "error",
         this.i18nService.t("errorOccurred"),
@@ -199,7 +198,6 @@ export class ImportComponent implements OnInit, OnDestroy {
       return;
     }
 
-    let fileContents = this.importForm.get("fileContents").value;
     if (files != null && files.length > 0) {
       try {
         const content = await this.getFileContents(files[0]);
@@ -226,7 +224,7 @@ export class ImportComponent implements OnInit, OnDestroy {
         importer,
         fileContents,
         this.organizationId,
-        this.importForm.get("targetSelector").value
+        selectedTarget
       );
 
       //No errors, display success message
@@ -364,6 +362,13 @@ export class ImportComponent implements OnInit, OnDestroy {
     }
 
     return await ref.onClosedPromise();
+  }
+
+  private disableControls() {
+    this.formGroup.controls.fileContents.disable();
+    this.formGroup.controls.format.disable();
+    this.formGroup.controls.targetSelector.disable();
+    this.formGroup.controls.vaultSelector.disable();
   }
 
   ngOnDestroy(): void {
