@@ -212,7 +212,7 @@ export class VaultItemsComponent extends BaseVaultItemsComponent implements OnIn
   async launchCipher(cipher: CipherView) {
     let launchUri: string;
 
-    if (cipher.type !== CipherType.Login && cipher.login.canLaunch) {
+    if (cipher.type === CipherType.Login && cipher.login.canLaunch) {
       launchUri = cipher.login.launchUri;
     } else if (cipher.type === CipherType.Fido2Key && cipher.fido2Key.canLaunch) {
       launchUri = cipher.fido2Key.launchUri;
