@@ -21,7 +21,7 @@
   [providerName]="userOrg.providerName"
 ></app-org-subscription-hidden>
 
-<ng-container *ngIf="sub">
+<ng-container *ngIf="sub && firstLoaded">
   <bit-callout
     type="warning"
     title="{{ 'canceled' | i18n }}"
@@ -115,12 +115,12 @@
     ></app-change-plan>
   </ng-container>
 
-  <ng-container *ngIf="userOrg.canEditSubscription">
-    <sm-enroll
-      *ngIf="isAdmin"
-      [enabled]="sub?.useSecretsManager"
-      [organizationId]="organizationId"
-    ></sm-enroll>
+  <ng-container *ngIf="showSecretsManagerSubscribe">
+    <sm-subscribe-standalone
+      [plan]="sub.secretsManagerPlan"
+      [organization]="userOrg"
+      (onSubscribe)="subscriptionAdjusted()"
+    ></sm-subscribe-standalone>
   </ng-container>
 
   <ng-container *ngIf="userOrg.canEditSubscription">

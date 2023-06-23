@@ -13,6 +13,8 @@ import { PlanType } from "@bitwarden/common/billing/enums";
 import { BitwardenProductType } from "@bitwarden/common/billing/enums/bitwarden-product-type.enum";
 import { OrganizationSubscriptionResponse } from "@bitwarden/common/billing/models/response/organization-subscription.response";
 import { BillingSubscriptionItemResponse } from "@bitwarden/common/billing/models/response/subscription.response";
+import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
+import { ConfigServiceAbstraction } from "@bitwarden/common/platform/abstractions/config/config.service.abstraction";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
 import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
@@ -37,6 +39,8 @@ export class OrganizationSubscriptionCloudComponent implements OnInit, OnDestroy
   showAdjustStorage = false;
   hasBillingSyncToken: boolean;
 
+  showSecretsManagerSubscribe = false;
+
   firstLoaded = false;
   loading: boolean;
 
@@ -51,7 +55,8 @@ export class OrganizationSubscriptionCloudComponent implements OnInit, OnDestroy
     private organizationService: OrganizationService,
     private organizationApiService: OrganizationApiServiceAbstraction,
     private route: ActivatedRoute,
-    private dialogService: DialogServiceAbstraction
+    private dialogService: DialogServiceAbstraction,
+    private configService: ConfigServiceAbstraction
   ) {}
 
   async ngOnInit() {
@@ -104,6 +109,17 @@ export class OrganizationSubscriptionCloudComponent implements OnInit, OnDestroy
     this.hasBillingSyncToken = apiKeyResponse.data.some(
       (i) => i.keyType === OrganizationApiKeyType.BillingSync
     );
+
+    this.showSecretsManagerSubscribe =
+      this.userOrg.canEditSubscription &&
+      !this.userOrg.useSecretsManager &&
+      !this.subscription.cancelled &&
+      !this.subscriptionMarkedForCancel;
+
+    // Remove next line when the sm-ga-billing flag is deleted
+    this.showSecretsManagerSubscribe =
+      this.showSecretsManagerSubscribe &&
+      (await this.configService.getFeatureFlagBool(FeatureFlag.SecretsManagerBilling));
 
     this.loading = false;
   }

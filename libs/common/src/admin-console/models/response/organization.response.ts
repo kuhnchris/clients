@@ -13,6 +13,7 @@ export class OrganizationResponse extends BaseResponse {
   businessTaxNumber: string;
   billingEmail: string;
   plan: PlanResponse;
+  secretsManagerPlan: PlanResponse;
   planType: PlanType;
   seats: number;
   maxAutoscaleSeats: number;
@@ -39,8 +40,14 @@ export class OrganizationResponse extends BaseResponse {
     this.businessCountry = this.getResponseProperty("BusinessCountry");
     this.businessTaxNumber = this.getResponseProperty("BusinessTaxNumber");
     this.billingEmail = this.getResponseProperty("BillingEmail");
+
     const plan = this.getResponseProperty("Plan");
     this.plan = plan == null ? null : new PlanResponse(plan);
+
+    const secretsManagerPlan = this.getResponseProperty("SecretsManagerPlan");
+    this.secretsManagerPlan =
+      secretsManagerPlan == null ? null : new PlanResponse(secretsManagerPlan);
+
     this.planType = this.getResponseProperty("PlanType");
     this.seats = this.getResponseProperty("Seats");
     this.maxAutoscaleSeats = this.getResponseProperty("MaxAutoscaleSeats");

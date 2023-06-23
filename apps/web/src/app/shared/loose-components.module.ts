@@ -50,6 +50,7 @@ import { UpdatePasswordComponent } from "../auth/update-password.component";
 import { UpdateTempPasswordComponent } from "../auth/update-temp-password.component";
 import { VerifyEmailTokenComponent } from "../auth/verify-email-token.component";
 import { VerifyRecoverDeleteComponent } from "../auth/verify-recover-delete.component";
+import { SecretsManagerBillingModule } from "../billing/organizations/secrets-manager/sm-billing.module";
 import { AddCreditComponent } from "../billing/settings/add-credit.component";
 import { AdjustPaymentComponent } from "../billing/settings/adjust-payment.component";
 import { BillingHistoryViewComponent } from "../billing/settings/billing-history-view.component";
@@ -123,6 +124,9 @@ import { SharedModule } from "./shared.module";
     ChangeKdfModule,
     DynamicAvatarComponent,
     AccountFingerprintComponent,
+
+    // To be removed when OrganizationPlansComponent is moved to its own module (see AC-1453)
+    SecretsManagerBillingModule,
   ],
   declarations: [
     PremiumBadgeComponent,
