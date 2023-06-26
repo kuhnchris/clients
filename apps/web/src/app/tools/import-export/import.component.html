@@ -7,8 +7,13 @@
   <bit-form-field>
     <bit-label for="importVault">1. {{ "selectVault" | i18n }}</bit-label>
     <bit-select bitInput name="importVault" formControlName="vaultSelector">
-      <bit-option [label]="'myVault' | i18n" [value]="0"> </bit-option>
-      <bit-option *ngFor="let o of organizations$ | async" [value]="o.id" [label]="o.name" />
+      <bit-option [label]="'myVault' | i18n" [value]="0" icon="bwi-user" />
+      <bit-option
+        *ngFor="let o of organizations$ | async"
+        [value]="o.id"
+        [label]="o.name"
+        icon="bwi-business"
+      />
     </bit-select>
   </bit-form-field>
 
