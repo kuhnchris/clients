@@ -141,6 +141,8 @@ export class ImportComponent implements OnInit, OnDestroy {
             );
           }
         });
+
+      this.formGroup.controls.vaultSelector.setValue("myVault");
     }
     this.formGroup.controls.format.valueChanges
       .pipe(takeUntil(this.destroy$))
