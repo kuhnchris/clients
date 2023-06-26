@@ -57,7 +57,7 @@ export class ImportComponent implements OnInit, OnDestroy {
 
   formGroup = this.formBuilder.group({
     vaultSelector: new FormControl("", [Validators.required]),
-    targetSelector: new FormControl(""),
+    targetSelector: new FormControl(null),
     format: new FormControl<ImportType | null>(null, [Validators.required]),
     fileContents: new FormControl(),
     file: new FormControl(),
