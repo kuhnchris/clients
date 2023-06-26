@@ -203,8 +203,8 @@
                   name="Login.Fido2key"
                   [value]="'passkeyTwoStepLogin' | i18n"
                   appInputVerbatim
-                  [disabled]="true"
-                  [readonly]="true"
+                  disabled
+                  readonly
                 />
               </div>
             </div>
@@ -870,8 +870,8 @@
                   name="Fido2key.CreationDate"
                   [value]="('dateCreated' | i18n) + ' ' + (cipher.creationDate | date : 'MM/dd/y')"
                   appInputVerbatim
-                  [disabled]="true"
-                  [readonly]="true"
+                  disabled
+                  readonly
                 />
               </div>
             </div>
@@ -887,8 +887,8 @@
                   type="text"
                   name="Fido2key.Application"
                   [value]="cipher.fido2Key.rpId"
-                  [disabled]="true"
-                  [readonly]="true"
+                  disabled
+                  readonly
                   appInputVerbatim
                 />
                 <div class="input-group-append">
