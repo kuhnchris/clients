@@ -56,7 +56,10 @@ export class ImportComponent implements OnInit, OnDestroy {
   private _importBlockedByPolicy = false;
 
   formGroup = this.formBuilder.group({
-    vaultSelector: new FormControl("", [Validators.required]),
+    vaultSelector: new FormControl<string>("myVault", {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
     targetSelector: new FormControl(null),
     format: new FormControl<ImportType | null>(null, [Validators.required]),
     fileContents: new FormControl(),
@@ -126,7 +129,7 @@ export class ImportComponent implements OnInit, OnDestroy {
       this.formGroup.controls.vaultSelector.valueChanges
         .pipe(takeUntil(this.destroy$))
         .subscribe((value) => {
-          this.organizationId = value != "0" ? value : undefined;
+          this.organizationId = value != "myVault" ? value : undefined;
           if (!this._importBlockedByPolicy) {
             this.formGroup.controls.targetSelector.enable();
           }
