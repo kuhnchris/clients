@@ -20,8 +20,7 @@ import { CollectionService } from "@bitwarden/common/vault/abstractions/collecti
 import { FolderService } from "@bitwarden/common/vault/abstractions/folder/folder.service.abstraction";
 import { PasswordRepromptService } from "@bitwarden/common/vault/abstractions/password-reprompt.service";
 import { CipherType } from "@bitwarden/common/vault/enums/cipher-type";
-
-import { Launchable } from "./../../../../../../libs/common/src/vault/interfaces/launchable";
+import { Launchable } from "@bitwarden/common/vault/interfaces/launchable";
 
 @Component({
   selector: "app-vault-add-edit",
