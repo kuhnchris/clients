@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, Validators } from "@angular/forms";
+import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import * as JSZip from "jszip";
 import { concat, Observable, Subject } from "rxjs";
@@ -56,14 +56,17 @@ export class ImportComponent implements OnInit, OnDestroy {
   private _importBlockedByPolicy = false;
 
   formGroup = this.formBuilder.group({
-    vaultSelector: new FormControl<string>("myVault", {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
-    targetSelector: new FormControl(null),
-    format: new FormControl<ImportType | null>(null, [Validators.required]),
-    fileContents: new FormControl(),
-    file: new FormControl(),
+    vaultSelector: [
+      "myVault",
+      {
+        nonNullable: true,
+        validators: [Validators.required],
+      },
+    ],
+    targetSelector: [null],
+    format: [null as ImportType | null, [Validators.required]],
+    fileContents: [],
+    file: [],
   });
 
   constructor(
@@ -102,7 +105,7 @@ export class ImportComponent implements OnInit, OnDestroy {
       .subscribe((policyAppliesToActiveUser) => {
         this._importBlockedByPolicy = policyAppliesToActiveUser;
         if (this._importBlockedByPolicy) {
-          this.disableControls();
+          this.formGroup.disable();
         }
       });
 
@@ -358,13 +361,6 @@ export class ImportComponent implements OnInit, OnDestroy {
     }
 
     return await ref.onClosedPromise();
-  }
-
-  private disableControls() {
-    this.formGroup.controls.fileContents.disable();
-    this.formGroup.controls.format.disable();
-    this.formGroup.controls.targetSelector.disable();
-    this.formGroup.controls.vaultSelector.disable();
   }
 
   ngOnDestroy(): void {
