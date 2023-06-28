@@ -982,6 +982,12 @@ jobs:
           path: apps/desktop/dist/mas-universal/Bitwarden-${{ env._PACKAGE_VERSION }}-universal.pkg
           if-no-files-found: error
 
+      - name: Use a valid Developer ID certificate
+        run: spctl -vvv --assess --type exec $(find ./dist/mas-universal/Bitwarden*.pkg)
+
+      - name: Include a secure timestamp
+        run: codesign -dvv  $(find ./dist/mas-universal/Bitwarden*.pkg)
+
       - name: Deploy to TestFlight
         env:
           APPLE_ID_USERNAME: ${{ secrets.APPLE_ID_USERNAME }}
