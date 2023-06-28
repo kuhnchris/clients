@@ -99,16 +99,6 @@ export class ImportComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.setImportOptions();
 
-    this.policyService
-      .policyAppliesToActiveUser$(PolicyType.PersonalOwnership)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((policyAppliesToActiveUser) => {
-        this._importBlockedByPolicy = policyAppliesToActiveUser;
-        if (this._importBlockedByPolicy) {
-          this.formGroup.disable();
-        }
-      });
-
     this.organizations$ = concat(
       this.organizationService.memberOrganizations$.pipe(
         canAccessImportExport(this.i18nService),
@@ -126,6 +116,16 @@ export class ImportComponent implements OnInit, OnDestroy {
           .then((c) => c.filter((c2) => c2.organizationId === this.organizationId))
       );
     } else {
+      this.policyService
+        .policyAppliesToActiveUser$(PolicyType.PersonalOwnership)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((policyAppliesToActiveUser) => {
+          this._importBlockedByPolicy = policyAppliesToActiveUser;
+          if (this._importBlockedByPolicy) {
+            this.formGroup.disable();
+          }
+        });
+
       this.folders$ = this.folderService.folderViews$;
       this.formGroup.controls.targetSelector.disable();
 
