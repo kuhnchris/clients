@@ -109,7 +109,8 @@ export class ImportService implements ImportServiceAbstraction {
     importer: Importer,
     fileContents: string,
     organizationId: string = null,
-    selectedImportTarget: string = null
+    selectedImportTarget: string = null,
+    isUserAdmin: boolean
   ): Promise<ImportResult> {
     const importResult = await importer.parse(fileContents);
     if (!importResult.success) {
@@ -133,6 +134,15 @@ export class ImportService implements ImportServiceAbstraction {
         this.badData(importResult.ciphers[last])
       ) {
         throw new Error(this.i18nService.t("importFormatError"));
+      }
+    }
+
+    if (organizationId && Utils.isNullOrWhitespace(selectedImportTarget) && !isUserAdmin) {
+      const hasUnassignedCollections = importResult.ciphers.some(
+        (c) => !Array.isArray(c.collectionIds) || c.collectionIds.length == 0
+      );
+      if (hasUnassignedCollections) {
+        throw new Error(this.i18nService.t("importUnassignedItemsError"));
       }
     }
 

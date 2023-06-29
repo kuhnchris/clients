@@ -1302,6 +1302,13 @@
     "message": "File structure will import into selected",
     "description": "Located as a hint under the import target. Will be appended by either folder or collection, depending if the user is importing into an individual or an organizational vault."
   },
+  "importTargetOrgHint": {
+    "message": "Required, if file contains unassigned items.",
+    "description": "Located as a hint under the import target. Members of an org have to assign all items to a collection"
+  },
+  "importUnassignedItemsError": {
+    "message": "File format requires a collection to be selected."
+  },  
   "selectFormat": {
     "message": "Select the format of the import file"
   },

@@ -218,12 +218,17 @@ export class ImportComponent implements OnInit, OnDestroy {
       return;
     }
 
+    if (this.organizationId) {
+      await this.organizationService.get(this.organizationId)?.isAdmin;
+    }
+
     try {
       const result = await this.importService.import(
         importer,
         fileContents,
         this.organizationId,
-        this.formGroup.controls.targetSelector.value
+        this.formGroup.controls.targetSelector.value,
+        this.isUserAdmin(this.organizationId)
       );
 
       //No errors, display success message
@@ -239,6 +244,13 @@ export class ImportComponent implements OnInit, OnDestroy {
     }
 
     this.loading = false;
+  }
+
+  private isUserAdmin(organizationId?: string): boolean {
+    if (!organizationId) {
+      return false;
+    }
+    return this.organizationService.get(this.organizationId)?.isAdmin;
   }
 
   getFormatInstructionTitle() {
