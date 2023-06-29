@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import * as JSZip from "jszip";
-import { concat, Observable, Subject } from "rxjs";
+import { concat, Observable, Subject, lastValueFrom } from "rxjs";
 import { map, takeUntil } from "rxjs/operators";
 import Swal, { SweetAlertIcon } from "sweetalert2";
 
@@ -352,15 +352,11 @@ export class ImportComponent implements OnInit, OnDestroy {
   }
 
   async getFilePassword(): Promise<string> {
-    const ref = this.modalService.open(FilePasswordPromptComponent, {
-      allowMultipleModals: true,
+    const dialog = this.dialogService.open<string>(FilePasswordPromptComponent, {
+      ariaModal: true,
     });
 
-    if (ref == null) {
-      return null;
-    }
-
-    return await ref.onClosedPromise();
+    return await lastValueFrom(dialog.closed);
   }
 
   ngOnDestroy(): void {
