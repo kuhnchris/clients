@@ -53,6 +53,8 @@ async function run(context) {
     const appleId = process.env.APPLE_ID_USERNAME || process.env.APPLEID;
     const appleIdPassword = process.env.APPLE_ID_PASSWORD || `@keychain:AC_PASSWORD`;
     return await notarize({
+      tool: "notarytool",
+      appPath: appPath,
       teamId: "LTZ2PFU5D6",
       appleId: appleId,
       appleIdPassword: appleIdPassword,
