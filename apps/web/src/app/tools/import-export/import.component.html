@@ -49,7 +49,7 @@
 
   <bit-form-field class="tw-w-1/2">
     <bit-label for="type">{{ "fileFormat" | i18n }}</bit-label>
-    <bit-select id="type" name="Format" bitInput formControlName="format" required>
+    <bit-select id="type" name="Format" bitInput formControlName="format">
       <bit-option *ngFor="let o of featuredImportOptions" [value]="o.id" [label]="o.name" />
       <ng-container *ngIf="importOptions && importOptions.length">
         <bit-option value="-" disabled />
