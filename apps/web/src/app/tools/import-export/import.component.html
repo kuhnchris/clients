@@ -31,6 +31,7 @@
         />
       </ng-container>
       <ng-container *ngIf="organizationId">
+        <bit-option [value]="null" [label]="'noCollection' | i18n" />
         <bit-option
           *ngFor="let c of collections$ | async"
           [value]="c.id"
