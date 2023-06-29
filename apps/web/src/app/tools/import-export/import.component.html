@@ -5,7 +5,7 @@
 </bit-callout>
 <form #form [formGroup]="formGroup" (ngSubmit)="submit()" ngNativeValidate>
   <bit-form-field>
-    <bit-label for="importVault">{{ "importLocation" | i18n }}</bit-label>
+    <bit-label for="importVault">{{ "importDestination" | i18n }}</bit-label>
     <bit-select bitInput name="importVault" formControlName="vaultSelector">
       <bit-option [label]="'myVault' | i18n" value="myVault" icon="bwi-user" />
       <bit-option
