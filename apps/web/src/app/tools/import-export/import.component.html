@@ -39,6 +39,12 @@
         />
       </ng-container>
     </bit-select>
+    <bit-hint
+      >{{ "importTargetHint" | i18n }}
+      {{
+        organizationId ? ("collection" | i18n | lowercase) : ("folder" | i18n | lowercase)
+      }}</bit-hint
+    >
   </bit-form-field>
 
   <bit-form-field class="tw-w-1/2">
