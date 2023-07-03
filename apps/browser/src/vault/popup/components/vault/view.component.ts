@@ -36,6 +36,12 @@ export const COPY_USERNAME_ID = "copy-username";
 export const COPY_PASSWORD_ID = "copy-password";
 export const COPY_VERIFICATIONCODE_ID = "copy-totp";
 
+type LoadAction =
+  | typeof AUTOFILL_ID
+  | typeof COPY_USERNAME_ID
+  | typeof COPY_PASSWORD_ID
+  | typeof COPY_VERIFICATIONCODE_ID;
+
 @Component({
   selector: "app-vault-view",
   templateUrl: "view.component.html",
@@ -45,7 +51,7 @@ export class ViewComponent extends BaseViewComponent {
   pageDetails: any[] = [];
   tab: any;
   senderTabId?: number;
-  loadAction?: "autofill" | "copy-username" | "copy-password" | "copy-totp";
+  loadAction?: LoadAction;
   uilocation?: "popout" | "popup" | "sidebar" | "tab";
   loadPageDetailsTimeout: number;
   inPopout = false;
