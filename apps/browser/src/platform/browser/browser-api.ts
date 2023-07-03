@@ -188,10 +188,10 @@ export class BrowserApi {
 
     const defaultWindowOptions: chrome.windows.CreateData = {
       url,
-      type: "popup",
+      type: "normal",
       focused: true,
-      width: 375,
-      height: 600,
+      width: 500,
+      height: 800,
     };
     const windowOptions = senderWindow
       ? {
