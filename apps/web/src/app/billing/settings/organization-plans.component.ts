@@ -20,8 +20,7 @@ import { OrganizationCreateRequest } from "@bitwarden/common/admin-console/model
 import { OrganizationKeysRequest } from "@bitwarden/common/admin-console/models/request/organization-keys.request";
 import { OrganizationUpgradeRequest } from "@bitwarden/common/admin-console/models/request/organization-upgrade.request";
 import { ProviderOrganizationCreateRequest } from "@bitwarden/common/admin-console/models/request/provider/provider-organization-create.request";
-import { PaymentMethodType, PlanType } from "@bitwarden/common/billing/enums";
-import { BitwardenProductType } from "@bitwarden/common/billing/enums/bitwarden-product-type";
+import { BitwardenProductType, PaymentMethodType, PlanType } from "@bitwarden/common/billing/enums";
 import { PlanResponse } from "@bitwarden/common/billing/models/response/plan.response";
 import { ProductType } from "@bitwarden/common/enums";
 import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
@@ -56,24 +55,29 @@ export class OrganizationPlansComponent implements OnInit, OnDestroy {
   @Input() showFree = true;
   @Input() showCancel = false;
   @Input() acceptingSponsorship = false;
+
   @Input()
   get product(): ProductType {
     return this._product;
   }
+
   set product(product: ProductType) {
     this._product = product;
     this.formGroup?.controls?.product?.setValue(product);
   }
+
   private _product = ProductType.Free;
 
   @Input()
   get plan(): PlanType {
     return this._plan;
   }
+
   set plan(plan: PlanType) {
     this._plan = plan;
     this.formGroup?.controls?.plan?.setValue(plan);
   }
+
   private _plan = PlanType.Free;
   @Input() providerId?: string;
   @Output() onSuccess = new EventEmitter<OnSuccessArgs>();

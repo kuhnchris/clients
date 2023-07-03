@@ -404,8 +404,7 @@
   "viewItem": {
     "message": "View item"
   },
-  "new":
-  {
+  "new": {
     "message": "New",
     "description": "for adding new items"
   },
@@ -3324,6 +3323,9 @@
   "limitSubscriptionDesc": {
     "message": "Set a seat limit for your subscription. Once this limit is reached, you will not be able to invite new members."
   },
+  "limitSmSubscriptionDesc": {
+    "message": "Set a seat limit for your Secrets Manger subscription. Once this limit is reached, you will not be able to invite new members."
+  },
   "maxSeatLimit": {
     "message": "Seat Limit (optional)",
     "description": "Upper limit of seats to allow through autoscaling"
@@ -5855,10 +5857,10 @@
     "message": "Delete secrets",
     "description": "The action to delete multiple secrets from the system."
   },
-  "hardDeleteSecret":{
+  "hardDeleteSecret": {
     "message": "Permanently delete secret"
   },
-  "hardDeleteSecrets":{
+  "hardDeleteSecrets": {
     "message": "Permanently delete secrets"
   },
   "secretProjectAssociationDescription": {
@@ -5937,14 +5939,14 @@
     "message": "To get started, add a new secret or import secrets.",
     "description": "Message to encourage the user to start adding secrets."
   },
-  "secretsTrashNoItemsMessage":{
+  "secretsTrashNoItemsMessage": {
     "message": "There are no secrets in the trash."
   },
   "serviceAccountsNoItemsMessage": {
     "message": "Create a new service account to get started automating secret access.",
     "description": "Message to encourage the user to start creating service accounts."
   },
-   "serviceAccountsNoItemsTitle": {
+  "serviceAccountsNoItemsTitle": {
     "message": "Nothing to show yet",
     "description": "Title to indicate that there are no service accounts to display."
   },
@@ -5965,7 +5967,7 @@
     "description": "Action to view the details of a service account."
   },
   "deleteServiceAccountDialogMessage": {
-    "message":  "Deleting service account $SERVICE_ACCOUNT$ is permanent and irreversible.",
+    "message": "Deleting service account $SERVICE_ACCOUNT$ is permanent and irreversible.",
     "placeholders": {
       "service_account": {
         "content": "$1",
@@ -5973,11 +5975,11 @@
       }
     }
   },
-  "deleteServiceAccountsDialogMessage":{
+  "deleteServiceAccountsDialogMessage": {
     "message": "Deleting service accounts is permanent and irreversible."
   },
-  "deleteServiceAccountsConfirmMessage":{
-    "message":  "Delete $COUNT$ service accounts",
+  "deleteServiceAccountsConfirmMessage": {
+    "message": "Delete $COUNT$ service accounts",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -5985,19 +5987,19 @@
       }
     }
   },
-  "deleteServiceAccountToast":{
+  "deleteServiceAccountToast": {
     "message": "Service account deleted"
   },
-  "deleteServiceAccountsToast":{
+  "deleteServiceAccountsToast": {
     "message": "Service accounts deleted"
   },
   "searchServiceAccounts": {
     "message": "Search service accounts",
     "description": "Placeholder text for searching service accounts."
   },
-  "editServiceAccount":{
-    "message":"Edit service account",
-    "description" : "Title for editing a service account."
+  "editServiceAccount": {
+    "message": "Edit service account",
+    "description": "Title for editing a service account."
   },
   "addProject": {
     "message": "Add project",
@@ -6037,8 +6039,8 @@
   "hardDeleteSecretsConfirmation": {
     "message": "Are you sure you want to permanently delete these secrets?"
   },
-  "hardDeletesSuccessToast":{
-    "message":"Secrets permanently deleted"
+  "hardDeletesSuccessToast": {
+    "message": "Secrets permanently deleted"
   },
   "smAccess": {
     "message": "Access",
@@ -6052,7 +6054,7 @@
     "message": "Service account name",
     "description": "Label for the name of a service account"
   },
-   "serviceAccountCreated": {
+  "serviceAccountCreated": {
     "message": "Service account created",
     "description": "Notifies that a new service account has been created"
   },
@@ -6140,8 +6142,8 @@
     "message": "Secret sent to trash",
     "description": "Notification to be displayed when a secret is successfully sent to the trash."
   },
-  "hardDeleteSuccessToast":{
-    "message":"Secret permanently deleted"
+  "hardDeleteSuccessToast": {
+    "message": "Secret permanently deleted"
   },
   "accessTokens": {
     "message": "Access tokens",
@@ -6844,8 +6846,8 @@
     "message": "with automatic enrollment will turn on when this option is used.",
     "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Once authenticated, members will decrypt vault data using a key stored on their device. The master password reset policy with automatic enrollment will turn on when this option is used.'"
   },
-  "notFound":{
-    "message":  "$RESOURCE$ not found",
+  "notFound": {
+    "message": "$RESOURCE$ not found",
     "placeholders": {
       "resource": {
         "content": "$1",
@@ -6998,6 +7000,17 @@
   },
   "freeOrganization": {
     "message": "Free Organization"
+  },
+  "limitServiceAccounts": {
+    "message": "Limit service accounts (optional)"
+  },
+  "limitServiceAccountsDesc": {
+    "message": "Set a limit for your service accounts. Once this limit is reached, you will not be able to create new service accounts."
+  },
+  "serviceAccountLimit": {
+    "message": "Service account limit (optional)"
+  },
+  "maxServiceAccountCost": {
+    "message": "Max potential service account cost"
   }
 }
-

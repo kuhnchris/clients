@@ -4,6 +4,7 @@ import { OrganizationSsoRequest } from "../../../auth/models/request/organizatio
 import { SecretVerificationRequest } from "../../../auth/models/request/secret-verification.request";
 import { ApiKeyResponse } from "../../../auth/models/response/api-key.response";
 import { OrganizationSsoResponse } from "../../../auth/models/response/organization-sso.response";
+import { OrganizationSmSubscriptionUpdateRequest } from "../../../billing/models/request/organization-sm-subscription-update.request";
 import { OrganizationSubscriptionUpdateRequest } from "../../../billing/models/request/organization-subscription-update.request";
 import { OrganizationTaxInfoUpdateRequest } from "../../../billing/models/request/organization-tax-info-update.request";
 import { PaymentRequest } from "../../../billing/models/request/payment.request";
@@ -127,6 +128,19 @@ export class OrganizationApiService implements OrganizationApiServiceAbstraction
     return this.apiService.send(
       "POST",
       "/organizations/" + id + "/subscription",
+      request,
+      true,
+      false
+    );
+  }
+
+  async updateSecretsManagerSubscription(
+    id: string,
+    request: OrganizationSmSubscriptionUpdateRequest
+  ): Promise<void> {
+    return this.apiService.send(
+      "POST",
+      "/organizations/" + id + "/sm-subscription",
       request,
       true,
       false

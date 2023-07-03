@@ -177,6 +177,14 @@
         ></app-adjust-storage>
       </div>
     </ng-container>
+    <ng-container *ngIf="showAdjustSecretsManager">
+      <h3 bitTypography="h3" class="tw-mt-9">{{ "secretsManager" | i18n }}</h3>
+      <app-sm-adjust-subscription
+        [organizationId]="organizationId"
+        [options]="smOptions"
+        (onAdjusted)="subscriptionAdjusted()"
+      ></app-sm-adjust-subscription>
+    </ng-container>
   </ng-container>
 
   <h2 bitTypography="h2" class="tw-mt-7">{{ "selfHostingTitle" | i18n }}</h2>

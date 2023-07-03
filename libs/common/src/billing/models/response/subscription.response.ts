@@ -1,5 +1,5 @@
 import { BaseResponse } from "../../../models/response/base.response";
-import { BitwardenProductType } from "../../enums/bitwarden-product-type.enum";
+import { BitwardenProductType } from "../../enums";
 
 export class SubscriptionResponse extends BaseResponse {
   storageName: string;

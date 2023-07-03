@@ -9,8 +9,7 @@ import { OrganizationApiServiceAbstraction } from "@bitwarden/common/admin-conso
 import { OrganizationService } from "@bitwarden/common/admin-console/abstractions/organization/organization.service.abstraction";
 import { OrganizationApiKeyType } from "@bitwarden/common/admin-console/enums";
 import { Organization } from "@bitwarden/common/admin-console/models/domain/organization";
-import { PlanType } from "@bitwarden/common/billing/enums";
-import { BitwardenProductType } from "@bitwarden/common/billing/enums/bitwarden-product-type.enum";
+import { BitwardenProductType, PlanType } from "@bitwarden/common/billing/enums";
 import { OrganizationSubscriptionResponse } from "@bitwarden/common/billing/models/response/organization-subscription.response";
 import { BillingSubscriptionItemResponse } from "@bitwarden/common/billing/models/response/subscription.response";
 import { FeatureFlag } from "@bitwarden/common/enums/feature-flag.enum";
@@ -23,6 +22,7 @@ import {
   BillingSyncApiKeyComponent,
   BillingSyncApiModalData,
 } from "./billing-sync-api-key.component";
+import { SecretsManagerSubscriptionOptions } from "./secrets-manager/sm-adjust-subscription.component";
 
 @Component({
   selector: "app-org-subscription-cloud",
@@ -38,6 +38,7 @@ export class OrganizationSubscriptionCloudComponent implements OnInit, OnDestroy
   adjustStorageAdd = true;
   showAdjustStorage = false;
   hasBillingSyncToken: boolean;
+  showAdjustSecretsManager = false;
 
   showSecretsManagerSubscribe = false;
 
@@ -113,15 +114,26 @@ export class OrganizationSubscriptionCloudComponent implements OnInit, OnDestroy
     this.showSecretsManagerSubscribe =
       this.userOrg.canEditSubscription &&
       !this.userOrg.useSecretsManager &&
+      this.subscription != null &&
       !this.subscription.cancelled &&
       !this.subscriptionMarkedForCancel;
 
-    // Remove next line when the sm-ga-billing flag is deleted
-    this.showSecretsManagerSubscribe =
-      this.showSecretsManagerSubscribe &&
-      (await this.configService.getFeatureFlagBool(FeatureFlag.SecretsManagerBilling));
+    this.showAdjustSecretsManager =
+      this.userOrg.canEditSubscription &&
+      this.userOrg.useSecretsManager &&
+      this.subscription != null &&
+      this.sub.secretsManagerPlan?.hasAdditionalSeatsOption &&
+      !this.subscription.cancelled &&
+      !this.subscriptionMarkedForCancel;
 
     this.loading = false;
+
+    // Remove the remaining lines when the sm-ga-billing flag is deleted
+    const smBillingEnabled = await this.configService.getFeatureFlagBool(
+      FeatureFlag.SecretsManagerBilling
+    );
+    this.showSecretsManagerSubscribe = this.showSecretsManagerSubscribe && smBillingEnabled;
+    this.showAdjustSecretsManager = this.showAdjustSecretsManager && smBillingEnabled;
   }
 
   get subscription() {
@@ -167,6 +179,19 @@ export class OrganizationSubscriptionCloudComponent implements OnInit, OnDestroy
 
   get seats() {
     return this.sub.seats;
+  }
+
+  get smOptions(): SecretsManagerSubscriptionOptions {
+    return {
+      seatCount: this.sub.smSeats,
+      seatLimit: this.sub.maxAutoscaleSmSeats,
+      seatPrice: this.sub.secretsManagerPlan.seatPrice,
+      serviceAccountLimit: this.sub.maxAutoscaleSmServiceAccounts,
+      serviceAccountCount: this.sub.smServiceAccounts,
+      interval: this.sub.secretsManagerPlan.isAnnual ? "year" : "month",
+      additionalServiceAccountPrice: this.sub.secretsManagerPlan.additionalPricePerServiceAccount,
+      baseServiceAccountCount: this.sub.secretsManagerPlan.baseServiceAccount,
+    };
   }
 
   get maxAutoscaleSeats() {
