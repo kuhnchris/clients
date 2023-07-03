@@ -6,7 +6,7 @@
 <form #form [formGroup]="formGroup" (ngSubmit)="submit()" ngNativeValidate>
   <bit-form-field>
     <bit-label>{{ "importDestination" | i18n }}</bit-label>
-    <bit-select bitInput name="importVault" formControlName="vaultSelector">
+    <bit-select name="importVault" formControlName="vaultSelector">
       <bit-option [label]="'myVault' | i18n" value="myVault" icon="bwi-user" />
       <bit-option
         *ngFor="let o of organizations$ | async"
@@ -19,7 +19,7 @@
 
   <bit-form-field>
     <bit-label>{{ organizationId ? ("collection" | i18n) : ("folder" | i18n) }}</bit-label>
-    <bit-select bitInput name="importTarget" formControlName="targetSelector">
+    <bit-select name="importTarget" formControlName="targetSelector">
       <ng-container *ngIf="!organizationId">
         <bit-option
           *ngFor="let f of folders$ | async"
@@ -49,7 +49,7 @@
 
   <bit-form-field class="tw-w-1/2">
     <bit-label>{{ "fileFormat" | i18n }}</bit-label>
-    <bit-select id="type" name="Format" bitInput formControlName="format">
+    <bit-select id="type" name="Format" formControlName="format">
       <bit-option *ngFor="let o of featuredImportOptions" [value]="o.id" [label]="o.name" />
       <ng-container *ngIf="importOptions && importOptions.length">
         <bit-option value="-" disabled />
