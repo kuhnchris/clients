@@ -1299,12 +1299,18 @@
     "message": "Import destination"
   },
   "importTargetHint": {
-    "message": "File structure will import into selected",
-    "description": "Located as a hint under the import target. Will be appended by either folder or collection, depending if the user is importing into an individual or an organizational vault."
+    "message": "File structure will import into selected $DESTINATION$",
+    "description": "Located as a hint under the import target. Will be appended by either folder or collection, depending if the user is importing into an individual or an organizational vault.",
+    "placeholders": {
+      "destination": {
+        "content": "$1",
+        "example": "folder or collection"
+      }
+    }
   },
   "importTargetOrgHint": {
-    "message": "Required, if file contains unassigned items.",
-    "description": "Located as a hint under the import target. Members of an org have to assign all items to a collection"
+    "message": "Required if file contains unassigned items.",
+    "description": "Located as a hint under the import target. Members of an organization have to assign all items to a collection"
   },
   "importUnassignedItemsError": {
     "message": "File format requires a collection to be selected."
