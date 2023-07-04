@@ -41,8 +41,6 @@ export class ImportComponent implements OnInit, OnDestroy {
   featuredImportOptions: ImportOption[];
   importOptions: ImportOption[];
   format: ImportType = null;
-  selectedImportTarget: string = null;
-  fileContents: string;
   fileSelected: File;
   loading = false;
 

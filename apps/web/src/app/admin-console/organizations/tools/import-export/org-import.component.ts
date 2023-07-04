@@ -84,7 +84,6 @@ export class OrganizationImportComponent extends ImportComponent {
       await this.router.navigate(["organizations", this.organizationId, "vault"]);
     } else {
       this.fileSelected = null;
-      this.fileContents = "";
     }
   }
 
