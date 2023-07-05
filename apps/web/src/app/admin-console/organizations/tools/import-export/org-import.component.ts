@@ -97,6 +97,6 @@ export class OrganizationImportComponent extends ImportComponent {
     if (!confirmed) {
       return;
     }
-    super.performImport();
+    await super.performImport();
   }
 }
