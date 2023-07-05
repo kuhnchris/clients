@@ -87,7 +87,7 @@ export class OrganizationImportComponent extends ImportComponent {
     }
   }
 
-  async submit() {
+  protected async performImport() {
     const confirmed = await this.dialogService.openSimpleDialog({
       title: { key: "warning" },
       content: { key: "importWarning", placeholders: [this.organization.name] },
@@ -97,6 +97,6 @@ export class OrganizationImportComponent extends ImportComponent {
     if (!confirmed) {
       return;
     }
-    super.submit();
+    super.performImport();
   }
 }

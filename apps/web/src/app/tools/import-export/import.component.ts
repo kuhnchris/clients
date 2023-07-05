@@ -42,7 +42,6 @@ export class ImportComponent implements OnInit, OnDestroy {
   importOptions: ImportOption[];
   format: ImportType = null;
   fileSelected: File;
-  loading = false;
 
   folders$: Observable<FolderView[]>;
   collections$: Observable<CollectionView[]>;
@@ -152,7 +151,15 @@ export class ImportComponent implements OnInit, OnDestroy {
       });
   }
 
-  async submit() {
+  submit = async () => {
+    await this.performImport();
+  };
+
+  protected async performImport() {
+    if (this.formGroup.invalid) {
+      return;
+    }
+
     if (this.importBlockedByPolicy) {
       this.platformUtilsService.showToast(
         "error",
@@ -161,7 +168,7 @@ export class ImportComponent implements OnInit, OnDestroy {
       );
       return;
     }
-    this.loading = true;
+
     const promptForPassword_callback = async () => {
       return await this.getFilePassword();
     };
@@ -178,7 +185,6 @@ export class ImportComponent implements OnInit, OnDestroy {
         this.i18nService.t("errorOccurred"),
         this.i18nService.t("selectFormat")
       );
-      this.loading = false;
       return;
     }
 
@@ -191,7 +197,6 @@ export class ImportComponent implements OnInit, OnDestroy {
         this.i18nService.t("errorOccurred"),
         this.i18nService.t("selectFile")
       );
-      this.loading = false;
       return;
     }
 
@@ -212,7 +217,6 @@ export class ImportComponent implements OnInit, OnDestroy {
         this.i18nService.t("errorOccurred"),
         this.i18nService.t("selectFile")
       );
-      this.loading = false;
       return;
     }
 
@@ -240,8 +244,6 @@ export class ImportComponent implements OnInit, OnDestroy {
       this.error(e);
       this.logService.error(e);
     }
-
-    this.loading = false;
   }
 
   private isUserAdmin(organizationId?: string): boolean {
