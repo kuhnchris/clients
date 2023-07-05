@@ -55,6 +55,8 @@ export class PlanResponse extends BaseResponse {
   maxServiceAccount: number;
   hasAdditionalServiceAccountOption: boolean;
   maxProjects: number;
+  maxAdditionalServiceAccounts: number;
+  stripeServiceAccountPlanId: string;
 
   constructor(response: any) {
     super(response);
@@ -109,5 +111,7 @@ export class PlanResponse extends BaseResponse {
       "HasAdditionalServiceAccountOption"
     );
     this.maxProjects = this.getResponseProperty("MaxProjects");
+    this.maxAdditionalServiceAccounts = this.getResponseProperty("MaxAdditionalServiceAccounts");
+    this.stripeServiceAccountPlanId = this.getResponseProperty("StripeServiceAccountPlanId");
   }
 }
