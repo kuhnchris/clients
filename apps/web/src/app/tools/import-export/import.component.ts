@@ -152,14 +152,15 @@ export class ImportComponent implements OnInit, OnDestroy {
   }
 
   submit = async () => {
+    if (this.formGroup.invalid) {
+      this.formGroup.markAllAsTouched();
+      return;
+    }
+
     await this.performImport();
   };
 
   protected async performImport() {
-    if (this.formGroup.invalid) {
-      return;
-    }
-
     if (this.importBlockedByPolicy) {
       this.platformUtilsService.showToast(
         "error",
