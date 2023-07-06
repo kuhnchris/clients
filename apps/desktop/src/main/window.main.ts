@@ -1,7 +1,7 @@
 import * as path from "path";
 import * as url from "url";
 
-import { app, BrowserWindow, screen } from "electron";
+import { app, BrowserWindow, ipcMain, screen, session } from "electron";
 
 import { WindowState } from "@bitwarden/common/models/domain/window-state";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
@@ -22,6 +22,7 @@ export class WindowMain {
 
   readonly defaultWidth = 950;
   readonly defaultHeight = 600;
+  session: Electron.Session;
 
   constructor(
     private stateService: StateService,
@@ -31,6 +32,11 @@ export class WindowMain {
   ) {}
 
   init(): Promise<any> {
+    ipcMain.on("reload-process", () => {
+      this.win.webContents.reloadIgnoringCache();
+      this.session.clearCache();
+    });
+
     return new Promise<void>((resolve, reject) => {
       try {
         if (!isMacAppStore() && !isSnapStore()) {
@@ -108,6 +114,8 @@ export class WindowMain {
     );
     this.enableAlwaysOnTop = await this.stateService.getEnableAlwaysOnTop();
 
+    this.session = session.fromPartition("persist:bitwarden", { cache: false });
+
     // Create the browser window.
     this.win = new BrowserWindow({
       width: this.windowStates[mainWindowSizeKey].width,
@@ -127,6 +135,7 @@ export class WindowMain {
         nodeIntegration: true,
         backgroundThrottling: false,
         contextIsolation: false,
+        session: this.session,
       },
     });
 
