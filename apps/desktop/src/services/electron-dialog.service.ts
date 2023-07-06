@@ -1,5 +1,3 @@
-import { ipcRenderer } from "electron";
-
 import {
   DialogService,
   SimpleDialogOptions,
@@ -46,7 +44,7 @@ export class ElectronDialogService extends DialogService {
       buttons.push(cancelText);
     }
 
-    const result = await ipcRenderer.invoke("showMessageBox", {
+    /*const result = await ipcRenderer.invoke("showMessageBox", {
       type: electronTypeMap[type] ?? "none",
       title: title,
       message: title,
@@ -58,5 +56,7 @@ export class ElectronDialogService extends DialogService {
     });
 
     return Promise.resolve(result.response === 0);
+    */
+    return false;
   }
 }

@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { ipcRenderer } from "electron";
 import Swal from "sweetalert2";
 
 import { NativeMessagingVersion } from "@bitwarden/common/enums";
@@ -229,7 +228,7 @@ export class NativeMessageHandlerService {
   }
 
   private sendResponse(response: EncryptedMessageResponse | UnencryptedMessageResponse) {
-    ipcRenderer.send("nativeMessagingReply", response);
+    //ipcRenderer.send("nativeMessagingReply", response);
   }
 
   // Trim all null bytes padded at the end of messages. This happens with C encryption libraries.

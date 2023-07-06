@@ -1,11 +1,9 @@
-import { ipcRenderer } from "electron";
-
 import { BroadcasterService } from "@bitwarden/common/platform/abstractions/broadcaster.service";
 import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
 
 export class ElectronRendererMessagingService implements MessagingService {
   constructor(private broadcasterService: BroadcasterService) {
-    ipcRenderer.on("messagingService", async (event: any, message: any) => {
+    window.ipcRenderer.on("messagingService", async (event: any, message: any) => {
       if (message.command) {
         this.sendMessage(message.command, message, false);
       }
@@ -20,7 +18,7 @@ export class ElectronRendererMessagingService implements MessagingService {
     const message = Object.assign({}, { command: subscriber }, arg);
     this.broadcasterService.send(message);
     if (toMain) {
-      ipcRenderer.send("messagingService", message);
+      window.ipcRenderer.send("messagingService", message);
     }
   }
 }

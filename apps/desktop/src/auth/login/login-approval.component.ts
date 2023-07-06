@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { ipcRenderer } from "electron";
 import { Subject } from "rxjs";
 
 import { ModalRef } from "@bitwarden/angular/components/modal/modal.ref";
@@ -76,9 +75,9 @@ export class LoginApprovalComponent implements OnInit, OnDestroy {
         this.updateTimeText();
       }, RequestTimeUpdate);
 
-      const isVisible = await ipcRenderer.invoke("windowVisible");
+      const isVisible = await window.ipcRenderer.invoke("windowVisible");
       if (!isVisible) {
-        await ipcRenderer.invoke("loginRequest", {
+        await window.ipcRenderer.invoke("loginRequest", {
           alertTitle: this.i18nService.t("logInRequested"),
           alertBody: this.i18nService.t("confirmLoginAtemptForMail", this.email),
           buttonText: this.i18nService.t("close"),

@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { ipcRenderer } from "electron";
 
 import { ThemingService } from "@bitwarden/angular/services/theming/theming.service";
 import { ThemeType } from "@bitwarden/common/enums";
@@ -7,11 +6,11 @@ import { ThemeType } from "@bitwarden/common/enums";
 @Injectable()
 export class DesktopThemingService extends ThemingService {
   protected async getSystemTheme(): Promise<ThemeType> {
-    return await ipcRenderer.invoke("systemTheme");
+    return await window.ipcRenderer.invoke("systemTheme");
   }
 
   protected monitorSystemThemeChanges(): void {
-    ipcRenderer.on("systemThemeUpdated", (_event, theme: ThemeType) =>
+    window.ipcRenderer.on("systemThemeUpdated", (_event, theme: ThemeType) =>
       this.updateSystemTheme(theme)
     );
   }

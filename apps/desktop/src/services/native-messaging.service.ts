@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { ipcRenderer } from "electron";
 import { firstValueFrom } from "rxjs";
 import Swal from "sweetalert2";
 
@@ -39,11 +38,7 @@ export class NativeMessagingService {
     private nativeMessageHandler: NativeMessageHandlerService
   ) {}
 
-  init() {
-    ipcRenderer.on("nativeMessaging", async (_event: any, message: any) => {
-      this.messageHandler(message);
-    });
-  }
+  init() {}
 
   private async messageHandler(msg: LegacyMessageWrapper | Message) {
     const outerMessage = msg as Message;
@@ -62,12 +57,12 @@ export class NativeMessagingService {
       const accounts = await firstValueFrom(this.stateService.accounts$);
       const userIds = Object.keys(accounts);
       if (!userIds.includes(rawMessage.userId)) {
-        ipcRenderer.send("nativeMessagingReply", { command: "wrongUserId", appId: appId });
+        //ipcRenderer.send("nativeMessagingReply", { command: "wrongUserId", appId: appId });
         return;
       }
 
       if (await this.stateService.getEnableBrowserIntegrationFingerprint()) {
-        ipcRenderer.send("nativeMessagingReply", { command: "verifyFingerprint", appId: appId });
+        //ipcRenderer.send("nativeMessagingReply", { command: "verifyFingerprint", appId: appId });
 
         const fingerprint = (
           await this.cryptoService.getFingerprint(
@@ -99,7 +94,7 @@ export class NativeMessagingService {
     }
 
     if (this.sharedSecrets.get(appId) == null) {
-      ipcRenderer.send("nativeMessagingReply", { command: "invalidateEncryption", appId: appId });
+      //ipcRenderer.send("nativeMessagingReply", { command: "invalidateEncryption", appId: appId });
       return;
     }
 
@@ -109,7 +104,7 @@ export class NativeMessagingService {
 
     // Shared secret is invalidated, force re-authentication
     if (message == null) {
-      ipcRenderer.send("nativeMessagingReply", { command: "invalidateEncryption", appId: appId });
+      //ipcRenderer.send("nativeMessagingReply", { command: "invalidateEncryption", appId: appId });
       return;
     }
 
@@ -166,7 +161,7 @@ export class NativeMessagingService {
       this.sharedSecrets.get(appId)
     );
 
-    ipcRenderer.send("nativeMessagingReply", { appId: appId, message: encrypted });
+    //ipcRenderer.send("nativeMessagingReply", { appId: appId, message: encrypted });
   }
 
   private async secureCommunication(remotePublicKey: ArrayBuffer, appId: string) {
@@ -178,10 +173,10 @@ export class NativeMessagingService {
       remotePublicKey,
       EncryptionAlgorithm
     );
-    ipcRenderer.send("nativeMessagingReply", {
+    /*ipcRenderer.send("nativeMessagingReply", {
       appId: appId,
       command: "setupEncryption",
       sharedSecret: Utils.fromBufferToB64(encryptedSecret),
-    });
+    });*/
   }
 }

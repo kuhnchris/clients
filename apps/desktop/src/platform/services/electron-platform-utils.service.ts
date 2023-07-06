@@ -1,5 +1,3 @@
-import { clipboard, ipcRenderer, shell } from "electron";
-
 import { ClientType, DeviceType } from "@bitwarden/common/enums";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
@@ -21,18 +19,7 @@ export class ElectronPlatformUtilsService implements PlatformUtilsService {
 
   getDevice(): DeviceType {
     if (!this.deviceCache) {
-      switch (process.platform) {
-        case "win32":
-          this.deviceCache = DeviceType.WindowsDesktop;
-          break;
-        case "darwin":
-          this.deviceCache = DeviceType.MacOsDesktop;
-          break;
-        case "linux":
-        default:
-          this.deviceCache = DeviceType.LinuxDesktop;
-          break;
-      }
+      this.deviceCache = DeviceType.WindowsDesktop;
     }
 
     return this.deviceCache;
@@ -80,11 +67,11 @@ export class ElectronPlatformUtilsService implements PlatformUtilsService {
   }
 
   launchUri(uri: string, options?: any): void {
-    shell.openExternal(uri);
+    //shell.openExternal(uri);
   }
 
   getApplicationVersion(): Promise<string> {
-    return ipcRenderer.invoke("appVersion");
+    return window.ipcRenderer.invoke("appVersion");
   }
 
   async getApplicationVersionNumber(): Promise<string> {
@@ -124,6 +111,8 @@ export class ElectronPlatformUtilsService implements PlatformUtilsService {
   }
 
   copyToClipboard(text: string, options?: any): void {
+    return;
+    /*
     const type = options ? options.type : null;
     const clearing = options ? !!options.clearing : false;
     const clearMs: number = options && options.clearMs ? options.clearMs : null;
@@ -136,15 +125,18 @@ export class ElectronPlatformUtilsService implements PlatformUtilsService {
         clearing: clearing,
       });
     }
+    */
   }
 
   readFromClipboard(options?: any): Promise<string> {
-    const type = options ? options.type : null;
-    return Promise.resolve(clipboard.readText(type));
+    //const type = options ? options.type : null;
+    //return Promise.resolve(clipboard.readText(type));
+
+    return Promise.resolve("");
   }
 
   async supportsBiometric(): Promise<boolean> {
-    return await ipcRenderer.invoke("biometric", {
+    return await window.ipcRenderer.invoke("biometric", {
       action: BiometricStorageAction.OsSupported,
     } as BiometricMessage);
   }
@@ -154,7 +146,7 @@ export class ElectronPlatformUtilsService implements PlatformUtilsService {
    * biometric keys, which has a separate authentication mechanism.
    * For biometric keys, invoke "keytar" with a biometric key suffix */
   async authenticateBiometric(): Promise<boolean> {
-    const val = await ipcRenderer.invoke("biometric", {
+    const val = await window.ipcRenderer.invoke("biometric", {
       action: "authenticate",
     });
 

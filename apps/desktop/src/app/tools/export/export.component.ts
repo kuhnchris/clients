@@ -63,8 +63,8 @@ export class ExportComponent extends BaseExportComponent implements OnInit {
         title: { key: "confirmVaultExport" },
         content:
           this.i18nService.t("encExportKeyWarningDesc") +
-          os.EOL +
-          os.EOL +
+          //os.EOL +
+          //os.EOL +
           this.i18nService.t("encExportAccountWarningDesc"),
         acceptButtonText: { key: "exportVault" },
         type: SimpleDialogType.WARNING,

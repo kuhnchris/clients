@@ -1,11 +1,9 @@
-import { ipcRenderer } from "electron";
-
 import { AbstractStorageService } from "@bitwarden/common/platform/abstractions/storage.service";
 import { StorageOptions } from "@bitwarden/common/platform/models/domain/storage-options";
 
 export class ElectronRendererSecureStorageService implements AbstractStorageService {
   async get<T>(key: string, options?: StorageOptions): Promise<T> {
-    const val = await ipcRenderer.invoke("keytar", {
+    const val = await window.ipcRenderer.invoke("keytar", {
       action: "getPassword",
       key: key,
       keySuffix: options?.keySuffix ?? "",
@@ -14,7 +12,7 @@ export class ElectronRendererSecureStorageService implements AbstractStorageServ
   }
 
   async has(key: string, options?: StorageOptions): Promise<boolean> {
-    const val = await ipcRenderer.invoke("keytar", {
+    const val = await window.ipcRenderer.invoke("keytar", {
       action: "hasPassword",
       key: key,
       keySuffix: options?.keySuffix ?? "",
@@ -23,7 +21,7 @@ export class ElectronRendererSecureStorageService implements AbstractStorageServ
   }
 
   async save(key: string, obj: any, options?: StorageOptions): Promise<any> {
-    await ipcRenderer.invoke("keytar", {
+    await window.ipcRenderer.invoke("keytar", {
       action: "setPassword",
       key: key,
       keySuffix: options?.keySuffix ?? "",
@@ -32,7 +30,7 @@ export class ElectronRendererSecureStorageService implements AbstractStorageServ
   }
 
   async remove(key: string, options?: StorageOptions): Promise<any> {
-    await ipcRenderer.invoke("keytar", {
+    await window.ipcRenderer.invoke("keytar", {
       action: "deletePassword",
       key: key,
       keySuffix: options?.keySuffix ?? "",

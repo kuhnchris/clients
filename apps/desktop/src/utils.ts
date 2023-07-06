@@ -1,5 +1,3 @@
-import { ipcRenderer } from "electron";
-
 export type RendererMenuItem = {
   label?: string;
   type?: "normal" | "separator" | "submenu" | "checkbox" | "radio";
@@ -10,7 +8,7 @@ export function invokeMenu(menu: RendererMenuItem[]) {
   const menuWithoutClick = menu.map((m) => {
     return { label: m.label, type: m.type };
   });
-  ipcRenderer.invoke("openContextMenu", { menu: menuWithoutClick }).then((i: number) => {
+  window.ipcRenderer.invoke("openContextMenu", { menu: menuWithoutClick }).then((i: number) => {
     if (i !== -1) {
       menu[i].click();
     }
@@ -19,9 +17,7 @@ export function invokeMenu(menu: RendererMenuItem[]) {
 
 export function isDev() {
   // ref: https://github.com/sindresorhus/electron-is-dev
-  if ("ELECTRON_IS_DEV" in process.env) {
-    return parseInt(process.env.ELECTRON_IS_DEV, 10) === 1;
-  }
+  return true;
   return process.defaultApp || /node_modules[\\/]electron[\\/]/.test(process.execPath);
 }
 
@@ -76,5 +72,5 @@ export function cleanUserAgent(userAgent: string): string {
 }
 
 export async function getCookie(url: string, name: string): Promise<Electron.Cookie[]> {
-  return await ipcRenderer.invoke("getCookie", { url: url, name: name });
+  return await window.ipcRenderer.invoke("getCookie", { url: url, name: name });
 }

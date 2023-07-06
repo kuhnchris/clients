@@ -114,7 +114,7 @@ export class WindowMain {
     );
     this.enableAlwaysOnTop = await this.stateService.getEnableAlwaysOnTop();
 
-    this.session = session.fromPartition("persist:bitwarden", { cache: false });
+    this.session = session.fromPartition("bitwarden", { cache: false });
 
     // Create the browser window.
     this.win = new BrowserWindow({
@@ -131,12 +131,14 @@ export class WindowMain {
       backgroundColor: "#fff",
       alwaysOnTop: this.enableAlwaysOnTop,
       webPreferences: {
+        preload: path.join(__dirname, "preload.js"),
         spellcheck: false,
-        nodeIntegration: true,
+        nodeIntegration: false,
         backgroundThrottling: false,
-        contextIsolation: false,
+        contextIsolation: true,
         session: this.session,
-        devTools: false,
+        sandbox: true,
+        devTools: true,
       },
     });
 
