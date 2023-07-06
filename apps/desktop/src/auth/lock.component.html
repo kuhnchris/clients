@@ -19,16 +19,6 @@
           </div>
           <div class="row-main" *ngIf="!pinLock">
             <label for="masterPassword">{{ "masterPass" | i18n }}</label>
-            <input
-              id="masterPassword"
-              type="{{ showPassword ? 'text' : 'password' }}"
-              name="MasterPassword"
-              aria-describedby="masterPasswordHelp"
-              class="monospaced"
-              [(ngModel)]="masterPassword"
-              required
-              appInputVerbatim
-            />
           </div>
           <div class="action-buttons">
             <button

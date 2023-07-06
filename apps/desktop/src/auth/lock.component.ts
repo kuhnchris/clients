@@ -139,7 +139,7 @@ export class LockComponent extends BaseLockComponent {
   }
 
   private focusInput() {
-    document.getElementById(this.pinLock ? "pin" : "masterPassword").focus();
+    //document.getElementById(this.pinLock ? "pin" : "masterPassword").focus();
   }
 
   private async displayBiometricUpdateWarning(): Promise<void> {

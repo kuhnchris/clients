@@ -191,14 +191,6 @@ export class LockComponent implements OnInit, OnDestroy {
   }
 
   private async handleMasterPasswordRequiredUnlock() {
-    if (this.masterPassword == null || this.masterPassword === "") {
-      this.platformUtilsService.showToast(
-        "error",
-        this.i18nService.t("errorOccurred"),
-        this.i18nService.t("masterPasswordRequired")
-      );
-      return;
-    }
     await this.doUnlockWithMasterPassword();
   }
 
@@ -206,17 +198,18 @@ export class LockComponent implements OnInit, OnDestroy {
     const kdf = await this.stateService.getKdfType();
     const kdfConfig = await this.stateService.getKdfConfig();
 
-    const key = await this.cryptoService.makeKey(this.masterPassword, this.email, kdf, kdfConfig);
+    const masterPassword = (document.getElementById("password") as HTMLInputElement).value;
+    const key = await this.cryptoService.makeKey(masterPassword, this.email, kdf, kdfConfig);
     const storedKeyHash = await this.cryptoService.getKeyHash();
 
     let passwordValid = false;
 
     if (storedKeyHash != null) {
-      passwordValid = await this.cryptoService.compareAndUpdateKeyHash(this.masterPassword, key);
+      passwordValid = await this.cryptoService.compareAndUpdateKeyHash(masterPassword, key);
     } else {
       const request = new SecretVerificationRequest();
       const serverKeyHash = await this.cryptoService.hashPassword(
-        this.masterPassword,
+        masterPassword,
         key,
         HashPurpose.ServerAuthorization
       );
@@ -227,7 +220,7 @@ export class LockComponent implements OnInit, OnDestroy {
         this.enforcedMasterPasswordOptions = MasterPasswordPolicyOptions.fromResponse(response);
         passwordValid = true;
         const localKeyHash = await this.cryptoService.hashPassword(
-          this.masterPassword,
+          masterPassword,
           key,
           HashPurpose.LocalAuthorization
         );
