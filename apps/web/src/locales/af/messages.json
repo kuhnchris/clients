@@ -133,6 +133,9 @@
   "ms": {
     "message": "Mej."
   },
+  "mx": {
+    "message": "Mx"
+  },
   "dr": {
     "message": "Dr."
   },
@@ -305,6 +308,9 @@
   "searchMembers": {
     "message": "Search members"
   },
+  "searchGroups": {
+    "message": "Search groups"
+  },
   "allItems": {
     "message": "Alle items"
   },
@@ -387,7 +393,7 @@
     "message": "Kies"
   },
   "newItem": {
-    "message": "New item"
+    "message": "Nuwe item"
   },
   "addItem": {
     "message": "Voeg item toe"
@@ -399,7 +405,8 @@
     "message": "Bekyk item"
   },
   "new": {
-    "message": "New"
+    "message": "Nuut",
+    "description": "for adding new items"
   },
   "item": {
     "message": "Item"
@@ -500,7 +507,7 @@
     "message": "Is u seker u wil hierdie aanhegsel skrap?"
   },
   "attachmentSaved": {
-    "message": "Die aanhegsel is bewaar."
+    "message": "Die aanhegsel is bewaar"
   },
   "file": {
     "message": "Lêer"
@@ -579,10 +586,10 @@
     "message": "Geskrapte vouer"
   },
   "editInfo": {
-    "message": "Edit info"
+    "message": "Wysig inligting"
   },
   "access": {
-    "message": "Access"
+    "message": "Toegang"
   },
   "loggedOut": {
     "message": "Uitgeteken"
@@ -615,7 +622,7 @@
     "message": "Teken aan met toestel moet in die instellings van die Bitwarden-toep geaktiveer word. Kort u nog ’n opsie?"
   },
   "loginWithMasterPassword": {
-    "message": "Log in with master password"
+    "message": "Teken aan met hoofwagwoord"
   },
   "createAccount": {
     "message": "Skep rekening"
@@ -690,7 +697,14 @@
     "message": "Hoofwagwoord moet weer ingevoer word."
   },
   "masterPasswordMinlength": {
-    "message": "Hoofwagwoord moet ten minste 8 karakters lank wees."
+    "message": "Hoofwagwoord moet ten minste $VALUE$ karakters lank wees.",
+    "description": "The Master Password must be at least a specific number of characters long.",
+    "placeholders": {
+      "value": {
+        "content": "$1",
+        "example": "8"
+      }
+    }
   },
   "masterPassDoesntMatch": {
     "message": "Hoofwagwoordbevestiging stem nie ooreen nie."
@@ -910,7 +924,7 @@
     }
   },
   "deleteSelectedConfirmation": {
-    "message": "Are you sure you want to continue?"
+    "message": "Is u seker u wil voortgaan?"
   },
   "moveSelectedItemsDesc": {
     "message": "Kies ’n vouer waarheen u die $COUNT$ gekose item(s) heen wil skuif.",
@@ -950,8 +964,14 @@
   "confirmVaultExport": {
     "message": "Bevestig kluisuitstuur"
   },
+  "confirmSecretsExport": {
+    "message": "Confirm secrets export"
+  },
   "exportWarningDesc": {
     "message": "Hierdie uitstuur bevat u kluisdata in ’n ongeënkripteerde formaat. U behoort dit nie oor onbeveiligde kanale (soos e-pos) te bewaar of verstuur nie. Skrap dit sodra u dit klaar gebruik het."
+  },
+  "exportSecretsWarningDesc": {
+    "message": "This export contains your secrets data in an unencrypted format. You should not store or send the exported file over unsecure channels (such as email). Delete it immediately after you are done using it."
   },
   "encExportKeyWarningDesc": {
     "message": "Hierdie uitstuur vergrendel u data met u rekening se enkripsiesleutel. Indien u ooit u rekening se enkripsiesleitel wil verander moet u dit weer uitstuur aangesien u dan nie hierdie uitstuurlêer sal kan dekripteer nie."
@@ -964,6 +984,9 @@
   },
   "exportVault": {
     "message": "Stuur kluis uit"
+  },
+  "exportSecrets": {
+    "message": "Export secrets"
   },
   "fileFormat": {
     "message": "Lêerformaat"
@@ -996,7 +1019,7 @@
     "message": "Export type"
   },
   "accountRestricted": {
-    "message": "Account restricted"
+    "message": "Rekening beperk"
   },
   "passwordProtected": {
     "message": "Password protected"
@@ -1011,7 +1034,7 @@
     "message": "This file is password-protected. Please enter the file password to import data."
   },
   "exportSuccess": {
-    "message": "U kluisdata is uitgestuur."
+    "message": "U kluisdata is uitgestuur"
   },
   "passwordGenerator": {
     "message": "Wagwoordgenereerder"
@@ -1142,13 +1165,26 @@
     }
   },
   "kdfIterationsWarning": {
-    "message": "Setting your KDF iterations too high could result in poor performance when logging into (and unlocking) Bitwarden on devices with slower CPUs. We recommend that you increase the value in increments of $INCREMENT$ and then test all of your devices.",
+    "message": "Setting your KDF iterations too high could result in poor performance when logging into (and unlocking) Bitwarden on slower or older devices. We recommend that you increase the value in increments of $INCREMENT$ and then test all of your devices.",
     "placeholders": {
       "increment": {
         "content": "$1",
         "example": "50,000"
       }
     }
+  },
+  "kdfMemory": {
+    "message": "KDF memory (MB)",
+    "description": "Memory refers to computer memory (RAM). MB is short for megabytes."
+  },
+  "argon2Warning": {
+    "message": "Setting your KDF iterations, memory, and parallelism too high could result in poor performance when logging into (and unlocking) Bitwarden on slower or older devices. We recommend changing these individually in small increments and then test all of your devices."
+  },
+  "kdfParallelism": {
+    "message": "KDF parallelism"
+  },
+  "argon2Desc": {
+    "message": "Higher KDF iterations, memory, and parallelism can help protect your master password from being brute forced by an attacker."
   },
   "changeKdf": {
     "message": "Verander KDF"
@@ -1223,10 +1259,22 @@
     "message": "Invoerfout"
   },
   "importErrorDesc": {
-    "message": "There was a problem with the data you tried to import. Please resolve the errors listed below in your source file and try again."
+    "message": "Daar was ’n probleem met die data wat u probeer invoer het. Los asb. alle probleme in die lys, in u bronlêer op en probeer weer."
   },
   "importSuccess": {
     "message": "Data is suksesvol na u kluis ingevoer."
+  },
+  "importSuccessNumberOfItems": {
+    "message": "A total of $AMOUNT$ items were imported.",
+    "placeholders": {
+      "amount": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "dataExportSuccess": {
+    "message": "Data successfully exported"
   },
   "importWarning": {
     "message": "U voer data in na $ORGANIZATION$. U data kan met ander lede van hierdie organisasie gedeel word. Wil u voortgaan?",
@@ -1351,7 +1399,7 @@
     "message": "Two-step Login Enforcement"
   },
   "twoStepLoginDesc": {
-    "message": "Secure your account by requiring an additional step when logging in."
+    "message": "Beveilig u rekening deur ’n bykomende stap te vereis wanneer u aanteken."
   },
   "twoStepLoginOrganizationDescStart": {
     "message": "Enforce Bitwarden Two-step Login options for members by using the ",
@@ -1426,7 +1474,7 @@
     "message": "Laai ’n tweestapwaarmerktoep af"
   },
   "twoStepAuthenticatorNeedApp": {
-    "message": "Need a two-step authenticator app? Download one of the following"
+    "message": "Kort u ’n tweestapwaarmerktoep? Laai een van die volgende af"
   },
   "iosDevices": {
     "message": "iOS-toestelle"
@@ -1989,6 +2037,9 @@
   "cancelSubscription": {
     "message": "Kanselleer Intekening"
   },
+  "subscriptionExpiration": {
+    "message": "Subscription expiration"
+  },
   "subscriptionCanceled": {
     "message": "Die intekening is gekanselleer."
   },
@@ -2031,11 +2082,11 @@
   "updateLicense": {
     "message": "Werk lisensie by"
   },
-  "updatedLicense": {
-    "message": "Lisensie bygewerk"
-  },
   "manageSubscription": {
     "message": "Bestuur intekening"
+  },
+  "launchCloudSubscription": {
+    "message": "Launch Cloud Subscription"
   },
   "storage": {
     "message": "Berging"
@@ -2170,7 +2221,7 @@
     "message": "Organisasienaam"
   },
   "accountOwnedBusiness": {
-    "message": "This account is owned by a business."
+    "message": "Hierdie rekening word deur ’n besigheid besit."
   },
   "billingEmail": {
     "message": "Billing email"
@@ -2385,7 +2436,7 @@
     "message": "Is u seker u wil hierdie organisasie verlaat?"
   },
   "leftOrganization": {
-    "message": "U het die organisasie verlaat."
+    "message": "U het die organisasie verlaat"
   },
   "defaultCollection": {
     "message": "Verstekversameling"
@@ -2489,6 +2540,15 @@
   "editMember": {
     "message": "Edit member"
   },
+  "fieldOnTabRequiresAttention": {
+    "message": "A field on the '$TAB$' tab requires your attention.",
+    "placeholders": {
+      "tab": {
+        "content": "$1",
+        "example": "Collection info"
+      }
+    }
+  },
   "inviteUserDesc": {
     "message": "Invite a new user to your organization by entering their Bitwarden account email address below. If they do not have a Bitwarden account already, they will be prompted to create a new account."
   },
@@ -2529,7 +2589,7 @@
     "message": "Eienaar"
   },
   "ownerDesc": {
-    "message": "Manage all aspects of your organization, including billing and subscriptions"
+    "message": "Bestuur alle aspekte van u organisasie, insluitend fakturering en intekeninge"
   },
   "clientOwnerDesc": {
     "message": "This user should be independent of the Provider. If the Provider is disassociated with the organization, this user will maintain ownership of the organization."
@@ -2538,7 +2598,7 @@
     "message": "Admin"
   },
   "adminDesc": {
-    "message": "Manage organization access, all collections, members, reporting, and security settings"
+    "message": "Bestuur organisasietoegang, alle versamelings, lede, verslagdoening en sekuriteitsinstellings"
   },
   "user": {
     "message": "Gebruiker"
@@ -2586,16 +2646,16 @@
     "message": "Webkluis"
   },
   "loggedIn": {
-    "message": "Aangeteken."
+    "message": "Aangeteken"
   },
   "changedPassword": {
-    "message": "Rekeningwagwoord is verander."
+    "message": "Rekeningwagwoord is verander"
   },
   "enabledUpdated2fa": {
-    "message": "Tweestapaantekening geaktiveer/bygewerk."
+    "message": "Tweestapaantekening geaktiveer/bygewerk"
   },
   "disabled2fa": {
-    "message": "Tweestapaantekening gedeaktiveer."
+    "message": "Tweestapaantekening gedeaktiveer"
   },
   "recovered2fa": {
     "message": "Recovered account from two-step login."
@@ -2606,8 +2666,14 @@
   "failedLogin2fa": {
     "message": "Login attempt failed with incorrect two-step login."
   },
+  "incorrectPassword": {
+    "message": "Incorrect password"
+  },
+  "incorrectCode": {
+    "message": "Incorrect code"
+  },
   "exportedVault": {
-    "message": "Kluis uitgestuur."
+    "message": "Kluis uitgestuur"
   },
   "exportedOrganizationVault": {
     "message": "Organisasiekluis uitgestuur."
@@ -2699,6 +2765,24 @@
       }
     }
   },
+  "viewCollectionWithName": {
+    "message": "Bekyk versameling - $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Collection1"
+      }
+    }
+  },
+  "editItemWithName": {
+    "message": "Wysig item - $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Google Login"
+      }
+    }
+  },
   "copiedPasswordItemId": {
     "message": "Het wagwoord vir item $ID$ gekopieer.",
     "placeholders": {
@@ -2754,7 +2838,7 @@
     }
   },
   "deletedCollections": {
-    "message": "Deleted collections"
+    "message": "Geskrapte versamelings"
   },
   "deletedCollectionId": {
     "message": "Versameling $ID$ geskrap.",
@@ -2802,7 +2886,7 @@
     }
   },
   "deletedManyGroups": {
-    "message": "Deleted $QUANTITY$ group(s).",
+    "message": "$QUANTITY$ groepe geskrap",
     "placeholders": {
       "quantity": {
         "content": "$1",
@@ -2988,7 +3072,7 @@
     "message": "Wysig die groepe waaraan hierdie gebruiker behoort."
   },
   "invitedUsers": {
-    "message": "Gebruiker(s) genooi."
+    "message": "Gebruiker(s) genooi"
   },
   "resendInvitation": {
     "message": "Stuur weer uitnodiging"
@@ -3074,6 +3158,9 @@
   "inviteAcceptedDesc": {
     "message": "You can access this organization once an administrator confirms your membership. We'll send you an email when that happens."
   },
+  "inviteInitAcceptedDesc": {
+    "message": "You can now access this organization."
+  },
   "inviteAcceptFailed": {
     "message": "Unable to accept invitation. Ask an organization admin to send a new invitation."
   },
@@ -3114,7 +3201,7 @@
     "message": "My Organisasie"
   },
   "organizationInfo": {
-    "message": "Organization info"
+    "message": "Organisasie-inligting"
   },
   "deleteOrganization": {
     "message": "Skrap Organisasie"
@@ -3442,7 +3529,7 @@
     "description": "ex. Date this item was updated"
   },
   "dateCreated": {
-    "message": "Created",
+    "message": "Geskep",
     "description": "ex. Date this item was created"
   },
   "datePasswordUpdated": {
@@ -3526,7 +3613,7 @@
     "message": "Please make sure your vault is unlocked and Fingerprint phrase matches the other device."
   },
   "fingerprintPhraseHeader": {
-    "message": "Fingerprint phrase"
+    "message": "Vingerafdrukfrase"
   },
   "dontAskFingerprintAgain": {
     "message": "Moenie weer vra om die vingerafdrukfrase te bevestig nie",
@@ -3795,7 +3882,7 @@
     "message": "Onderneming-enkelaanteken"
   },
   "ssoHandOff": {
-    "message": "You may now close this tab and continue in the extension."
+    "message": "U mag nou hierdie oortjie sluit en voortgaan in die uitbreiding."
   },
   "includeAllTeamsFeatures": {
     "message": "Alle Spanne-funksies, plus:"
@@ -3813,7 +3900,7 @@
     "message": "Organisasie-identifiseerder word benodig."
   },
   "ssoIdentifier": {
-    "message": "SSO identifier"
+    "message": "SSO-identifiseerder"
   },
   "ssoIdentifierHint": {
     "message": "Provide this ID to your members to login with SSO."
@@ -3994,7 +4081,7 @@
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "missingSendFile": {
-    "message": "The file associated with this Send could not be found.",
+    "message": "Die lêer wat met hierdie send geassosieer is kan nie gevind word nie.",
     "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
   },
   "noSendsInList": {
@@ -4129,10 +4216,10 @@
     }
   },
   "emergencyApproved": {
-    "message": "Noodtoegang goedgekeur."
+    "message": "Noodtoegang goedgekeur"
   },
   "emergencyRejected": {
-    "message": "Noodtoegang afgekeur."
+    "message": "Noodtoegang afgekeur"
   },
   "passwordResetFor": {
     "message": "Password reset for $USER$. You can now login using the new password.",
@@ -4235,7 +4322,7 @@
     "message": "Toestemmings"
   },
   "permission": {
-    "message": "Permission"
+    "message": "Toestemming"
   },
   "managerPermissions": {
     "message": "Manager Permissions"
@@ -4343,7 +4430,7 @@
     "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read '**Learn more about** Bitwarden Send or sign up to try it today.'"
   },
   "sendVaultCardProductDesc": {
-    "message": "Share text or files directly with anyone."
+    "message": "Deel teks of lêers rirek met enigeen."
   },
   "sendVaultCardLearnMore": {
     "message": "Leer meer",
@@ -4420,14 +4507,14 @@
   "hintEqualsPassword": {
     "message": "U wagwoordwenk kan nie dieselfde as u wagwoord wees nie."
   },
-  "enrollPasswordReset": {
-    "message": "Skryf in vir wagwoordterugstel"
+  "enrollAccountRecovery": {
+    "message": "Enroll in account recovery"
   },
-  "enrolledPasswordReset": {
-    "message": "Ingeskryf vir wagwoordterugstel"
+  "enrolledAccountRecovery": {
+    "message": "Enrolled in account recovery"
   },
-  "withdrawPasswordReset": {
-    "message": "Withdraw from password reset"
+  "withdrawAccountRecovery": {
+    "message": "Withdraw from account recovery"
   },
   "enrollPasswordResetSuccess": {
     "message": "Suksesvol ingeskryf!"
@@ -4435,8 +4522,8 @@
   "withdrawPasswordResetSuccess": {
     "message": "Withdrawal success!"
   },
-  "eventEnrollPasswordReset": {
-    "message": "Gebruiker $ID$ het vir wagwoordterugstelbystand ingeskryf.",
+  "eventEnrollAccountRecovery": {
+    "message": "User $ID$ enrolled in account recovery.",
     "placeholders": {
       "id": {
         "content": "$1",
@@ -4444,8 +4531,8 @@
       }
     }
   },
-  "eventWithdrawPasswordReset": {
-    "message": "User $ID$ withdrew from password reset.",
+  "eventWithdrawAccountRecovery": {
+    "message": "User $ID$ withdrew from account recovery.",
     "placeholders": {
       "id": {
         "content": "$1",
@@ -4504,11 +4591,11 @@
   "resetPasswordEnrollmentWarning": {
     "message": "Inskrywing stel organisasiebeheerders in staat om y hoofwagwoord te wysig. Is u seker u wil inskryf?"
   },
-  "resetPasswordPolicy": {
-    "message": "Bestuur wagwoordherstel"
+  "accountRecoveryPolicy": {
+    "message": "Account recovery administration"
   },
-  "resetPasswordPolicyDescription": {
-    "message": "Allow admins to reset master passwords for members."
+  "accountRecoveryPolicyDescription": {
+    "message": "Recover member accounts when master password or trusted devices are forgotten or lost. The recovery processes is based on the account encryption method."
   },
   "resetPasswordPolicyWarning": {
     "message": "Gebruikers in die organisasie sal self moet inskryf of moet outomaties ingeskryf word voor beheerders hul hoofwagwoord sal kan terugstel."
@@ -4553,7 +4640,7 @@
     "message": "Stuur weer uitnodigings"
   },
   "resendNotification": {
-    "message": "Resend notification"
+    "message": "Stuur weer kennisgewing"
   },
   "noSelectedUsersApplicable": {
     "message": "Hierdie aktie is nie van toepassing op die gekose gebruikers nie."
@@ -4589,10 +4676,10 @@
     "message": "Grootmaataksie status"
   },
   "bulkConfirmMessage": {
-    "message": "Suksesvol bevestig."
+    "message": "Suksesvol bevestig"
   },
   "bulkReinviteMessage": {
-    "message": "Suksesvol heruitgenooi."
+    "message": "Suksesvol heruitgenooi"
   },
   "bulkRemovedMessage": {
     "message": "Suksesvol verwyder"
@@ -4604,7 +4691,7 @@
     "message": "Restored organization access successfully"
   },
   "bulkFilteredMessage": {
-    "message": "Uitgesluit, nie van toepassing vir hierdie aksie."
+    "message": "Uitgesluit, nie van toepassing vir hierdie aksie"
   },
   "fingerprint": {
     "message": "Vingerafdruk"
@@ -4758,6 +4845,9 @@
   "masterPasswordInvalidWarning": {
     "message": "U hoofwagwoord voldoen nie aan hierdie organisasie se beleidsvereistes nie. Om by die organisasie aan te sluit moet u u hoofwagwoord nóú bywerk. Deur voort te gaan word u uit u huidige sessie geteken, waarna u weer sal moet aanteken. Aktiewe sessies op ander toestelle kan vir tot ’n uur steeds aktief bly."
   },
+  "updateWeakMasterPasswordWarning": {
+    "message": "Your master password does not meet one or more of your organization policies. In order to access the vault, you must update your master password now. Proceeding will log you out of your current session, requiring you to log back in. Active sessions on other devices may continue to remain active for up to one hour."
+  },
   "maximumVaultTimeout": {
     "message": "Kluis-uittel"
   },
@@ -4789,6 +4879,32 @@
       }
     }
   },
+  "vaultTimeoutPolicyWithActionInEffect": {
+    "message": "Your organization policies are affecting your vault timeout. Maximum allowed vault timeout is $HOURS$ hour(s) and $MINUTES$ minute(s). Your vault timeout action is set to $ACTION$.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      },
+      "action": {
+        "content": "$3",
+        "example": "Lock"
+      }
+    }
+  },
+  "vaultTimeoutActionPolicyInEffect": {
+    "message": "Your organization policies have set your vault timeout action to $ACTION$.",
+    "placeholders": {
+      "action": {
+        "content": "$1",
+        "example": "Lock"
+      }
+    }
+  },
   "customVaultTimeout": {
     "message": "Custom vault timeout"
   },
@@ -4812,6 +4928,18 @@
   },
   "personalVaultExportPolicyInEffect": {
     "message": "Een of meer organisasiebeleide verhoed u om u persoonlike kluis uit te stuur."
+  },
+  "activateAutofill": {
+    "message": "Activate auto-fill"
+  },
+  "activateAutofillPolicyDesc": {
+    "message": "Activate the auto-fill on page load setting on the browser extension for all existing and new members."
+  },
+  "experimentalFeature": {
+    "message": "Compromised or untrusted websites can exploit auto-fill on page load."
+  },
+  "learnMoreAboutAutofill": {
+    "message": "Learn more about auto-fill"
   },
   "selectType": {
     "message": "Kies SSO-tipe"
@@ -5084,7 +5212,7 @@
     "message": "Verwyder hoofwagwoord"
   },
   "removedMasterPassword": {
-    "message": "Hoofwagwoord is verwyder."
+    "message": "Hoofwagwoord is verwyder"
   },
   "allowSso": {
     "message": "Staan SSO-waarmerking toe"
@@ -5104,9 +5232,6 @@
     "message": "om aantekening met SSO vir alle lede te verplig.",
     "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Use the require single-sign-on authentication policy to require all members to log in with SSO.'"
   },
-  "ssoPolicyHelpKeyConnector": {
-    "message": "SSO-waarmerking en Enkelorganisasiebeleide word vereis om Key Connector-dekripsie op te stel."
-  },
   "memberDecryptionOption": {
     "message": "Member decryption options"
   },
@@ -5116,8 +5241,17 @@
   "keyConnector": {
     "message": "Key Connector"
   },
-  "memberDecryptionKeyConnectorDesc": {
-    "message": "Connect login with SSO to your self-hosted decryption key server. Using this option, members won’t need to use their master passwords to decrypt vault data. Contact Bitwarden Support for set up assistance."
+  "memberDecryptionKeyConnectorDescStart": {
+    "message": "Connect login with SSO to your self-hosted decryption key server. Using this option, members won’t need to use their master passwords to decrypt vault data. The",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Connect login with SSO to your self-hosted decryption key server. Using this option, members won’t need to use their master passwords to decrypt vault data. The require SSO authentication and single organization policies are required to set up Key Connector decryption. Contact Bitwarden Support for set up assistance.'"
+  },
+  "memberDecryptionKeyConnectorDescLink": {
+    "message": "require SSO authentication and single organization policies",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Connect login with SSO to your self-hosted decryption key server. Using this option, members won’t need to use their master passwords to decrypt vault data. The require SSO authentication and single organization policies are required to set up Key Connector decryption. Contact Bitwarden Support for set up assistance.'"
+  },
+  "memberDecryptionKeyConnectorDescEnd": {
+    "message": "are required to set up Key Connector decryption. Contact Bitwarden Support for set up assistance.",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Connect login with SSO to your self-hosted decryption key server. Using this option, members won’t need to use their master passwords to decrypt vault data. The require SSO authentication and single organization policies are required to set up Key Connector decryption. Contact Bitwarden Support for set up assistance.'"
   },
   "keyConnectorPolicyRestriction": {
     "message": "“Teken aan met SSO en Key Connector-dekripsie” is geaktiveer. Heirdie beleid sal slegs op eienaars en admins toegepas word."
@@ -5207,13 +5341,10 @@
     "message": "To set-up your organization on your own server, you will need to upload your license file. To support Free Families plans and advanced billing capabilities for your self-hosted organization, you will need to set up billing sync."
   },
   "billingSyncApiKeyRotated": {
-    "message": "Teken is geroteer."
-  },
-  "billingSync": {
-    "message": "Faktureringsinchronisering"
+    "message": "Teken is geroteer"
   },
   "billingSyncDesc": {
-    "message": "Billing sync provides Free Families plans for members and advanced billing capabilities by linking your self-hosted Bitwarden to the Bitwarden cloud server."
+    "message": "Billing sync unlocks Families sponsorships and automatic license syncing on your server. After making updates in the Bitwarden cloud server, select Sync License to apply changes."
   },
   "billingSyncKeyDesc": {
     "message": "A billing sync token from your cloud organization's subscription settings is required to complete this form."
@@ -5262,6 +5393,15 @@
   },
   "required": {
     "message": "vereis"
+  },
+  "characterMaximum": {
+    "message": "$MAX$ character maximum",
+    "placeholders": {
+      "max": {
+        "content": "$1",
+        "example": "100"
+      }
+    }
   },
   "idpSingleSignOnServiceUrlRequired": {
     "message": "Vereis indien Entiteit-ID nie ’n bronadres is nie."
@@ -5326,6 +5466,15 @@
   "currentOrganization": {
     "message": "Huidige organisasie",
     "description": "This is used by screen readers to indicate the organization that is currently being shown to the user."
+  },
+  "accountLoggedInAsName": {
+    "message": "Account: Logged in as $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "John Smith"
+      }
+    }
   },
   "accountSettings": {
     "message": "Rekeninginstellings"
@@ -5406,7 +5555,7 @@
   },
   "lastSync": {
     "message": "Laaste Sinchronisering",
-    "Description": "Used as a prefix to indicate the last time a sync occured. Example \"Last sync 1968-11-16 00:00:00\""
+    "description": "Used as a prefix to indicate the last time a sync occured. Example \"Last sync 1968-11-16 00:00:00\""
   },
   "sponsorshipsSynced": {
     "message": "Self-hosted sponsorships synced."
@@ -5548,6 +5697,36 @@
       }
     }
   },
+  "inputMinValue": {
+    "message": "Input value must be at least $MIN$.",
+    "placeholders": {
+      "min": {
+        "content": "$1",
+        "example": "8"
+      }
+    }
+  },
+  "inputMaxValue": {
+    "message": "Input value must not exceed $MAX$.",
+    "placeholders": {
+      "max": {
+        "content": "$1",
+        "example": "100"
+      }
+    }
+  },
+  "multipleInputEmails": {
+    "message": "1 or more emails are invalid"
+  },
+  "tooManyEmails": {
+    "message": "You can only submit up to $COUNT$ emails at a time",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "20"
+      }
+    }
+  },
   "fieldsNeedAttention": {
     "message": "$COUNT$ veld(e) hierbo benodig u aandag.",
     "placeholders": {
@@ -5569,9 +5748,6 @@
   "reporting": {
     "message": "Reporting"
   },
-  "cardBrandMir": {
-    "message": "Mir"
-  },
   "numberOfUsers": {
     "message": "Aantal gebruikers"
   },
@@ -5591,19 +5767,19 @@
     "message": "Avatar opgedateer"
   },
   "brightBlue": {
-    "message": "Bright Blue"
+    "message": "Helderblou"
   },
   "green": {
-    "message": "Green"
+    "message": "Groen"
   },
   "orange": {
-    "message": "Orange"
+    "message": "Oranje"
   },
   "lavender": {
-    "message": "Lavender"
+    "message": "Laventel"
   },
   "yellow": {
-    "message": "Yellow"
+    "message": "Geel"
   },
   "indigo": {
     "message": "Indigo"
@@ -5619,6 +5795,9 @@
   },
   "customColor": {
     "message": "Custom Color"
+  },
+  "selectPlaceholder": {
+    "message": "-- Select --"
   },
   "multiSelectPlaceholder": {
     "message": "-- Type to filter --"
@@ -5644,157 +5823,261 @@
     "message": "Hide"
   },
   "projects": {
-    "message": "Projects"
+    "message": "Projekte",
+    "description": "Description for the Projects field."
   },
   "lastEdited": {
-    "message": "Last Edited"
+    "message": "Last edited",
+    "description": "The label for the date and time when a item was last edited."
   },
   "editSecret": {
-    "message": "Edit Secret"
+    "message": "Edit secret",
+    "description": "Action to modify an existing secret."
   },
   "addSecret": {
-    "message": "Add Secret"
+    "message": "Add secret",
+    "description": "Action to create a new secret."
   },
   "copySecretName": {
-    "message": "Copy Secret Name"
+    "message": "Copy secret name",
+    "description": "Action to copy the name of a secret to the system's clipboard."
   },
   "copySecretValue": {
-    "message": "Copy Secret Value"
+    "message": "Copy secret value",
+    "description": "Action to copy the value of a secret to the system's clipboard."
   },
   "deleteSecret": {
-    "message": "Delete Secret"
+    "message": "Skrap geheim",
+    "description": "Action to delete a single secret from the system."
   },
   "deleteSecrets": {
-    "message": "Delete Secrets"
+    "message": "Skrap geheime",
+    "description": "The action to delete multiple secrets from the system."
+  },
+  "hardDeleteSecret": {
+    "message": "Permanently delete secret"
+  },
+  "hardDeleteSecrets": {
+    "message": "Permanently delete secrets"
   },
   "secretProjectAssociationDescription": {
-    "message": "Select projects that the secret will be associated with. Only organization users with access to these projects will be able to see the secret."
+    "message": "Select projects that the secret will be associated with. Only organization users with access to these projects will be able to see the secret.",
+    "description": "A prompt explaining how secrets can be associated with projects."
   },
-  "typeOrSelectProjects": {
-    "message": "Type or select Projects"
+  "selectProjects": {
+    "message": "Select projects",
+    "description": "A label for a type-to-filter input field to choose projects."
   },
-  "typeOrSelectProject": {
-    "message": "Type or select Project"
+  "searchProjects": {
+    "message": "Search projects",
+    "description": "Label for the search bar used to search projects."
   },
   "project": {
-    "message": "Project"
+    "message": "Projek",
+    "description": "Similar to collections, projects can be used to group secrets."
   },
   "editProject": {
-    "message": "Edit Project"
+    "message": "Wysig projek",
+    "description": "The action to modify an existing project."
   },
   "viewProject": {
-    "message": "View Project"
+    "message": "Bekyk projek",
+    "description": "The action to view details of a project."
   },
   "deleteProject": {
-    "message": "Delete Project"
+    "message": "Skrap projek",
+    "description": "The action to delete a project from the system."
   },
   "deleteProjects": {
-    "message": "Delete Projects"
+    "message": "Skrap projekte",
+    "description": "The action to delete multiple projects from the system."
   },
   "secret": {
-    "message": "Secret"
+    "message": "Geheim",
+    "description": "Label for a secret (key/value pair)"
   },
   "serviceAccount": {
-    "message": "Service Account"
+    "message": "Diensrekening",
+    "description": "A machine user which can be used to automate processes and access secrets in the system."
   },
   "serviceAccounts": {
-    "message": "Service Accounts"
+    "message": "Diensrekeninge",
+    "description": "The title for the section that deals with service accounts."
   },
   "secrets": {
-    "message": "Secrets"
+    "message": "Geheime",
+    "description": "The title for the section of the application that deals with secrets."
   },
   "nameValuePair": {
-    "message": "Name/Value Pair"
+    "message": "Name/Value pair",
+    "description": "Title for a name/ value pair. Secrets typically consist of a name and value pair."
   },
   "secretEdited": {
-    "message": "Secret edited"
+    "message": "Secret edited",
+    "description": "Notification for the successful editing of a secret."
   },
   "secretCreated": {
-    "message": "Secret created"
+    "message": "Secret created",
+    "description": "Notification for the successful creation of a secret."
   },
   "newSecret": {
-    "message": "New Secret"
+    "message": "Nuwe geheim",
+    "description": "Title for creating a new secret."
   },
   "newServiceAccount": {
-    "message": "New Service Account"
+    "message": "Nuwe diensrekening",
+    "description": "Title for creating a new service account."
   },
   "secretsNoItemsTitle": {
-    "message": "No secrets to show"
+    "message": "No secrets to show",
+    "description": "Empty state to indicate that there are no secrets to display."
   },
   "secretsNoItemsMessage": {
-    "message": "To get started, add a new secret or import secrets."
+    "message": "To get started, add a new secret or import secrets.",
+    "description": "Message to encourage the user to start adding secrets."
   },
-  "serviceAccountsNoItemsTitle": {
-    "message": "Nothing to show yet"
+  "secretsTrashNoItemsMessage": {
+    "message": "There are no secrets in the trash."
   },
   "serviceAccountsNoItemsMessage": {
-    "message": "Create a new Service Account to get started automating secret access."
+    "message": "Create a new service account to get started automating secret access.",
+    "description": "Message to encourage the user to start creating service accounts."
+  },
+  "serviceAccountsNoItemsTitle": {
+    "message": "Nothing to show yet",
+    "description": "Title to indicate that there are no service accounts to display."
   },
   "searchSecrets": {
-    "message": "Search Secrets"
+    "message": "Search secrets",
+    "description": "Placeholder text for searching secrets."
   },
   "deleteServiceAccounts": {
-    "message": "Delete Service Accounts"
+    "message": "Delete service accounts",
+    "description": "Title for the action to delete one or multiple service accounts."
   },
   "deleteServiceAccount": {
-    "message": "Delete Service Account"
+    "message": "Delete service account",
+    "description": "Title for the action to delete a single service account."
   },
   "viewServiceAccount": {
-    "message": "View Service Account"
+    "message": "View service account",
+    "description": "Action to view the details of a service account."
+  },
+  "deleteServiceAccountDialogMessage": {
+    "message": "Deleting service account $SERVICE_ACCOUNT$ is permanent and irreversible.",
+    "placeholders": {
+      "service_account": {
+        "content": "$1",
+        "example": "Service account name"
+      }
+    }
+  },
+  "deleteServiceAccountsDialogMessage": {
+    "message": "Deleting service accounts is permanent and irreversible."
+  },
+  "deleteServiceAccountsConfirmMessage": {
+    "message": "Delete $COUNT$ service accounts",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "deleteServiceAccountToast": {
+    "message": "Service account deleted"
+  },
+  "deleteServiceAccountsToast": {
+    "message": "Service accounts deleted"
   },
   "searchServiceAccounts": {
-    "message": "Search Service Accounts"
+    "message": "Search service accounts",
+    "description": "Placeholder text for searching service accounts."
+  },
+  "editServiceAccount": {
+    "message": "Edit service account",
+    "description": "Title for editing a service account."
   },
   "addProject": {
-    "message": "Add Project"
+    "message": "Add project",
+    "description": "Title for creating a new project."
   },
   "projectEdited": {
-    "message": "Project edited"
+    "message": "Project edited",
+    "description": "Notification for the successful editing of a project."
   },
   "projectSaved": {
-    "message": "Project saved"
+    "message": "Project saved",
+    "description": "Notification for the successful saving of a project."
   },
   "projectCreated": {
-    "message": "Project created"
+    "message": "Project created",
+    "description": "Notification for the successful creation of a project."
   },
   "projectName": {
-    "message": "Project Name"
+    "message": "Projeknaam",
+    "description": "Label for entering the name of a project."
   },
   "newProject": {
-    "message": "New Project"
+    "message": "Nuwe projek",
+    "description": "Title for creating a new project."
   },
   "softDeleteSecretWarning": {
-    "message": "Deleting secrets can affect existing integrations."
+    "message": "Deleting secrets can affect existing integrations.",
+    "description": "Warns that deleting secrets can have consequences on integrations"
   },
   "softDeletesSuccessToast": {
-    "message": "Secrets sent to trash"
+    "message": "Secrets sent to trash",
+    "description": "Notifies that the selected secrets have been moved to the trash"
   },
-  "serviceAccountCreated": {
-    "message": "Service Account Created"
+  "hardDeleteSecretConfirmation": {
+    "message": "Are you sure you want to permanently delete this secret?"
+  },
+  "hardDeleteSecretsConfirmation": {
+    "message": "Are you sure you want to permanently delete these secrets?"
+  },
+  "hardDeletesSuccessToast": {
+    "message": "Secrets permanently deleted"
   },
   "smAccess": {
-    "message": "Access"
+    "message": "Access",
+    "description": "Title indicating what permissions a service account has"
   },
   "projectCommaSecret": {
-    "message": "Project, Secret"
+    "message": "Projek, geheim",
+    "description": ""
   },
   "serviceAccountName": {
-    "message": "Service account name"
+    "message": "Service account name",
+    "description": "Label for the name of a service account"
+  },
+  "serviceAccountCreated": {
+    "message": "Service account created",
+    "description": "Notifies that a new service account has been created"
+  },
+  "serviceAccountUpdated": {
+    "message": "Service account updated",
+    "description": "Notifies that a service account has been updated"
   },
   "newSaSelectAccess": {
-    "message": "Type or Select Projects or Secrets"
+    "message": "Type or select projects or secrets",
+    "description": "Instructions for selecting projects or secrets for a new service account"
   },
   "newSaTypeToFilter": {
-    "message": "Type to Filter"
+    "message": "Type to filter",
+    "description": "Instructions for filtering a list of projects or secrets"
   },
   "deleteProjectsToast": {
-    "message": "Projects deleted"
+    "message": "Projects deleted",
+    "description": "Notifies that the selected projects have been deleted"
   },
   "deleteProjectToast": {
-    "message": "The project and all associated secrets have been deleted"
+    "message": "Project deleted",
+    "description": "Notifies that a project has been deleted"
   },
   "deleteProjectDialogMessage": {
     "message": "Deleting project $PROJECT$ is permanent and irreversible.",
+    "description": "Informs users that projects are hard deleted and not sent to trash",
     "placeholders": {
       "project": {
         "content": "$1",
@@ -5804,15 +6087,17 @@
   },
   "deleteProjectInputLabel": {
     "message": "Type \"$CONFIRM$\" to continue",
+    "description": "Users are prompted to type 'confirm' to delete a project",
     "placeholders": {
       "confirm": {
         "content": "$1",
-        "example": "Delete 3 Projects"
+        "example": "Delete 3 projects"
       }
     }
   },
   "deleteProjectConfirmMessage": {
     "message": "Delete $PROJECT$",
+    "description": "Confirmation prompt to delete a specific project, where '$PROJECT$' is a placeholder for the name of the project.",
     "placeholders": {
       "project": {
         "content": "$1",
@@ -5822,6 +6107,7 @@
   },
   "deleteProjectsConfirmMessage": {
     "message": "Delete $COUNT$ Projects",
+    "description": "Confirmation prompt to delete multiple projects, where '$COUNT$' is a placeholder for the number of projects to be deleted.",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -5830,70 +6116,101 @@
     }
   },
   "deleteProjectsDialogMessage": {
-    "message": "Deleting projects is permanent and irreversible."
+    "message": "Deleting projects is permanent and irreversible.",
+    "description": "This message is displayed in a dialog box as a warning before proceeding with project deletion."
   },
   "projectsNoItemsTitle": {
-    "message": "No projects to display"
+    "message": "No projects to display",
+    "description": "Empty state to be displayed when there are no projects to display in the list."
   },
   "projectsNoItemsMessage": {
-    "message": "Add a new project to get started organizing secrets."
+    "message": "Add a new project to get started organizing secrets.",
+    "description": "Message to be displayed when there are no projects to display in the list."
   },
   "smConfirmationRequired": {
-    "message": "Confirmation required"
+    "message": "Confirmation required",
+    "description": "Indicates that user confirmation is required for an action to proceed."
   },
   "bulkDeleteProjectsErrorMessage": {
-    "message": "The following projects could not be deleted:"
+    "message": "The following projects could not be deleted:",
+    "description": "Message to be displayed when there is an error during bulk project deletion."
   },
   "softDeleteSuccessToast": {
-    "message": "Secret sent to trash"
+    "message": "Secret sent to trash",
+    "description": "Notification to be displayed when a secret is successfully sent to the trash."
   },
-  "searchProjects": {
-    "message": "Search Projects"
+  "hardDeleteSuccessToast": {
+    "message": "Secret permanently deleted"
   },
   "accessTokens": {
-    "message": "Access tokens"
+    "message": "Access tokens",
+    "description": "Title for the section displaying access tokens."
   },
-  "createAccessToken": {
-    "message": "Create access token"
+  "newAccessToken": {
+    "message": "New access token",
+    "description": "Button label for creating a new access token."
   },
   "expires": {
-    "message": "Expires"
+    "message": "Expires",
+    "description": "Label for the expiration date of an access token."
   },
   "canRead": {
-    "message": "Can Read"
+    "message": "Can read",
+    "description": "Label for the access level of an access token (Read only)."
   },
   "accessTokensNoItemsTitle": {
-    "message": "No access tokens to show"
+    "message": "No access tokens to show",
+    "description": "Title to be displayed when there are no access tokens to display in the list."
   },
   "accessTokensNoItemsDesc": {
-    "message": "To get started, create an access token"
+    "message": "To get started, create an access token",
+    "description": "Message to be displayed when there are no access tokens to display in the list."
   },
   "downloadAccessToken": {
-    "message": "Download or copy before closing."
+    "message": "Download or copy before closing.",
+    "description": "Message to be displayed before closing an access token, reminding the user to download or copy it."
   },
   "expiresOnAccessToken": {
-    "message": "Expires on:"
+    "message": "Expires on:",
+    "description": "Label for the expiration date of an access token."
   },
   "accessTokenCallOutTitle": {
-    "message": "Access tokens are not stored and cannot be retrieved"
+    "message": "Access tokens are not stored and cannot be retrieved",
+    "description": "Notification to inform the user that access tokens are only displayed once and cannot be retrieved again."
   },
   "copyToken": {
-    "message": "Copy token"
+    "message": "Copy token",
+    "description": "Copies the generated access token to the user's clipboard."
   },
   "accessToken": {
-    "message": "Access token"
+    "message": "Access token",
+    "description": "A unique string that gives a client application (eg. CLI) access to a secret or set of secrets."
   },
   "accessTokenExpirationRequired": {
-    "message": "Expiration date required"
+    "message": "Expiration date required",
+    "description": "Error message indicating that an expiration date for the access token must be set."
   },
   "accessTokenCreatedAndCopied": {
-    "message": "Access token created and copied to clipboard"
-  },
-  "accessTokenPermissionsBetaNotification": {
-    "message": "Permissions management is unavailable for beta."
+    "message": "Access token created and copied to clipboard",
+    "description": "Notification to inform the user that the access token has been created and copied to the clipboard."
   },
   "revokeAccessToken": {
-    "message": "Revoke Access Token"
+    "message": "Revoke access token",
+    "description": "Invalidates / cancels an access token and as such removes access to secrets for the client application."
+  },
+  "revokeAccessTokens": {
+    "message": "Revoke access tokens"
+  },
+  "revokeAccessTokenDesc": {
+    "message": "Revoking access tokens is permanent and irreversible."
+  },
+  "accessTokenRevoked": {
+    "message": "Access tokens revoked",
+    "description": "Toast message after deleting one or multiple access tokens."
+  },
+  "noAccessTokenSelected": {
+    "message": "No access token selected to revoke",
+    "description": "Toast error message after trying to delete access tokens but not selecting any access tokens."
   },
   "submenu": {
     "message": "Submenu"
@@ -5905,13 +6222,13 @@
     "message": "To"
   },
   "member": {
-    "message": "Member"
+    "message": "Lid"
   },
   "update": {
     "message": "Update"
   },
   "plusNMore": {
-    "message": "+ $QUANTITY$ more",
+    "message": "+ nog $QUANTITY$",
     "placeholders": {
       "quantity": {
         "content": "$1",
@@ -5920,7 +6237,7 @@
     }
   },
   "groupInfo": {
-    "message": "Group info"
+    "message": "Groepinligting"
   },
   "editGroupMembersDesc": {
     "message": "Grant members access to the group's assigned collections."
@@ -5935,19 +6252,22 @@
     "message": "If checked, this will replace all other collection permissions."
   },
   "selectMembers": {
-    "message": "Select members"
+    "message": "Kies lede"
   },
   "selectCollections": {
-    "message": "Select collections"
+    "message": "Kies versamelings"
   },
   "role": {
-    "message": "Role"
+    "message": "Rol"
   },
   "removeMember": {
-    "message": "Remove member"
+    "message": "Verwyder lid"
   },
   "collection": {
-    "message": "Collection"
+    "message": "Versameling"
+  },
+  "noCollection": {
+    "message": "Geen versameling"
   },
   "canView": {
     "message": "Can view"
@@ -5971,7 +6291,7 @@
     "message": "No groups added"
   },
   "group": {
-    "message": "Group"
+    "message": "Groep"
   },
   "groupAccessAll": {
     "message": "This group can access and modify all items."
@@ -5979,11 +6299,143 @@
   "memberAccessAll": {
     "message": "This member can access and modify all items."
   },
+  "domainVerification": {
+    "message": "Domain verification"
+  },
+  "newDomain": {
+    "message": "New domain"
+  },
+  "noDomains": {
+    "message": "No domains"
+  },
+  "noDomainsSubText": {
+    "message": "Connecting a domain allows members to skip the SSO identifier field during Login with SSO."
+  },
+  "verifyDomain": {
+    "message": "Verify domain"
+  },
+  "reverifyDomain": {
+    "message": "Reverify domain"
+  },
+  "copyDnsTxtRecord": {
+    "message": "Copy DNS TXT record"
+  },
+  "dnsTxtRecord": {
+    "message": "DNS TXT record"
+  },
+  "dnsTxtRecordInputHint": {
+    "message": "Copy and paste the TXT record into your DNS Provider."
+  },
+  "domainNameInputHint": {
+    "message": "Example: mydomain.com. Subdomains require separate entries to be verified."
+  },
+  "automaticDomainVerification": {
+    "message": "Automatic Domain Verification"
+  },
+  "automaticDomainVerificationProcess": {
+    "message": "Bitwarden will attempt to verify the domain 3 times during the first 72 hours. If the domain can’t be verified, check the DNS record in your host and manually verify. The domain will be removed from your organization in 7 days if it is not verified"
+  },
+  "invalidDomainNameMessage": {
+    "message": "Input is not a valid format. Format: mydomain.com. Subdomains require separate entries to be verified."
+  },
+  "removeDomain": {
+    "message": "Remove domain"
+  },
+  "removeDomainWarning": {
+    "message": "Removing a domain cannot be undone. Are you sure you want to continue?"
+  },
+  "domainRemoved": {
+    "message": "Domain removed"
+  },
+  "domainSaved": {
+    "message": "Domain saved"
+  },
+  "domainVerified": {
+    "message": "Domain verified"
+  },
+  "duplicateDomainError": {
+    "message": "You can't claim the same domain twice."
+  },
+  "domainNotAvailable": {
+    "message": "Someone else is using $DOMAIN$. Use a different domain to continue.",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "bitwarden.com"
+      }
+    }
+  },
+  "domainNotVerified": {
+    "message": "$DOMAIN$ not verified. Check your DNS record.",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "bitwarden.com"
+      }
+    }
+  },
+  "domainStatusVerified": {
+    "message": "Verified"
+  },
+  "domainStatusUnverified": {
+    "message": "Unverified"
+  },
+  "domainNameTh": {
+    "message": "Naam"
+  },
+  "domainStatusTh": {
+    "message": "Status"
+  },
+  "lastChecked": {
+    "message": "Last checked"
+  },
+  "editDomain": {
+    "message": "Edit domain"
+  },
+  "domainFormInvalid": {
+    "message": "There are form errors that need your attention"
+  },
+  "addedDomain": {
+    "message": "Added domain $DOMAIN$",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "bitwarden.com"
+      }
+    }
+  },
+  "removedDomain": {
+    "message": "Removed domain $DOMAIN$",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "bitwarden.com"
+      }
+    }
+  },
+  "domainVerifiedEvent": {
+    "message": "$DOMAIN$ verified",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "bitwarden.com"
+      }
+    }
+  },
+  "domainNotVerifiedEvent": {
+    "message": "$DOMAIN$ not verified",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "bitwarden.com"
+      }
+    }
+  },
   "membersColumnHeader": {
-    "message": "Member/Group"
+    "message": "Lid/Groep"
   },
   "groupAndMemberColumnHeader": {
-    "message": "Member"
+    "message": "Lid"
   },
   "selectGroupsAndMembers": {
     "message": "Select groups and members"
@@ -5998,7 +6450,7 @@
     "message": "No members or groups added"
   },
   "deleted": {
-    "message": "Deleted"
+    "message": "Geskrap"
   },
   "memberStatusFilter": {
     "message": "Member status filter"
@@ -6016,10 +6468,10 @@
     "message": "More from Bitwarden"
   },
   "switchProducts": {
-    "message": "Switch Products"
+    "message": "Switch products"
   },
   "freeOrgInvLimitReachedManageBilling": {
-    "message": "Free organizations may have up to $SEATCOUNT$ members. Upgrade to a paid plan to invite more members.",
+    "message": "Gratis organisasies kan tot $SEATCOUNT$ lede hê. Gradeer op na ’n betaalde plan om nog lede uit te nooi.",
     "placeholders": {
       "seatcount": {
         "content": "$1",
@@ -6028,7 +6480,7 @@
     }
   },
   "freeOrgInvLimitReachedNoManageBilling": {
-    "message": "Free organizations may have up to $SEATCOUNT$ members. Contact your organization owner to upgrade.",
+    "message": "Gratis organisasies kan tot $SEATCOUNT$ lede hê. Kontak u organisasie-eienaar om op te gradeer.",
     "placeholders": {
       "seatcount": {
         "content": "$1",
@@ -6037,7 +6489,7 @@
     }
   },
   "freeOrgMaxCollectionReachedManageBilling": {
-    "message": "Free organizations may have up to $COLLECTIONCOUNT$ collections. Upgrade to a paid plan to add more collections.",
+    "message": "Gratis organisasies kan tot $COLLECTIONCOUNT$ versamelings hê. Gradeer op na ’n betaalde plan om nog versamelings toe te voeg.",
     "placeholders": {
       "COLLECTIONCOUNT": {
         "content": "$1",
@@ -6046,12 +6498,436 @@
     }
   },
   "freeOrgMaxCollectionReachedNoManageBilling": {
-    "message": "Free organizations may have up to $COLLECTIONCOUNT$ collections. Contact your organization owner to upgrade.",
+    "message": "Gratis organisasies kan tot $COLLECTIONCOUNT$ versamelings hê. Kontak u organisasie-eienaar om op te gradeer.",
     "placeholders": {
       "COLLECTIONCOUNT": {
         "content": "$1",
         "example": "2"
       }
     }
+  },
+  "server": {
+    "message": "Bediener"
+  },
+  "exportData": {
+    "message": "Export data"
+  },
+  "exportingOrganizationSecretDataTitle": {
+    "message": "Exporting Organization Secret Data"
+  },
+  "exportingOrganizationSecretDataDescription": {
+    "message": "Only the Secrets Manager data associated with $ORGANIZATION$ will be exported. Items in other products or from other organizations will not be included.",
+    "placeholders": {
+      "ORGANIZATION": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
+  "fileUpload": {
+    "message": "File upload"
+  },
+  "acceptedFormats": {
+    "message": "Accepted Formats:"
+  },
+  "copyPasteImportContents": {
+    "message": "Copy & paste import contents:"
+  },
+  "or": {
+    "message": "or"
+  },
+  "licenseAndBillingManagement": {
+    "message": "License and billing management"
+  },
+  "automaticSync": {
+    "message": "Automatic sync"
+  },
+  "manualUpload": {
+    "message": "Manual upload"
+  },
+  "manualUploadDesc": {
+    "message": "If you do not want to opt into billing sync, manually upload your license here."
+  },
+  "syncLicense": {
+    "message": "Sync license"
+  },
+  "licenseSyncSuccess": {
+    "message": "Successfully synced license"
+  },
+  "licenseUploadSuccess": {
+    "message": "Successfully uploaded license"
+  },
+  "lastLicenseSync": {
+    "message": "Last license sync"
+  },
+  "billingSyncHelp": {
+    "message": "Billing Sync help"
+  },
+  "licensePaidFeaturesHelp": {
+    "message": "License paid features help"
+  },
+  "selfHostGracePeriodHelp": {
+    "message": "After your subscription expires, you have 60 days to apply an updated license file to your organization. Grace period ends $GRACE_PERIOD_END_DATE$.",
+    "placeholders": {
+      "GRACE_PERIOD_END_DATE": {
+        "content": "$1",
+        "example": "May 12, 2024"
+      }
+    }
+  },
+  "uploadLicense": {
+    "message": "Laai lisensie op"
+  },
+  "projectPeopleDescription": {
+    "message": "Grant groups or people access to this project."
+  },
+  "projectPeopleSelectHint": {
+    "message": "Type or select people or groups"
+  },
+  "projectServiceAccountsDescription": {
+    "message": "Grant service accounts access to this project."
+  },
+  "projectServiceAccountsSelectHint": {
+    "message": "Type or select service accounts"
+  },
+  "projectEmptyPeopleAccessPolicies": {
+    "message": "Add people or groups to start collaborating"
+  },
+  "projectEmptyServiceAccountAccessPolicies": {
+    "message": "Add service accounts to grant access"
+  },
+  "serviceAccountPeopleDescription": {
+    "message": "Grant groups or people access to this service account."
+  },
+  "serviceAccountProjectsDescription": {
+    "message": "Assign projects to this service account. "
+  },
+  "serviceAccountEmptyProjectAccesspolicies": {
+    "message": "Add projects to grant access"
+  },
+  "canReadWrite": {
+    "message": "Can read, write"
+  },
+  "groupSlashUser": {
+    "message": "Groep/Gebruiker"
+  },
+  "lowKdfIterations": {
+    "message": "Low KDF Iterations"
+  },
+  "updateLowKdfIterationsDesc": {
+    "message": "Update your encryption settings to meet new security recommendations and improve account protection."
+  },
+  "changeKdfLoggedOutWarning": {
+    "message": "Proceeding will log you out of all active sessions. You will need to log back in and complete two-step login setup. We recommend exporting your vault before changing your encryption settings to prevent data loss."
+  },
+  "secretsManagerBeta": {
+    "message": "Secrets Manager Beta"
+  },
+  "secretsManager": {
+    "message": "Secrets Manager"
+  },
+  "secretsManagerAccessDesc": {
+    "message": "Enable user access to Secrets Manager."
+  },
+  "userAccessSecretsManagerGA": {
+    "message": "This user can access Secrets Manager"
+  },
+  "important": {
+    "message": "Belangrik:"
+  },
+  "viewAll": {
+    "message": "View all"
+  },
+  "showingPortionOfTotal": {
+    "message": "Showing $PORTION$ of $TOTAL$",
+    "placeholders": {
+      "portion": {
+        "content": "$1",
+        "example": "2"
+      },
+      "total": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "resolveTheErrorsBelowAndTryAgain": {
+    "message": "Resolve the errors below and try again."
+  },
+  "description": {
+    "message": "Description"
+  },
+  "errorReadingImportFile": {
+    "message": "An error occurred when trying to read the import file"
+  },
+  "accessedSecret": {
+    "message": "Accessed secret $SECRET_ID$.",
+    "placeholders": {
+      "secret_id": {
+        "content": "$1",
+        "example": "4d34e8a8"
+      }
+    }
+  },
+  "sdk": {
+    "message": "SDK",
+    "description": "Software Development Kit"
+  },
+  "createSecret": {
+    "message": "Skep ’n geheim"
+  },
+  "createProject": {
+    "message": "Skep ’n projek"
+  },
+  "createServiceAccount": {
+    "message": "Skep ’n diensrekening"
+  },
+  "downloadThe": {
+    "message": "Download the",
+    "description": "Link to a downloadable resource. This will be used as part of a larger phrase. Example: Download the Secrets Manager CLI"
+  },
+  "smCLI": {
+    "message": "Secrets Manager CLI"
+  },
+  "importSecrets": {
+    "message": "Import secrets"
+  },
+  "getStarted": {
+    "message": "Get started"
+  },
+  "complete": {
+    "message": "$COMPLETED$/$TOTAL$ Complete",
+    "placeholders": {
+      "COMPLETED": {
+        "content": "$1",
+        "example": "1"
+      },
+      "TOTAL": {
+        "content": "$2",
+        "example": "4"
+      }
+    }
+  },
+  "restoreSecret": {
+    "message": "Restore secret"
+  },
+  "restoreSecrets": {
+    "message": "Restore secrets"
+  },
+  "restoreSecretPrompt": {
+    "message": "Are you sure you want to restore this secret?"
+  },
+  "restoreSecretsPrompt": {
+    "message": "Are you sure you want to restore these secrets?"
+  },
+  "secretRestoredSuccessToast": {
+    "message": "Secret restored"
+  },
+  "secretsRestoredSuccessToast": {
+    "message": "Secrets restored"
+  },
+  "selectionIsRequired": {
+    "message": "Selection is required."
+  },
+  "secretsManagerSubscriptionDesc": {
+    "message": "Turn on organization access to the Secrets Manager at no charge during the Beta program. Users can be granted access to the Beta in Members."
+  },
+  "secretsManagerEnable": {
+    "message": "Enable Secrets Manager Beta"
+  },
+  "saPeopleWarningTitle": {
+    "message": "Access tokens still available"
+  },
+  "saPeopleWarningMessage": {
+    "message": "Removing people from a service account does not remove the access tokens they created. For security best practice, it is recommended to revoke access tokens created by people removed from a service account."
+  },
+  "smAccessRemovalWarningProjectTitle": {
+    "message": "Remove access to this project"
+  },
+  "smAccessRemovalWarningProjectMessage": {
+    "message": "This action will remove your access to the project."
+  },
+  "smAccessRemovalWarningSaTitle": {
+    "message": "Remove access to this service account"
+  },
+  "smAccessRemovalWarningSaMessage": {
+    "message": "This action will remove your access to the service account."
+  },
+  "removeAccess": {
+    "message": "Remove access"
+  },
+  "checkForBreaches": {
+    "message": "Check known data breaches for this password"
+  },
+  "exposedMasterPassword": {
+    "message": "Exposed Master Password"
+  },
+  "exposedMasterPasswordDesc": {
+    "message": "Password found in a data breach. Use a unique password to protect your account. Are you sure you want to use an exposed password?"
+  },
+  "weakAndExposedMasterPassword": {
+    "message": "Weak and Exposed Master Password"
+  },
+  "weakAndBreachedMasterPasswordDesc": {
+    "message": "Weak password identified and found in a data breach. Use a strong and unique password to protect your account. Are you sure you want to use this password?"
+  },
+  "characterMinimum": {
+    "message": "$LENGTH$ character minimum",
+    "placeholders": {
+      "length": {
+        "content": "$1",
+        "example": "14"
+      }
+    }
+  },
+  "masterPasswordMinimumlength": {
+    "message": "Master password must be at least $LENGTH$ characters long.",
+    "placeholders": {
+      "length": {
+        "content": "$1",
+        "example": "14"
+      }
+    }
+  },
+  "inputTrimValidator": {
+    "message": "Input must not contain only whitespace.",
+    "description": "Notification to inform the user that a form's input can't contain only whitespace."
+  },
+  "dismiss": {
+    "message": "Dismiss"
+  },
+  "notAvailableForFreeOrganization": {
+    "message": "This feature is not available for free organizations. Contact your organization owner to upgrade."
+  },
+  "smProjectSecretsNoItemsNoAccess": {
+    "message": "Contact your organization's admin to manage secrets for this project.",
+    "description": "The message shown to the user under a project's secrets tab when the user only has read access to the project."
+  },
+  "enforceOnLoginDesc": {
+    "message": "Require existing members to change their passwords"
+  },
+  "region": {
+    "message": "Streek"
+  },
+  "eu": {
+    "message": "EU",
+    "description": "European Union"
+  },
+  "us": {
+    "message": "US",
+    "description": "United States"
+  },
+  "smProjectDeleteAccessRestricted": {
+    "message": "You don't have permissions to delete this project",
+    "description": "The individual description shown to the user when the user doesn't have access to delete a project."
+  },
+  "smProjectsDeleteBulkConfirmation": {
+    "message": "The following projects can not be deleted. Would you like to continue?",
+    "description": "The message shown to the user when bulk deleting projects and the user doesn't have access to some projects."
+  },
+  "updateKdfSettings": {
+    "message": "Update KDF settings"
+  },
+  "trustedDeviceEncryption": {
+    "message": "Trusted device encryption"
+  },
+  "memberDecryptionTdeDescriptionStart": {
+    "message": "Once authenticated, members will decrypt vault data using a key stored on their device. The",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Once authenticated, members will decrypt vault data using a key stored on their device. The account recovery administration policy with automatic enrollment will turn on when this option is used.'"
+  },
+  "memberDecryptionTdeDescriptionLink": {
+    "message": "account recovery administration policy",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Once authenticated, members will decrypt vault data using a key stored on their device. The account recovery administration policy with automatic enrollment will turn on when this option is used.'"
+  },
+  "memberDecryptionTdeDescriptionEnd": {
+    "message": "with automatic enrollment will turn on when this option is used.",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Once authenticated, members will decrypt vault data using a key stored on their device. The master password reset policy with automatic enrollment will turn on when this option is used.'"
+  },
+  "notFound": {
+    "message": "$RESOURCE$ not found",
+    "placeholders": {
+      "resource": {
+        "content": "$1",
+        "example": "Service Account"
+      }
+    }
+  },
+  "recoverAccount": {
+    "message": "Recover account"
+  },
+  "updatedTempPassword": {
+    "message": "User updated a password issued through account recovery."
+  },
+  "enabledAccessToSecretsManager": {
+    "message": "Enabled access to Secrets Manager",
+    "description": "Confirmation message that one or more users gained access to Secrets Manager"
+  },
+  "enableAccess": {
+    "message": "Enable access"
+  },
+  "bulkEnableSecretsManagerDescription": {
+    "message": "Grant the following members access to Secrets Manager. The role granted in the Password Manager will apply to Secrets Manager.",
+    "description": "This description is shown to an admin when they are attempting to add more users to Secrets Manager."
+  },
+  "enableSecretsManager": {
+    "message": "Enable Secrets Manager"
+  },
+  "yourOrganizationsFingerprint": {
+    "message": "Your organization's fingerprint phrase",
+    "description": "A 'fingerprint phrase' is a unique word phrase (similar to a passphrase) that a user can use to authenticate their organization's public key with another user, for the purposes of sharing."
+  },
+  "deviceApprovals": {
+    "message": "Device approvals"
+  },
+  "deviceApprovalsDesc": {
+    "message": "Approve login requests below to allow the requesting member to finish logging in. Unapproved requests expire after 1 week. Verify the member’s information before approving."
+  },
+  "deviceInfo": {
+    "message": "Device info"
+  },
+  "time": {
+    "message": "Time"
+  },
+  "denyAllRequests": {
+    "message": "Deny all requests"
+  },
+  "denyRequest": {
+    "message": "Deny request"
+  },
+  "approveRequest": {
+    "message": "Approve request"
+  },
+  "noDeviceRequests": {
+    "message": "No device requests"
+  },
+  "noDeviceRequestsDesc": {
+    "message": "Member device approval requests will appear here"
+  },
+  "loginRequestDenied": {
+    "message": "Login request denied"
+  },
+  "allLoginRequestsDenied": {
+    "message": "All login requests denied"
+  },
+  "loginRequestApproved": {
+    "message": "Login request approved"
+  },
+  "removeOrgUserNoMasterPasswordTitle": {
+    "message": "Account does not have master password"
+  },
+  "removeOrgUserNoMasterPasswordDesc": {
+    "message": "Removing $USER$ without setting a master password for them may restrict access to their full account. Are you sure you want to continue?",
+    "placeholders": {
+      "user": {
+        "content": "$1",
+        "example": "John Smith"
+      }
+    }
+  },
+  "noMasterPassword": {
+    "message": "No master password"
+  },
+  "removeMembersWithoutMasterPasswordWarning": {
+    "message": "Removing members who do not have master passwords without setting one for them may restrict access to their full account."
   }
 }

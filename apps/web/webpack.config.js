@@ -31,7 +31,7 @@ const moduleRules = [
     test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
     exclude: /loading(|-white).svg/,
     generator: {
-      filename: "fonts/[name][ext]",
+      filename: "fonts/[name].[contenthash][ext]",
     },
     type: "asset/resource",
   },
@@ -78,6 +78,11 @@ const moduleRules = [
   {
     test: /\.[jt]sx?$/,
     loader: "@ngtools/webpack",
+  },
+  {
+    test: /\.wasm$/,
+    loader: "base64-loader",
+    type: "javascript/auto",
   },
 ];
 
@@ -223,6 +228,7 @@ const devServer =
                 default-src 'self'
                 ;script-src
                   'self'
+                  'wasm-unsafe-eval'
                   'sha256-ryoU+5+IUZTuUyTElqkrQGBJXr1brEv6r2CA62WUw8w='
                   https://js.stripe.com
                   https://js.braintreegateway.com
@@ -274,6 +280,7 @@ const devServer =
                   https://quack.duckduckgo.com/api/email/addresses
                   https://app.anonaddy.com/api/v1/aliases
                   https://api.fastmail.com
+                  https://api.forwardemail.net
                   http://localhost:5000
                 ;object-src
                   'self'
@@ -349,13 +356,19 @@ const webpackConfig = {
       util: require.resolve("util/"),
       assert: false,
       url: false,
+      fs: false,
+      process: false,
+      path: require.resolve("path-browserify"),
     },
   },
   output: {
     filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "build"),
   },
-  module: { rules: moduleRules },
+  module: {
+    noParse: /\.wasm$/,
+    rules: moduleRules,
+  },
   plugins: plugins,
 };
 

@@ -33,7 +33,8 @@
     </div>
     <div class="col-6">
       <div class="mb-3">
-        <dynamic-avatar text="{{ profile | userName }}" [size]="'large'"> </dynamic-avatar>
+        <dynamic-avatar text="{{ profile | userName }}" [id]="profile.id" [size]="'large'">
+        </dynamic-avatar>
         <button
           type="button"
           class="btn btn-outline-secondary tw-ml-3.5"
@@ -45,19 +46,11 @@
           Customize
         </button>
       </div>
-      <hr />
-      <p *ngIf="fingerprint">
-        {{ "yourAccountsFingerprint" | i18n }}:
-        <a
-          href="https://bitwarden.com/help/fingerprint-phrase/"
-          target="_blank"
-          rel="noopener"
-          appA11yTitle="{{ 'learnMore' | i18n }}"
-        >
-          <i class="bwi bwi-question-circle" aria-hidden="true"></i></a
-        ><br />
-        <code>{{ fingerprint }}</code>
-      </p>
+      <app-account-fingerprint
+        [fingerprintMaterial]="fingerprintMaterial"
+        fingerprintLabel="{{ 'yourAccountsFingerprint' | i18n }}"
+      >
+      </app-account-fingerprint>
     </div>
   </div>
   <button type="submit" class="btn btn-primary btn-submit" [disabled]="form.loading">

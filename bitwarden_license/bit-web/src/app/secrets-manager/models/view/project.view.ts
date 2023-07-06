@@ -4,4 +4,6 @@ export class ProjectView {
   name: string;
   creationDate: string;
   revisionDate: string;
+  read: boolean;
+  write: boolean;
 }

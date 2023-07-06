@@ -1,8 +1,7 @@
-import { FieldType } from "../../enums/fieldType";
-import { LinkedIdType } from "../../enums/linkedIdType";
-import { EncString } from "../domain/enc-string";
-import { Field as FieldDomain } from "../domain/field";
-import { FieldView } from "../view/field.view";
+import { FieldType, LinkedIdType } from "../../enums";
+import { EncString } from "../../platform/models/domain/enc-string";
+import { Field as FieldDomain } from "../../vault/models/domain/field";
+import { FieldView } from "../../vault/models/view/field.view";
 
 export class FieldExport {
   static template(): FieldExport {

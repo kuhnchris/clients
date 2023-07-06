@@ -195,6 +195,15 @@
   "helpFeedback": {
     "message": "کمک و بازخورد"
   },
+  "helpCenter": {
+    "message": "مرکز راهنمایی Bitwarden"
+  },
+  "communityForums": {
+    "message": "انجمن‌های Bitwarden را کاوش کنید"
+  },
+  "contactSupport": {
+    "message": "پیام به پشتیبانیBitwarden"
+  },
   "sync": {
     "message": "همگام‌سازی"
   },
@@ -430,7 +439,14 @@
     "message": "نوشتن مجدد کلمه عبور اصلی ضروری است."
   },
   "masterPasswordMinlength": {
-    "message": "طول کلمه عبور اصلی باید حداقل ۸ کاراکتر باشد."
+    "message": "طول کلمه عبور اصلی باید حداقل $VALUE$ کاراکتر باشد.",
+    "description": "The Master Password must be at least a specific number of characters long.",
+    "placeholders": {
+      "value": {
+        "content": "$1",
+        "example": "8"
+      }
+    }
   },
   "masterPassDoesntMatch": {
     "message": "کلمه عبور اصلی با تکرار آن مطابقت ندارد."
@@ -960,7 +976,10 @@
     "message": "اگر یک فرم ورودی شناسایی شد، وقتی صفحه وب بارگذاری شد، به صورت خودکار پر شود."
   },
   "experimentalFeature": {
-    "message": "در حال حاضر این یک ویژگی آزمایشی است. با مسئولیت خود استفاده کنید."
+    "message": "وب‌سایت‌های در معرض خطر یا نامعتبر می‌توانند از پر کردن خودکار در بارگذاری صفحه سوء استفاده کنند."
+  },
+  "learnMoreAboutAutofill": {
+    "message": "درباره پر کردن خودکار بیشتر بدانید"
   },
   "defaultAutoFillOnPageLoad": {
     "message": "تنظیم تکمیل خودکار پیش‌فرض برای موارد ورود به سیستم"
@@ -1122,6 +1141,9 @@
   },
   "dr": {
     "message": "دکتر"
+  },
+  "mx": {
+    "message": "عنوان"
   },
   "firstName": {
     "message": "نام"
@@ -1439,8 +1461,35 @@
   "autoFillSuccess": {
     "message": "مورد خودکار پر شد"
   },
+  "insecurePageWarning": {
+    "message": "هشدار: این یک صفحه HTTP ناامن است و هر اطلاعاتی که ارسال می‌کنید می‌تواند توسط دیگران دیده شود و تغییر کند. این ورود در ابتدا در یک صفحه امن (HTTPS) ذخیره شد."
+  },
+  "insecurePageWarningFillPrompt": {
+    "message": "آیا هنوز می‌خواهید این ورود را پر کنید؟"
+  },
+  "autofillIframeWarning": {
+    "message": "فرم توسط دامنه ای متفاوت از نشانی اینترنتی ورود به سیستم ذخیره شده شما میزبانی می‌شود. به هر حال برای پر کردن خودکار، تأیید را انتخاب کنید یا برای توقف، لغو را انتخاب کنید."
+  },
+  "autofillIframeWarningTip": {
+    "message": "برای جلوگیری از این هشدار در آینده، این نشانی اینترنتی، $HOSTNAME$، را در مورد ورود Bitwarden خود برای این سایت ذخیره کنید.",
+    "placeholders": {
+      "hostname": {
+        "content": "$1",
+        "example": "www.example.com"
+      }
+    }
+  },
   "setMasterPassword": {
     "message": "تنظیم کلمه عبور اصلی"
+  },
+  "currentMasterPass": {
+    "message": "کلمه عبور اصلی فعلی"
+  },
+  "newMasterPass": {
+    "message": "کلمه عبور اصلی جدید"
+  },
+  "confirmNewMasterPass": {
+    "message": "تأیید کلمه عبور اصلی جدید"
   },
   "masterPasswordPolicyInEffect": {
     "message": "یک یا چند سیاست سازمانی برای تأمین شرایط زیر به کلمه عبور اصلی شما احتیاج دارد:"
@@ -1822,6 +1871,9 @@
   "updateMasterPasswordWarning": {
     "message": "کلمه عبور اصلی شما اخیراً توسط سرپرست سازمان‌تان تغییر کرده است. برای دسترسی به گاوصندوق، باید همین حالا کلمه عبور اصلی خود را به‌روز کنید. در صورت ادامه، شما از نشست فعلی خود خارج می‌شوید و باید دوباره وارد سیستم شوید. نشست فعال در دستگاه های دیگر ممکن است تا یک ساعت همچنان فعال باقی بمانند."
   },
+  "updateWeakMasterPasswordWarning": {
+    "message": "کلمه عبور اصلی شما با یک یا چند سیاست سازمان‌تان مطابقت ندارد. برای دسترسی به گاوصندوق، باید همین حالا کلمه عبور اصلی خود را به‌روز کنید. در صورت ادامه، شما از نشست فعلی خود خارج می‌شوید و باید دوباره وارد سیستم شوید. نشست فعال در دستگاه های دیگر ممکن است تا یک ساعت همچنان فعال باقی بمانند."
+  },
   "resetPasswordPolicyAutoEnroll": {
     "message": "ثبت نام خودکار"
   },
@@ -1850,6 +1902,32 @@
       "minutes": {
         "content": "$2",
         "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyWithActionInEffect": {
+    "message": "سیاست‌های سازمانتان بر مهلت زمانی گاوصندوق شما تأثیر می‌گذارد. حداکثر زمان مجاز گاوصندوق $HOURS$ ساعت و $MINUTES$ دقیقه است. عملگر مهلت زمانی گاوصندوق شما روی $ACTION$ تنظیم شده است.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      },
+      "action": {
+        "content": "$3",
+        "example": "Lock"
+      }
+    }
+  },
+  "vaultTimeoutActionPolicyInEffect": {
+    "message": "سباست‌های سازمان شما، عملگر زمان‌بندی گاوصندوق شما را روی $ACTION$ تنظیم کرده است.",
+    "placeholders": {
+      "action": {
+        "content": "$1",
+        "example": "Lock"
       }
     }
   },
@@ -1981,9 +2059,6 @@
   "disabledOrganizationFilterError": {
     "message": "موارد موجود در سازمان‌های غیرفعال، قابل دسترسی نیستند. برای دریافت کمک با مالک سازمان خود تماس بگیرید."
   },
-  "cardBrandMir": {
-    "message": "میر"
-  },
   "loggingInTo": {
     "message": "ورود به $DOMAIN$",
     "placeholders": {
@@ -2043,5 +2118,124 @@
   },
   "rememberEmail": {
     "message": "ایمیل را به خاطر بسپار"
+  },
+  "loginWithDevice": {
+    "message": "ورود با دستگاه"
+  },
+  "loginWithDeviceEnabledInfo": {
+    "message": "ورود به سیستم با دستگاه باید در تنظیمات برنامه‌ی Bitwarden تنظیم شود. به گزینه دیگری نیاز دارید؟"
+  },
+  "fingerprintPhraseHeader": {
+    "message": "عبارت اثر انگشت"
+  },
+  "fingerprintMatchInfo": {
+    "message": "لطفاً مطمئن شوید که قفل گاوصندوق شما باز است و عبارت اثر انگشت با دستگاه دیگر مطابقت دارد."
+  },
+  "resendNotification": {
+    "message": "ارسال مجدد اعلان"
+  },
+  "viewAllLoginOptions": {
+    "message": "مشاهده همه گزینه‌های ورود به سیستم"
+  },
+  "notificationSentDevice": {
+    "message": "یک اعلان به دستگاه شما ارسال شده است."
+  },
+  "logInInitiated": {
+    "message": "ورود به سیستم آغاز شد"
+  },
+  "exposedMasterPassword": {
+    "message": "کلمه عبور اصلی افشا شده"
+  },
+  "exposedMasterPasswordDesc": {
+    "message": "کلمه عبور در نقض داده پیدا شد. از یک کلمه عبور منحصر به فرد برای محافظت از حساب خود استفاده کنید. آیا مطمئنید که می‌خواهید از یک کلمه عبور افشا شده استفاده کنید؟"
+  },
+  "weakAndExposedMasterPassword": {
+    "message": "کلمه عبور اصلی ضعیف و افشا شده"
+  },
+  "weakAndBreachedMasterPasswordDesc": {
+    "message": "کلمه عبور ضعیف شناسایی و در یک نقض داده پیدا شد. از یک کلمه عبور قوی و منحصر به فرد برای محافظت از حساب خود استفاده کنید. آیا مطمئنید که می‌خواهید از این کلمه عبور استفاده کنید؟"
+  },
+  "checkForBreaches": {
+    "message": "نقض اطلاعات شناخته شده برای این کلمه عبور را بررسی کنید"
+  },
+  "important": {
+    "message": "مهم:"
+  },
+  "masterPasswordHint": {
+    "message": "کلمه عبور اصلی شما در صورت فراموشی قابل بازیابی نیست!"
+  },
+  "characterMinimum": {
+    "message": "حداقل کاراکتر $LENGTH$",
+    "placeholders": {
+      "length": {
+        "content": "$1",
+        "example": "14"
+      }
+    }
+  },
+  "autofillPageLoadPolicyActivated": {
+    "message": "خط مشی‌های سازمان شما پر کردن خودکار هنگام بارگیری صفحه را روشن کرده است."
+  },
+  "howToAutofill": {
+    "message": "نحوه پر کردن خودکار"
+  },
+  "autofillSelectInfoWithCommand": {
+    "message": "یک مورد را از این صفحه انتخاب کنید یا از میانبر استفاده کنید: $COMMAND$",
+    "placeholders": {
+      "command": {
+        "content": "$1",
+        "example": "CTRL+Shift+L"
+      }
+    }
+  },
+  "autofillSelectInfoWithoutCommand": {
+    "message": "یک مورد را از این صفحه انتخاب کنید یا یک میانبر در تنظیمات تنظیم کنید."
+  },
+  "gotIt": {
+    "message": "متوجه شدم"
+  },
+  "autofillSettings": {
+    "message": "تنظیمات پر کردن خودکار"
+  },
+  "autofillShortcut": {
+    "message": "میانبر صفحه کلید پر کردن خودکار"
+  },
+  "autofillShortcutNotSet": {
+    "message": "میانبر پر کردن خودکار تنظیم نشده است. این را در تنظیمات مرورگر تغییر دهید."
+  },
+  "autofillShortcutText": {
+    "message": "میانبر پر کردن خودکار: $COMMAND$ است. این را در تنظیمات مرورگر تغییر دهید.",
+    "placeholders": {
+      "command": {
+        "content": "$1",
+        "example": "CTRL+Shift+L"
+      }
+    }
+  },
+  "autofillShortcutTextSafari": {
+    "message": "میانبر پر کردن خودکار پیش‌فرض: $COMMAND$.",
+    "placeholders": {
+      "command": {
+        "content": "$1",
+        "example": "CTRL+Shift+L"
+      }
+    }
+  },
+  "region": {
+    "message": "منطقه"
+  },
+  "opensInANewWindow": {
+    "message": "در پنجره جدید باز می‌شود"
+  },
+  "eu": {
+    "message": "اروپا",
+    "description": "European Union"
+  },
+  "us": {
+    "message": "امریکا",
+    "description": "United States"
+  },
+  "accessDenied": {
+    "message": "دسترسی رد شد. شما اجازه مشاهده این صفحه را ندارید."
   }
 }

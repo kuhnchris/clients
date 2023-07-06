@@ -133,6 +133,9 @@
   "ms": {
     "message": "Ms"
   },
+  "mx": {
+    "message": "Mx"
+  },
   "dr": {
     "message": "Dr"
   },
@@ -305,6 +308,9 @@
   "searchMembers": {
     "message": "Üyelerde ara"
   },
+  "searchGroups": {
+    "message": "Gruplarda ara"
+  },
   "allItems": {
     "message": "Tüm kayıtlar"
   },
@@ -399,7 +405,8 @@
     "message": "Kaydı göster"
   },
   "new": {
-    "message": "Yeni"
+    "message": "Yeni",
+    "description": "for adding new items"
   },
   "item": {
     "message": "Kayıt"
@@ -651,7 +658,7 @@
     "message": "Ana parola, kasanıza ulaşmak için kullanacağınız paroladır. Ana parolanızı unutmamanız çok önemlidir. Unutursanız parolalarınızı asla kurtaramazsınız."
   },
   "masterPassImportant": {
-    "message": "Ana parolayı unutursanız kurtaramazsınız!"
+    "message": "Ana parolanızı unutursanız kurtaramazsınız!"
   },
   "masterPassHintDesc": {
     "message": "Ana parolanızı unutursanız bu ipucuna bakınca size ana parolanızı hatırlatacak bir şey yazabilirsiniz."
@@ -690,7 +697,14 @@
     "message": "Ana parolayı yeniden yazmalısınız."
   },
   "masterPasswordMinlength": {
-    "message": "Ana parola en az 8 karakter uzunluğunda olmalıdır."
+    "message": "Ana parola en az $VALUE$ karakter uzunluğunda olmalıdır.",
+    "description": "The Master Password must be at least a specific number of characters long.",
+    "placeholders": {
+      "value": {
+        "content": "$1",
+        "example": "8"
+      }
+    }
   },
   "masterPassDoesntMatch": {
     "message": "Ana parola onayı eşleşmiyor."
@@ -950,8 +964,14 @@
   "confirmVaultExport": {
     "message": "Kasayı dışa aktarmayı onaylayın"
   },
+  "confirmSecretsExport": {
+    "message": "Confirm secrets export"
+  },
   "exportWarningDesc": {
     "message": "Dışa aktarılan dosyadaki verileriniz şifrelenmemiş olacak. Bu dosyayı güvensiz yöntemlerle (örn. e-posta) göndermemeli ve saklamamalısınız. İşiniz bittikten sonra dosyayı hemen silin."
+  },
+  "exportSecretsWarningDesc": {
+    "message": "This export contains your secrets data in an unencrypted format. You should not store or send the exported file over unsecure channels (such as email). Delete it immediately after you are done using it."
   },
   "encExportKeyWarningDesc": {
     "message": "Dışa aktardığınız bu dosyadaki verileriniz, hesabınızın şifreleme anahtarıyla şifrelenir. Hesabınızın şifreleme anahtarını değiştirirseniz bu dosyanın şifresi çözülemez hale gelir, dolayısıyla dosyayı yeniden dışa aktarmanız gerekir."
@@ -964,6 +984,9 @@
   },
   "exportVault": {
     "message": "Kasayı dışa aktar"
+  },
+  "exportSecrets": {
+    "message": "Sırları dışa aktar"
   },
   "fileFormat": {
     "message": "Dosya biçimi"
@@ -978,7 +1001,7 @@
     "message": "Ana parolayı onaylayın"
   },
   "confirmFormat": {
-    "message": "Biçimi onaylayın"
+    "message": "Biçimi onayla"
   },
   "filePassword": {
     "message": "Dosya parolası"
@@ -1142,13 +1165,26 @@
     }
   },
   "kdfIterationsWarning": {
-    "message": "KDF iterasyonunu çok yüksek ayarlamak, işlemcisi yavaş olan cihazlardan Bitwarden'a giriş yaparken (ve kilidi açarken) düşük performansa neden olabilir. Değeri $INCREMENT$ ve katları halinde artırmanızı ve ardından tüm cihazlarınızda test etmenizi öneririz.",
+    "message": "KDF iterasyonunu çok yüksek ayarlamak, yavaş veya eski cihazlardan Bitwarden'a giriş yaparken (ve kilidi açarken) düşük performansa neden olabilir. Değeri $INCREMENT$ ve katları halinde artırmanızı ve ardından tüm cihazlarınızda test etmenizi öneririz.",
     "placeholders": {
       "increment": {
         "content": "$1",
         "example": "50,000"
       }
     }
+  },
+  "kdfMemory": {
+    "message": "KDF belleği (MB)",
+    "description": "Memory refers to computer memory (RAM). MB is short for megabytes."
+  },
+  "argon2Warning": {
+    "message": "KDF iterasyonunuzu, belleğinizi ve paralelliğinizi çok yüksek ayarlamak, yavaş ve eski cihazlarda Bitwarden'a giriş yaparken (veya Bitwarden'ın kilidini açarken) performans kaybına neden olabilir. Bunları tek tek küçük artışlarla değiştirmenizi ve ardından tüm cihazlarınızı test etmenizi öneririz."
+  },
+  "kdfParallelism": {
+    "message": "KDF paralelliği"
+  },
+  "argon2Desc": {
+    "message": "KDF iterasyonu, bellek ve paralelliğin yüksek olması; ana parolanızın kaba kuvvet saldırılarından korunmasına yardımcı olabilir."
   },
   "changeKdf": {
     "message": "KDF'i değiştir"
@@ -1227,6 +1263,18 @@
   },
   "importSuccess": {
     "message": "Veriler başarıyla içe aktarıldı"
+  },
+  "importSuccessNumberOfItems": {
+    "message": "Toplam $AMOUNT$ kayıt içe aktarıldı.",
+    "placeholders": {
+      "amount": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "dataExportSuccess": {
+    "message": "Veriler başarıyla dışa aktarıldı"
   },
   "importWarning": {
     "message": "$ORGANIZATION$ kuruluşuna veri aktarıyorsunuz. Verileriniz bu kuruluşun üyeleriyle paylaşılabilir. Devam etmek istiyor musunuz?",
@@ -1880,7 +1928,7 @@
     }
   },
   "premiumPriceWithFamilyPlan": {
-    "message": "Yalnızca $PRICE$/yıl karşılığında premium'a geçin veya $FAMILYPLANUSERCOUNT$ kullanıcıları için premium hesaplar ve bir kullanıcıyla sınırsız aile paylaşımı elde edin ",
+    "message": "Yıllık yalnızca $PRICE$ karşılığında premiuma geçin veya ailelere özel paketimizle $FAMILYPLANUSERCOUNT$ kullanıcı için premium hesap alıp sınırsız aile paylaşımı elde edin: ",
     "placeholders": {
       "price": {
         "content": "$1",
@@ -1893,7 +1941,7 @@
     }
   },
   "bitwardenFamiliesPlan": {
-    "message": "Bitwarden Aileleri planı."
+    "message": "Bitwarden Aile planı."
   },
   "addons": {
     "message": "Eklentiler"
@@ -1989,6 +2037,9 @@
   "cancelSubscription": {
     "message": "Aboneliği iptal et"
   },
+  "subscriptionExpiration": {
+    "message": "Abonelik bitişi"
+  },
   "subscriptionCanceled": {
     "message": "Aboneliğiniz iptal edildi."
   },
@@ -2031,11 +2082,11 @@
   "updateLicense": {
     "message": "Lisansı güncelle"
   },
-  "updatedLicense": {
-    "message": "Lisans güncellendi"
-  },
   "manageSubscription": {
     "message": "Aboneliği yönet"
+  },
+  "launchCloudSubscription": {
+    "message": "Bulut aboneliğini aç"
   },
   "storage": {
     "message": "Depolama"
@@ -2445,7 +2496,7 @@
     "message": "Bir üye kaldırıldıktan sonra kuruluş verilerine erişemez ve bu işlem geri alınamaz. Üyeyi kuruluşa geri eklemek için yeniden davet etmeniz ve kişinin daveti kabul etmesi gerekir."
   },
   "revokeUserConfirmation": {
-    "message": "Bir üye fesh edildiğinde, artık kuruluş verilerine erişimi olmaz. Üye erişimini hızlı bir şekilde geri yüklemek için İptal Edildi sekmesine gidin."
+    "message": "Bir üyelikten çıkıldığında, artık kuruluş verilerine erişimi olmaz. Üye erişimini hızlı bir şekilde düzeltmek için İptal Edilenler sekmesine gidin."
   },
   "removeUserConfirmationKeyConnector": {
     "message": "Uyarı! Bu kullanıcı, şifrelemesini yönetmek için Key Connector'a ihtiyaç duyuyor. Bu kullanıcıyı kuruluşunuzdan çıkarırsanız hesabı kalıcı olarak devre dışı kalacaktır. Bu işlem geri alınamaz. Devam etmek istiyor musunuz?"
@@ -2457,7 +2508,7 @@
     "message": "Harici kimlik, referans olarak veya bu kaynağı kullanıcı dizini gibi harici bir sisteme bağlamak için kullanılabilir."
   },
   "nestCollectionUnder": {
-    "message": "Nest collection under"
+    "message": "Koleksiyonu bunun altına yerleştir"
   },
   "accessControl": {
     "message": "Erişim kontrolü"
@@ -2489,11 +2540,20 @@
   "editMember": {
     "message": "Üyeyi düzenle"
   },
+  "fieldOnTabRequiresAttention": {
+    "message": "'$TAB$' sekmesindeki bir alanla ilgilenmeniz gerekiyor.",
+    "placeholders": {
+      "tab": {
+        "content": "$1",
+        "example": "Collection info"
+      }
+    }
+  },
   "inviteUserDesc": {
     "message": "Aşağıya Bitwarden hesabının e-posta adresini girerek kuruluşunuza yeni bir kullanıcı davet edin. Halihazırda bir Bitwarden hesabı yoksa yeni bir hesap oluşturması istenecektir."
   },
   "inviteMultipleEmailDesc": {
-    "message": "E-posta listesini virgülle ayırarak bir seferde en fazla $COUNT$ kullanıcıyı davet edebilirsiniz.",
+    "message": "E-posta adreslerini virgülle ayırarak en fazla $COUNT$ adres girin.",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -2606,6 +2666,12 @@
   "failedLogin2fa": {
     "message": "Hatalı iki aşamalı doğrulama sebebiyle oturum açma başarısız oldu."
   },
+  "incorrectPassword": {
+    "message": "Yanlış parola"
+  },
+  "incorrectCode": {
+    "message": "Yanlış kod"
+  },
   "exportedVault": {
     "message": "Kasa dışa aktarıldı"
   },
@@ -2696,6 +2762,24 @@
       "id": {
         "content": "$1",
         "example": "Google"
+      }
+    }
+  },
+  "viewCollectionWithName": {
+    "message": "Koleksiyonu görüntüle - $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Collection1"
+      }
+    }
+  },
+  "editItemWithName": {
+    "message": "Kaydı düzenle - $NAME$",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Google Login"
       }
     }
   },
@@ -2985,7 +3069,7 @@
     "message": "Grup erişimi"
   },
   "groupAccessUserDesc": {
-    "message": "Bu kullanıcının gruplarını düzenleyin."
+    "message": "Kullanıcıları bir veya birkaç gruba ekleyerek onlara üye erişimi verin."
   },
   "invitedUsers": {
     "message": "Kullanıcı(lar) davet edildi"
@@ -3073,6 +3157,9 @@
   },
   "inviteAcceptedDesc": {
     "message": "Yöneticiler üyeliğinizi onayladıktan sonra kuruluşa erişebilirsiniz. Üyeliğiniz onaylandığında size e-posta göndereceğiz."
+  },
+  "inviteInitAcceptedDesc": {
+    "message": "Artık bu kuruluşa erişebilirsiniz."
   },
   "inviteAcceptFailed": {
     "message": "Davet kabul edilemedi. Kuruluş yöneticisinden yeni bir davet göndermesini isteyin."
@@ -3490,7 +3577,7 @@
     "message": "Zayıf ana parola"
   },
   "weakMasterPasswordDesc": {
-    "message": "Seçtiğiniz ana parola zayıf. Bitwarden hesabınızı korumak için daha güçlü bir ana parola seçmenizi öneririz. Bu ana parolayı kullanmak istediğinizden emin misiniz?"
+    "message": "Seçtiğiniz parola zayıf. Hesabınızı korumak için daha güçlü bir parola seçmenizi öneririz. Zayıf bir parola kullanmak istediğinizden emin misiniz?"
   },
   "rotateAccountEncKey": {
     "message": "Hesabımın şifreleme anahtarını da yenile"
@@ -4144,7 +4231,7 @@
     }
   },
   "personalOwnership": {
-    "message": "Kişisel sahiplik"
+    "message": "Kişisel kasayı kaldır"
   },
   "personalOwnershipPolicyDesc": {
     "message": "Kişisel sahiplik seçeneğini kapatarak kullanıcıların kasadaki kayıtlarını bir kuruluşa kaydetmesini zorunlu kılabilirsiniz."
@@ -4307,7 +4394,7 @@
     "message": "Bir kuruluş ilkesi, kayıtları kişisel kasanıza içe aktarmayı devre dışı bıraktı."
   },
   "personalOwnershipCheckboxDesc": {
-    "message": "Kuruluş kullanıcıları için kişisel sahipliği kapatma"
+    "message": "Kuruluş kullanıcıları için kişisel sahipliği kapat"
   },
   "textHiddenByDefault": {
     "message": "Send'e erişirken varsayılan olarak metni gizle",
@@ -4420,14 +4507,14 @@
   "hintEqualsPassword": {
     "message": "Parola ipucunuz parolanızla aynı olamaz."
   },
-  "enrollPasswordReset": {
-    "message": "Parola Sıfırlama Kaydı Yaptır"
+  "enrollAccountRecovery": {
+    "message": "Hesap kurtarmaya kaydol"
   },
-  "enrolledPasswordReset": {
-    "message": "Parola Sıfırlama Kaydı Yaptırıldı"
+  "enrolledAccountRecovery": {
+    "message": "Hesap kurtarmaya kaydolundu"
   },
-  "withdrawPasswordReset": {
-    "message": "Parola Sıfırlamadan Geri Çekil"
+  "withdrawAccountRecovery": {
+    "message": "Hesap kurtarmadan ayrıl"
   },
   "enrollPasswordResetSuccess": {
     "message": "Kayıt başarılı!"
@@ -4435,8 +4522,8 @@
   "withdrawPasswordResetSuccess": {
     "message": "Çekilme başarılı!"
   },
-  "eventEnrollPasswordReset": {
-    "message": "$ID$ kullanıcısı parola sıfırlama desteği için kayıt yaptırdı.",
+  "eventEnrollAccountRecovery": {
+    "message": "$ID$ kullanıcısı, hesap kurtarmaya kaydoldu.",
     "placeholders": {
       "id": {
         "content": "$1",
@@ -4444,8 +4531,8 @@
       }
     }
   },
-  "eventWithdrawPasswordReset": {
-    "message": "$ID$ adlı kullanıcı parola sıfırlamadan geri çekildi.",
+  "eventWithdrawAccountRecovery": {
+    "message": "$ID$ kullanıcısı hesap kurtarmadan ayrıldı.",
     "placeholders": {
       "id": {
         "content": "$1",
@@ -4504,11 +4591,11 @@
   "resetPasswordEnrollmentWarning": {
     "message": "Katılmak kuruluş yöneticilerinin ana parolanızı değiştirmesine izin verir"
   },
-  "resetPasswordPolicy": {
-    "message": "Ana parola sıfırlama"
+  "accountRecoveryPolicy": {
+    "message": "Hesap kurtarma yönetimi"
   },
-  "resetPasswordPolicyDescription": {
-    "message": "Kuruluş yöneticilerinin üyelerin ana parolalarını sıfırlamasına izin ver."
+  "accountRecoveryPolicyDescription": {
+    "message": "Ana parola veya güvenilir cihazlar unutulur veya kaybolursa üye hesaplarını kurtarabilirsiniz. Kurtarma işlemleri, hesap şifreleme yöntemini temel alır."
   },
   "resetPasswordPolicyWarning": {
     "message": "Yöneticilerin kullanıcıların ana parolalarını sıfırlayabilmesi önce kuruluştaki kullanıcıların kendileri katılmaları veya otomatik eklenmeleri gerekir."
@@ -4613,7 +4700,7 @@
     "message": "Kullanıcıları kaldır"
   },
   "revokeUsers": {
-    "message": "Kullanıcıları İptal Et"
+    "message": "Kullanıcıları iptal et"
   },
   "restoreUsers": {
     "message": "Kullanıcıları geri yükle"
@@ -4622,16 +4709,16 @@
     "message": "Hata"
   },
   "resetPasswordManageUsers": {
-    "message": "\"Parola sıfırlamayı yönet\" izniyle birlikte \"Kullanıcıları yönet\" de açılmak zorundadır"
+    "message": "\"Parola sıfırlamayı yönet\" izniyle birlikte \"Kullanıcıları yönet\" izni de verilmelidir"
   },
   "setupProvider": {
     "message": "Sağlayıcı kurulumu"
   },
   "setupProviderLoginDesc": {
-    "message": "Yeni bir sağlayıcı kurmaya davet edildiniz. Devam etmek için oturum açmanız veya yeni bir Bitwarden hesabı oluşturmanız gerekir."
+    "message": "Yeni bir sağlayıcı kurmaya davet edildiniz. Devam etmek için giriş yapmanız veya yeni bir Bitwarden hesabı oluşturmanız gerekli."
   },
   "setupProviderDesc": {
-    "message": "Sağlayıcı kurulumunu tamamlamak için lütfen aşağıdaki ayrıntıları girin. Herhangi bir sorunuz varsa Müşteri Desteği ile iletişime geçin."
+    "message": "Sağlayıcı kurulumunu tamamlamak için lütfen aşağıdaki bilgileri girin. Sorularınız varsa üşteri hizmetleri ile iletişime geçebilirsiniz."
   },
   "providerName": {
     "message": "Sağlayıcı adı"
@@ -4650,16 +4737,16 @@
     "message": "Sağlayıcı yöneticisi"
   },
   "providerAdminDesc": {
-    "message": "Sağlayıcınızın tüm yönlerini yönetebilen ve müşteri organizasyonlarına erişebilen ve yönetebilen en yüksek erişimli kullanıcı."
+    "message": "Sağlayıcınızın tüm yönlerini yönetebilen ve müşteri kuruluşlarına erişip onları yönetebilen en yüksek erişimli kullanıcı."
   },
   "serviceUser": {
     "message": "Hizmet kullanıcısı"
   },
   "serviceUserDesc": {
-    "message": "Hizmet kullanıcıları, tüm istemci kuruluşlara erişebilir ve bunları yönetebilir."
+    "message": "Hizmet kullanıcıları tüm müşteri kuruluşlarına erişebilir ve onları yönetebilir."
   },
   "providerInviteUserDesc": {
-    "message": "Aşağıya Bitwarden hesabının e-posta adresini girerek sağlayıcınıza yeni bir kullanıcı davet edin. Halihazırda bir Bitwarden hesabı yoksa yeni bir hesap oluşturması istenecektir."
+    "message": "Sağlayıcınıza yeni bir kullanıcı davet etmek için aşağıya kullanıcının Bitwarden e-posta adresini yazın. Halihazırda bir Bitwarden hesabı yoksa yeni bir hesap açması istenecektir."
   },
   "joinProvider": {
     "message": "Sağlayıcıya katıl"
@@ -4683,7 +4770,7 @@
     "message": "Yeni müşteri kuruluşu"
   },
   "newClientOrganizationDesc": {
-    "message": "Sağlayıcı olarak sizinle ilişkilendirilecek yeni bir müşteri organizasyonu oluşturun. Bu kuruluşa erişebilecek ve yönetebileceksiniz."
+    "message": "Sağlayıcı olarak sizinle ilişkilendirilecek yeni bir müşteri kuruluşu oluşturun. Bu kuruluşa erişebilecek ve onu yönetebileceksiniz."
   },
   "addExistingOrganization": {
     "message": "Mevcut kuruluşu ekle"
@@ -4692,7 +4779,7 @@
     "message": "Sağlayıcım"
   },
   "addOrganizationConfirmation": {
-    "message": "$PROVIDER$'a müşteri olarak $ORGANIZATION$ eklemek istediğinizden emin misiniz?",
+    "message": "$PROVIDER$ sağlayıcısını $ORGANIZATION$ kuruluşuna müşteri olarak eklemek istediğinizden emin misiniz?",
     "placeholders": {
       "organization": {
         "content": "$1",
@@ -4717,7 +4804,7 @@
     }
   },
   "providerIsDisabled": {
-    "message": "Sağlayıcı devre dışı."
+    "message": "Sağlayıcı askıya alındı"
   },
   "providerUpdated": {
     "message": "Sağlayıcı kaydedildi"
@@ -4741,7 +4828,7 @@
     }
   },
   "detachOrganizationConfirmation": {
-    "message": "Bu organizasyonu ayırmak istediğinizden emin misiniz? Kuruluş var olmaya devam edecek, ancak artık sağlayıcı tarafından yönetilmeyecek."
+    "message": "Bu kuruluşu ayırmak istediğinizden emin misiniz? Kuruluş var olmaya devam edecek, ancak artık sağlayıcı tarafından yönetilmeyecek."
   },
   "add": {
     "message": "Ekle"
@@ -4757,6 +4844,9 @@
   },
   "masterPasswordInvalidWarning": {
     "message": "Ana parolanız  bu kuruluşun ilke gereksinimlerini karşılamıyor. Kuruluşa katılmak için ana parolanızı güncellemelisiniz. Devam ettiğinizde oturumunuz kapanacak ve yeniden oturum açmanız gerekecektir. Diğer cihazlardaki aktif oturumlar bir saate kadar aktif kalabilir."
+  },
+  "updateWeakMasterPasswordWarning": {
+    "message": "Ana parolanız kuruluş ilkelerinizi karşılamıyor. Kasanıza erişmek için ana parolanızı güncellemelisiniz. Devam ettiğinizde oturumunuz kapanacak ve yeniden oturum açmanız gerekecektir. Diğer cihazlardaki aktif oturumlar bir saate kadar aktif kalabilir."
   },
   "maximumVaultTimeout": {
     "message": "Kasa zaman aşımı"
@@ -4777,7 +4867,7 @@
     "message": "Dakika"
   },
   "vaultTimeoutPolicyInEffect": {
-    "message": "Kuruluş ilkeleriniz kasa zaman aşımınızı etkiliyor. İzin verilen maksimum kasa zaman aşımı $HOURS$ saat $MINUTES$ dakikadır",
+    "message": "Kuruluş ilkeleriniz izin verilen maksimum kasa zaman aşımını $HOURS$ saat $MINUTES$ dakika olarak belirlemiş.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -4786,6 +4876,32 @@
       "minutes": {
         "content": "$2",
         "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyWithActionInEffect": {
+    "message": "Kuruluş ilkeleriniz kasa zaman aşımınızı etkiliyor. İzin verilen maksimum kasa zaman aşımı $HOURS$ saat ve $MINUTES$ dakikadır. Kasa zaman aşımı eyleminiz $ACTION$ olarak ayarlandı.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      },
+      "action": {
+        "content": "$3",
+        "example": "Lock"
+      }
+    }
+  },
+  "vaultTimeoutActionPolicyInEffect": {
+    "message": "Kuruluş ilkeleriniz, kasa zaman aşımı eyleminizi $ACTION$ olarak ayarladı.",
+    "placeholders": {
+      "action": {
+        "content": "$1",
+        "example": "Lock"
       }
     }
   },
@@ -4802,16 +4918,28 @@
     "message": "Kasa zaman aşımı izin verilen aralıkta değil."
   },
   "disablePersonalVaultExport": {
-    "message": "Kişisel kasayı dışa aktarmayı devre dışı bırak"
+    "message": "Kişisel kasayı dışa aktarmayı kaldır"
   },
   "disablePersonalVaultExportDesc": {
-    "message": "Kullanıcıların kişisel kasa verilerini dışa aktarmasını yasaklar."
+    "message": "Kullanıcıların kişisel kasa verilerini dışa aktarmasına izin verme."
   },
   "vaultExportDisabled": {
-    "message": "Kasayı dışa aktarma devre dışı"
+    "message": "Kasayı dışa aktarma kaldırıldı"
   },
   "personalVaultExportPolicyInEffect": {
     "message": "Bir veya daha fazla kuruluş ilkesi, kişisel kasanızı dışa aktarmanızı engelliyor."
+  },
+  "activateAutofill": {
+    "message": "Otomatik doldurmayı etkinleştir"
+  },
+  "activateAutofillPolicyDesc": {
+    "message": "Tüm mevcut ve yeni üyeler için tarayıcı uzantısındaki \"sayfa yüklendiğinde otomatik doldur\" ayarını etkinleştir."
+  },
+  "experimentalFeature": {
+    "message": "Ele geçirilmiş veya güvenilmeyen web siteleri sayfa yüklenirken otomatik doldurmayı suistimal edebilir."
+  },
+  "learnMoreAboutAutofill": {
+    "message": "Otomatik doldurma hakkında bilgi alın"
   },
   "selectType": {
     "message": "SSO türünü seçin"
@@ -4841,7 +4969,7 @@
     "message": "Müşteri kimliği"
   },
   "clientSecret": {
-    "message": "Müşteri anahtarı"
+    "message": "Müşteri sırrı"
   },
   "metadataAddress": {
     "message": "Meta veri adresi"
@@ -4850,25 +4978,25 @@
     "message": "OIDC yönlendirme davranışı"
   },
   "getClaimsFromUserInfoEndpoint": {
-    "message": "Kullanıcı bilgileri uç noktasından hak talepleri alın"
+    "message": "Claim'leri kullanıcı bilgisi uç noktasından al"
   },
   "additionalScopes": {
-    "message": "Özel Kapsamlar"
+    "message": "Özel kapsamlar"
   },
   "additionalUserIdClaimTypes": {
-    "message": "Özel Kullanıcı Kimliği Talep Türleri"
+    "message": "Özel kullanıcı kimliği clam türleri"
   },
   "additionalEmailClaimTypes": {
-    "message": "E-posta Talep Türleri"
+    "message": "E-posta claim türleri"
   },
   "additionalNameClaimTypes": {
-    "message": "Özel Ad Talep Türleri"
+    "message": "Özel ad claim türleri"
   },
   "acrValues": {
-    "message": "İstenen Kimlik Doğrulama Bağlam Sınıfı Referans değerleri"
+    "message": "Requested authentication context class reference values"
   },
   "expectedReturnAcrValue": {
-    "message": "Yanıt Olarak Beklenen \"acr\" Talep Değeri"
+    "message": "Yanıt olarak \"acr\" claim değeri bekleniyordu"
   },
   "spEntityId": {
     "message": "SP varlık kimliği"
@@ -4892,7 +5020,7 @@
     "message": "Minimum gelen imza algoritması"
   },
   "spWantAssertionsSigned": {
-    "message": "İmzalı assertions'lar bekleyin"
+    "message": "Expect signed assertions"
   },
   "spValidateCertificates": {
     "message": "Sertifikaları doğrula"
@@ -4910,7 +5038,7 @@
     "message": "Tek çıkış (SLO) servis URL'si"
   },
   "idpX509PublicCert": {
-    "message": "X509 Genel Sertifika"
+    "message": "X509 açık sertifikası"
   },
   "idpOutboundSigningAlgorithm": {
     "message": "Çıkış imza algoritması"
@@ -4919,13 +5047,13 @@
     "message": "İstenmeyen kimlik doğrulama yanıtına izin ver"
   },
   "idpAllowOutboundLogoutRequests": {
-    "message": "Çıkış isteklerine izin ver"
+    "message": "Allow outbound logout requests"
   },
   "idpSignAuthenticationRequests": {
-    "message": "İmza doğrulama istekleri"
+    "message": "Kimlik doğrulama isteklerini imzala"
   },
   "ssoSettingsSaved": {
-    "message": "Tek Oturum Açma yapılandırması kaydedildi."
+    "message": "Tek oturum açma yapılandırması kaydedildi"
   },
   "sponsoredFamilies": {
     "message": "Ücretsiz Bitwarden Aile"
@@ -4946,7 +5074,7 @@
     "message": "Aile sırları için paylaşılan koleksiyonlar"
   },
   "badToken": {
-    "message": "Bağlantı artık geçerli değil. Lütfen sponsorun teklifi yeniden göndermesini sağlayın."
+    "message": "Bağlantı artık geçerli değil. Lütfen sponsorun yeniden teklif göndermesini isteyin."
   },
   "reclaimedFreePlan": {
     "message": "Ücretsiz paket kullanıldı"
@@ -5015,7 +5143,7 @@
     }
   },
   "freeFamiliesPlan": {
-    "message": "Ücretsiz Aile Paketi"
+    "message": "Ücretsiz Aile paketi"
   },
   "redeemNow": {
     "message": "Şimdi kullan"
@@ -5027,7 +5155,7 @@
     "message": "Sponsorluğu kaldır"
   },
   "removeSponsorshipConfirmation": {
-    "message": "Bir sponsorluğu kaldırdıktan sonra, bu abonelikten ve ilgili faturalardan siz sorumlu olacaksınız. Devam etmek istediğine emin misin?"
+    "message": "Sponsorluğu kaldırdıktan sonra bu abonelikten ve ilgili faturalardan siz sorumlu olacaksınız. Devam etmek istediğinden emin misiniz?"
   },
   "sponsorshipCreated": {
     "message": "Sponsorluk oluşturuldu"
@@ -5104,9 +5232,6 @@
     "message": "etkinleştirin.",
     "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Use the require single-sign-on authentication policy to require all members to log in with SSO.'"
   },
-  "ssoPolicyHelpKeyConnector": {
-    "message": "Key Connector ile çözmeyi kurmak için \"SSO kimlik doğrulama\" ve \"tek kuruluş\" ilkeleri gereklidir."
-  },
   "memberDecryptionOption": {
     "message": "Üye Şifre Çözme Seçenekleri"
   },
@@ -5116,8 +5241,17 @@
   "keyConnector": {
     "message": "Key Connector"
   },
-  "memberDecryptionKeyConnectorDesc": {
-    "message": "Oturum Açma ile TOA'yı kendi kendine barındırılan şifre çözme anahtarı sunucunuza bağlayın. Bu seçeneği kullanarak üyelerin kasa verilerinin şifresini çözmek için Ana şifrelerini kullanmaları gerekmez. Kurulum yardımı için Bitwarden Destek ile iletişime geçin."
+  "memberDecryptionKeyConnectorDescStart": {
+    "message": "SSO ile oturum açmak için şirket içinde barındırılan şifre çözme anahtarı sunucunuza bağlayın. Bu seçenek kullanılırsa, üyelerin kasa verilerinin şifresini çözmek için ana parolalarını kullanmaları gerekmez",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Connect login with SSO to your self-hosted decryption key server. Using this option, members won’t need to use their master passwords to decrypt vault data. The require SSO authentication and single organization policies are required to set up Key Connector decryption. Contact Bitwarden Support for set up assistance.'"
+  },
+  "memberDecryptionKeyConnectorDescLink": {
+    "message": "SSO kimlik doğrulaması ve tek kuruluş ilkeleri gerektirir",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Connect login with SSO to your self-hosted decryption key server. Using this option, members won’t need to use their master passwords to decrypt vault data. The require SSO authentication and single organization policies are required to set up Key Connector decryption. Contact Bitwarden Support for set up assistance.'"
+  },
+  "memberDecryptionKeyConnectorDescEnd": {
+    "message": "Anahtar Bağlayıcı şifre çözmeyi ayarlamak için gereklidir. Kurulum yardımı için Bitwarden Desteği ile iletişime geçin.",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Connect login with SSO to your self-hosted decryption key server. Using this option, members won’t need to use their master passwords to decrypt vault data. The require SSO authentication and single organization policies are required to set up Key Connector decryption. Contact Bitwarden Support for set up assistance.'"
   },
   "keyConnectorPolicyRestriction": {
     "message": "\"TOA ve Anahtar Bağlayıcı Şifre Çözme ile Oturum Açma\" etkinleştirildi. Bu politika yalnızca Sahipler ve Yöneticiler için geçerli olacaktır."
@@ -5201,16 +5335,13 @@
     "message": "Faturalandırma Senkronizasyonu Anahtarını yenilemek, önceki anahtarı geçersiz kılar."
   },
   "selfHostingTitle": {
-    "message": "Kendi Kendine Barındırılan"
+    "message": "Barındırılan"
   },
   "selfHostingEnterpriseOrganizationSectionCopy": {
     "message": "Kuruluşunuzu kendi sunucunuzda kurmak için lisans dosyanızı yüklemeniz gerekir. Kendi kendine barındırılan kuruluşunuz için Ücretsiz Aile planlarını ve gelişmiş faturalandırma özelliklerini desteklemek için faturalandırma eşitlemesini ayarlamanız gerekir."
   },
   "billingSyncApiKeyRotated": {
     "message": "Anahtar yenilendi."
-  },
-  "billingSync": {
-    "message": "Faturalandırma Eşitlemesi"
   },
   "billingSyncDesc": {
     "message": "Faturalandırma Eşitlemesi, şirket içinde barındırılan Bitwarden'ınızı Bitwarden bulut sunucusuna bağlayarak üyeler için Ücretsiz Aile planları ve gelişmiş faturalandırma özellikleri sağlar."
@@ -5263,11 +5394,20 @@
   "required": {
     "message": "zorunlu"
   },
+  "characterMaximum": {
+    "message": "en fazla $MAX$ karakter",
+    "placeholders": {
+      "max": {
+        "content": "$1",
+        "example": "100"
+      }
+    }
+  },
   "idpSingleSignOnServiceUrlRequired": {
     "message": "Varlık Kimliği bir URL değilse gereklidir."
   },
   "openIdOptionalCustomizations": {
-    "message": "İsteğe Bağlı Özelleştirmeler"
+    "message": "İsteğe bağlı özelleştirmeler"
   },
   "openIdAuthorityRequired": {
     "message": "Yetki geçerli değilse gereklidir."
@@ -5326,6 +5466,15 @@
   "currentOrganization": {
     "message": "Geçerli kuruluş",
     "description": "This is used by screen readers to indicate the organization that is currently being shown to the user."
+  },
+  "accountLoggedInAsName": {
+    "message": "Hesap: $NAME$ olarak giriş yapıldı",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "John Smith"
+      }
+    }
   },
   "accountSettings": {
     "message": "Hesap ayarları"
@@ -5406,7 +5555,7 @@
   },
   "lastSync": {
     "message": "Son eşitleme",
-    "Description": "Used as a prefix to indicate the last time a sync occured. Example \"Last sync 1968-11-16 00:00:00\""
+    "description": "Used as a prefix to indicate the last time a sync occured. Example \"Last sync 1968-11-16 00:00:00\""
   },
   "sponsorshipsSynced": {
     "message": "Kendi kendine barındırılan sponsorluklar eşitlendi."
@@ -5462,11 +5611,11 @@
     "message": "Premium abonelik gerekli"
   },
   "scim": {
-    "message": "SCIM Sağlama",
+    "message": "SCIM provisioning",
     "description": "The text, 'SCIM', is an acronymn and should not be translated."
   },
   "scimDescription": {
-    "message": "SCIM sağlama yoluyla tercih ettiğiniz kimlik sağlayıcıyla kullanıcıları ve grupları otomatik olarak sağlayın",
+    "message": "Automatically provision users and groups with your preferred identity provider via SCIM provisioning",
     "description": "the text, 'SCIM', is an acronymn and should not be translated."
   },
   "scimEnabledCheckboxDesc": {
@@ -5474,14 +5623,14 @@
     "description": "the text, 'SCIM', is an acronymn and should not be translated."
   },
   "scimEnabledCheckboxDescHelpText": {
-    "message": "URL'yi ve SCIM API Anahtarını yapılandırarak tercih ettiğiniz kimlik sağlayıcısını ayarlayın",
+    "message": "URL'yi ve SCIM API anahtarını yapılandırarak tercih ettiğiniz kimlik sağlayıcısını ayarlayın",
     "description": "the text, 'SCIM', is an acronymn and should not be translated."
   },
   "scimApiKeyHelperText": {
-    "message": "Bu API anahtarı, kuruluşunuzdaki kullanıcıları yönetme erişimine sahiptir. Gizli tutulmalıdır."
+    "message": "Bu API anahtarı, kuruluşunuzdaki kullanıcıları yönetme erişimine sahiptir. Gizli tutmaya özen gösterin."
   },
   "copyScimKey": {
-    "message": "SCIM API Anahtarını panonuza kopyalayın",
+    "message": "SCIM API anahtarını panoya kopyala",
     "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
   },
   "rotateScimKey": {
@@ -5489,7 +5638,7 @@
     "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
   },
   "rotateScimKeyWarning": {
-    "message": "SCIM API Anahtarını yenilemek istediğinizden emin misiniz? Geçerli anahtar, mevcut tüm entegrasyonlar için artık çalışmayacaktır.",
+    "message": "SCIM API Anahtarını yenilemek istediğinizden emin misiniz? Geçerli anahtar, mevcut entegrasyonlarda artık çalışmayacaktır.",
     "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
   },
   "rotateKey": {
@@ -5500,7 +5649,7 @@
     "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
   },
   "copyScimUrl": {
-    "message": "SCIM uç noktası URL'sini panonuza kopyalayın",
+    "message": "SCIM uç noktası URL'sini panoya kopyala",
     "description": "the text, 'SCIM' and 'URL', are acronymns and should not be translated."
   },
   "scimUrl": {
@@ -5508,7 +5657,7 @@
     "description": "the text, 'SCIM' and 'URL', are acronymns and should not be translated."
   },
   "scimApiKeyRotated": {
-    "message": "SCIM API Anahtarı başarıyla yenilendi",
+    "message": "SCIM API anahtarı başarıyla yenilendi",
     "description": "the text, 'SCIM' and 'API', are acronymns and should not be translated."
   },
   "scimSettingsSaved": {
@@ -5522,7 +5671,7 @@
     "message": "Girdi bir e-posta adresi değil."
   },
   "inputMinLength": {
-    "message": "Giriş, en az $COUNT$ karakter uzunluğunda olmalıdır.",
+    "message": "Girdi en az $COUNT$ karakter uzunluğunda olmalıdır.",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -5531,7 +5680,7 @@
     }
   },
   "inputMaxLength": {
-    "message": "Girdi, $COUNT$ karakter uzunluğunu geçmemelidir.",
+    "message": "Girdi $COUNT$ karakter uzunluğunu geçmemelidir.",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -5548,8 +5697,38 @@
       }
     }
   },
+  "inputMinValue": {
+    "message": "Girdi değeri en az $MIN$ olmalı.",
+    "placeholders": {
+      "min": {
+        "content": "$1",
+        "example": "8"
+      }
+    }
+  },
+  "inputMaxValue": {
+    "message": "Girdi değeri en fazla $MAX$ olmalı.",
+    "placeholders": {
+      "max": {
+        "content": "$1",
+        "example": "100"
+      }
+    }
+  },
+  "multipleInputEmails": {
+    "message": "Bir veya daha fazla e-posta geçersiz"
+  },
+  "tooManyEmails": {
+    "message": "Bir seferde en fazla $COUNT$ e-posta gönderebilirsiniz",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "20"
+      }
+    }
+  },
   "fieldsNeedAttention": {
-    "message": "Üstteki $COUNT$ alan(lar) la ilgilenmeniz gerekiyor.",
+    "message": "Yukarıdaki $COUNT$ alanla ilgilenmeniz gerekiyor.",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -5569,9 +5748,6 @@
   "reporting": {
     "message": "Raporlama"
   },
-  "cardBrandMir": {
-    "message": "Mir"
-  },
   "numberOfUsers": {
     "message": "Kullanıcı sayısı"
   },
@@ -5585,13 +5761,13 @@
     "message": "Bir avatar rengi seçin"
   },
   "customizeAvatar": {
-    "message": "Kişiselleştirilmiş avatar"
+    "message": "Avatarı kişiselleştir"
   },
   "avatarUpdated": {
     "message": "Avatar güncellendi"
   },
   "brightBlue": {
-    "message": "Parlak Mavi"
+    "message": "Parlak mavi"
   },
   "green": {
     "message": "Yeşil"
@@ -5618,10 +5794,13 @@
     "message": "Pembe"
   },
   "customColor": {
-    "message": "Özel Renk"
+    "message": "Özel renk"
+  },
+  "selectPlaceholder": {
+    "message": "-- Seçin --"
   },
   "multiSelectPlaceholder": {
-    "message": "-- Filtrelemek İçin Yazın --"
+    "message": "-- Filtrelemek için yazın --"
   },
   "multiSelectLoading": {
     "message": "Seçenekler alınıyor..."
@@ -5633,7 +5812,7 @@
     "message": "Tümünü temizle"
   },
   "toggleCharacterCount": {
-    "message": "Karakter sayısını değiştir",
+    "message": "Karakter sayacını aç/kapat",
     "description": "'Character count' describes a feature that displays a number next to each character of the password."
   },
   "passwordCharacterCount": {
@@ -5644,157 +5823,261 @@
     "message": "Gizle"
   },
   "projects": {
-    "message": "Projeler"
+    "message": "Projeler",
+    "description": "Description for the Projects field."
   },
   "lastEdited": {
-    "message": "Son Düzenlenen"
+    "message": "Son düzenlenme",
+    "description": "The label for the date and time when a item was last edited."
   },
   "editSecret": {
-    "message": "Gizli Düzenle"
+    "message": "Sırrı düzenle",
+    "description": "Action to modify an existing secret."
   },
   "addSecret": {
-    "message": "Sır Ekle"
+    "message": "Sır ekle",
+    "description": "Action to create a new secret."
   },
   "copySecretName": {
-    "message": "Gizli Adı Kopyala"
+    "message": "Sır adını kopyala",
+    "description": "Action to copy the name of a secret to the system's clipboard."
   },
   "copySecretValue": {
-    "message": "Gizli Değeri Kopyala"
+    "message": "Sır değerini kopyala",
+    "description": "Action to copy the value of a secret to the system's clipboard."
   },
   "deleteSecret": {
-    "message": "Sırrı Sil"
+    "message": "Sırrı sil",
+    "description": "Action to delete a single secret from the system."
   },
   "deleteSecrets": {
-    "message": "Sırları Sil"
+    "message": "Sırları sil",
+    "description": "The action to delete multiple secrets from the system."
+  },
+  "hardDeleteSecret": {
+    "message": "Sırrı kalıcı olarak sil"
+  },
+  "hardDeleteSecrets": {
+    "message": "Sırları kalıcı olarak sil"
   },
   "secretProjectAssociationDescription": {
-    "message": "Sırrın ilişkilendirileceği projeleri seçin. Yalnızca bu projelere erişimi olan kuruluş kullanıcıları sırrı görebilir."
+    "message": "Sırrın ilişkilendirileceği projeleri seçin. Yalnızca bu projelere erişimi olan kuruluş kullanıcıları sırrı görebilir.",
+    "description": "A prompt explaining how secrets can be associated with projects."
   },
-  "typeOrSelectProjects": {
-    "message": "Projeleri yazın veya seçin"
+  "selectProjects": {
+    "message": "Projeleri seçin",
+    "description": "A label for a type-to-filter input field to choose projects."
   },
-  "typeOrSelectProject": {
-    "message": "Projeyi yazın veya seçin"
+  "searchProjects": {
+    "message": "Projelerde ara",
+    "description": "Label for the search bar used to search projects."
   },
   "project": {
-    "message": "Proje"
+    "message": "Proje",
+    "description": "Similar to collections, projects can be used to group secrets."
   },
   "editProject": {
-    "message": "Proje Düzenleme"
+    "message": "Projeyi düzenle",
+    "description": "The action to modify an existing project."
   },
   "viewProject": {
-    "message": "Proje Görüntüle"
+    "message": "Projeyi görüntüle",
+    "description": "The action to view details of a project."
   },
   "deleteProject": {
-    "message": "Proje Silme"
+    "message": "Projeyi sil",
+    "description": "The action to delete a project from the system."
   },
   "deleteProjects": {
-    "message": "Projeleri Sil"
+    "message": "Projeleri sil",
+    "description": "The action to delete multiple projects from the system."
   },
   "secret": {
-    "message": "Gizli"
+    "message": "Sır",
+    "description": "Label for a secret (key/value pair)"
   },
   "serviceAccount": {
-    "message": "Hizmet Hesabı"
+    "message": "Hizmet hesabı",
+    "description": "A machine user which can be used to automate processes and access secrets in the system."
   },
   "serviceAccounts": {
-    "message": "Hizmet Hesapları"
+    "message": "Hizmet hesapları",
+    "description": "The title for the section that deals with service accounts."
   },
   "secrets": {
-    "message": "Sırlar"
+    "message": "Sırlar",
+    "description": "The title for the section of the application that deals with secrets."
   },
   "nameValuePair": {
-    "message": "İsim/Değer Çifti"
+    "message": "Ad/değer çifti",
+    "description": "Title for a name/ value pair. Secrets typically consist of a name and value pair."
   },
   "secretEdited": {
-    "message": "Sır düzenlendi"
+    "message": "Sır düzenlendi",
+    "description": "Notification for the successful editing of a secret."
   },
   "secretCreated": {
-    "message": "Sır yaratıldı"
+    "message": "Sır oluşturuldu",
+    "description": "Notification for the successful creation of a secret."
   },
   "newSecret": {
-    "message": "Yeni Sır"
+    "message": "Yeni sır",
+    "description": "Title for creating a new secret."
   },
   "newServiceAccount": {
-    "message": "Yeni Hizmet Hesabı"
+    "message": "Yeni hizmet hesabı",
+    "description": "Title for creating a new service account."
   },
   "secretsNoItemsTitle": {
-    "message": "Gösterecek sır yok"
+    "message": "Görüntülenecek hiç sır yok",
+    "description": "Empty state to indicate that there are no secrets to display."
   },
   "secretsNoItemsMessage": {
-    "message": "Başlamak için yeni bir gizli dizin ekleyin veya gizli dizinleri içe aktarın."
+    "message": "Başlamak için yeni bir sır ekleyin veya sırları içe aktarın.",
+    "description": "Message to encourage the user to start adding secrets."
   },
-  "serviceAccountsNoItemsTitle": {
-    "message": "Henüz gösterecek bir şey yok"
+  "secretsTrashNoItemsMessage": {
+    "message": "Çöp kutusunda hiç sır yok."
   },
   "serviceAccountsNoItemsMessage": {
-    "message": "Gizli erişimi otomatikleştirmeye başlamak için yeni bir Hizmet Hesabı oluşturun."
+    "message": "Sır erişimini otomatikleştirmeye başlamak için yeni bir hizmet hesabı oluşturun.",
+    "description": "Message to encourage the user to start creating service accounts."
+  },
+  "serviceAccountsNoItemsTitle": {
+    "message": "Henüz gösterecek bir şey yok",
+    "description": "Title to indicate that there are no service accounts to display."
   },
   "searchSecrets": {
-    "message": "Arama Sırları"
+    "message": "Sırlarda ara",
+    "description": "Placeholder text for searching secrets."
   },
   "deleteServiceAccounts": {
-    "message": "Hizmet Hesaplarını Sil"
+    "message": "Hizmet hesaplarını sil",
+    "description": "Title for the action to delete one or multiple service accounts."
   },
   "deleteServiceAccount": {
-    "message": "Hizmet Hesabını Sil"
+    "message": "Hizmet hesabını sil",
+    "description": "Title for the action to delete a single service account."
   },
   "viewServiceAccount": {
-    "message": "Hizmet Hesabını Görüntüle"
+    "message": "Hizmet hesabını görüntüle",
+    "description": "Action to view the details of a service account."
+  },
+  "deleteServiceAccountDialogMessage": {
+    "message": "$SERVICE_ACCOUNT$ hizmet hesabının silinmesi kalıcıdır ve geri alınamaz.",
+    "placeholders": {
+      "service_account": {
+        "content": "$1",
+        "example": "Service account name"
+      }
+    }
+  },
+  "deleteServiceAccountsDialogMessage": {
+    "message": "Hizmet hesaplarının silinmesi kalıcıdır ve geri alınamaz."
+  },
+  "deleteServiceAccountsConfirmMessage": {
+    "message": "$COUNT$ hizmet hesabını sil",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "deleteServiceAccountToast": {
+    "message": "Hizmet hesabı silindi"
+  },
+  "deleteServiceAccountsToast": {
+    "message": "Hizmet hesapları silindi"
   },
   "searchServiceAccounts": {
-    "message": "Hizmet Hesaplarını Ara"
+    "message": "Hizmet hesaplarında ara",
+    "description": "Placeholder text for searching service accounts."
+  },
+  "editServiceAccount": {
+    "message": "Hizmet hesabını düzenle",
+    "description": "Title for editing a service account."
   },
   "addProject": {
-    "message": "Proje Ekle"
+    "message": "Proje ekle",
+    "description": "Title for creating a new project."
   },
   "projectEdited": {
-    "message": "Proje düzenlendi"
+    "message": "Proje düzenlendi",
+    "description": "Notification for the successful editing of a project."
   },
   "projectSaved": {
-    "message": "Proje kaydedildi"
+    "message": "Proje kaydedildi",
+    "description": "Notification for the successful saving of a project."
   },
   "projectCreated": {
-    "message": "Proje oluşturuldu"
+    "message": "Proje oluşturuldu",
+    "description": "Notification for the successful creation of a project."
   },
   "projectName": {
-    "message": "Proje Adı"
+    "message": "Proje adı",
+    "description": "Label for entering the name of a project."
   },
   "newProject": {
-    "message": "Yeni Proje"
+    "message": "Yeni proje",
+    "description": "Title for creating a new project."
   },
   "softDeleteSecretWarning": {
-    "message": "Sırların silinmesi mevcut entegrasyonları etkileyebilir."
+    "message": "Sırların silinmesi mevcut entegrasyonları etkileyebilir.",
+    "description": "Warns that deleting secrets can have consequences on integrations"
   },
   "softDeletesSuccessToast": {
-    "message": "Çöpe atılan sırlar"
+    "message": "Sırlar çöp kutusuna gönderildi",
+    "description": "Notifies that the selected secrets have been moved to the trash"
   },
-  "serviceAccountCreated": {
-    "message": "Hizmet Hesabı Oluşturuldu"
+  "hardDeleteSecretConfirmation": {
+    "message": "Bu sırrı kalıcı olarak silmek istediğinizden emin misiniz?"
+  },
+  "hardDeleteSecretsConfirmation": {
+    "message": "Bu sırları kalıcı olarak silmek istediğinizden emin misiniz?"
+  },
+  "hardDeletesSuccessToast": {
+    "message": "Sırlar kalıcı olarak silindi"
   },
   "smAccess": {
-    "message": "Erişim"
+    "message": "Erişim",
+    "description": "Title indicating what permissions a service account has"
   },
   "projectCommaSecret": {
-    "message": "Proje, Gizli"
+    "message": "Proje, Sır",
+    "description": ""
   },
   "serviceAccountName": {
-    "message": "Hizmet hesabı adı"
+    "message": "Hizmet hesabı adı",
+    "description": "Label for the name of a service account"
+  },
+  "serviceAccountCreated": {
+    "message": "Hizmet hesabı oluşturuldu",
+    "description": "Notifies that a new service account has been created"
+  },
+  "serviceAccountUpdated": {
+    "message": "Hizmet hesabı güncellendi",
+    "description": "Notifies that a service account has been updated"
   },
   "newSaSelectAccess": {
-    "message": "Projeleri veya Sırları Yazın veya Seçin"
+    "message": "Projeleri veya sırları yazın veya seçin",
+    "description": "Instructions for selecting projects or secrets for a new service account"
   },
   "newSaTypeToFilter": {
-    "message": "Filtrelemek için yaz"
+    "message": "Filtrelemek için yaz",
+    "description": "Instructions for filtering a list of projects or secrets"
   },
   "deleteProjectsToast": {
-    "message": "Silinen projeler"
+    "message": "Projeler silindi",
+    "description": "Notifies that the selected projects have been deleted"
   },
   "deleteProjectToast": {
-    "message": "Proje ve ilişkili tüm sırlar silindi"
+    "message": "Proje silindi",
+    "description": "Notifies that a project has been deleted"
   },
   "deleteProjectDialogMessage": {
     "message": "$PROJECT$ projesinin silinmesi kalıcıdır ve geri döndürülemez.",
+    "description": "Informs users that projects are hard deleted and not sent to trash",
     "placeholders": {
       "project": {
         "content": "$1",
@@ -5804,15 +6087,17 @@
   },
   "deleteProjectInputLabel": {
     "message": "Devam etmek için \"$CONFIRM$\" yazın",
+    "description": "Users are prompted to type 'confirm' to delete a project",
     "placeholders": {
       "confirm": {
         "content": "$1",
-        "example": "Delete 3 Projects"
+        "example": "Delete 3 projects"
       }
     }
   },
   "deleteProjectConfirmMessage": {
-    "message": "$PROJECT$ sil",
+    "message": "$PROJECT$ projesini sil",
+    "description": "Confirmation prompt to delete a specific project, where '$PROJECT$' is a placeholder for the name of the project.",
     "placeholders": {
       "project": {
         "content": "$1",
@@ -5821,7 +6106,8 @@
     }
   },
   "deleteProjectsConfirmMessage": {
-    "message": "$COUNT$ Projelerini Sil",
+    "message": "$COUNT$ projeyi sil",
+    "description": "Confirmation prompt to delete multiple projects, where '$COUNT$' is a placeholder for the number of projects to be deleted.",
     "placeholders": {
       "count": {
         "content": "$1",
@@ -5830,79 +6116,110 @@
     }
   },
   "deleteProjectsDialogMessage": {
-    "message": "Projelerin silinmesi kalıcıdır ve geri döndürülemez."
+    "message": "Projelerin silinmesi kalıcıdır ve geri döndürülemez.",
+    "description": "This message is displayed in a dialog box as a warning before proceeding with project deletion."
   },
   "projectsNoItemsTitle": {
-    "message": "Sergilenecek proje yok"
+    "message": "Görüntülenecek proje yok",
+    "description": "Empty state to be displayed when there are no projects to display in the list."
   },
   "projectsNoItemsMessage": {
-    "message": "Sırları düzenlemeye başlamak için yeni bir proje ekleyin."
+    "message": "Sırları düzenlemeye başlamak için yeni bir proje ekleyin.",
+    "description": "Message to be displayed when there are no projects to display in the list."
   },
   "smConfirmationRequired": {
-    "message": "Onaylama gerekli"
+    "message": "Onay gerekli",
+    "description": "Indicates that user confirmation is required for an action to proceed."
   },
   "bulkDeleteProjectsErrorMessage": {
-    "message": "Aşağıdaki projeler silinememiştir:"
+    "message": "Aşağıdaki projeler silinemedi:",
+    "description": "Message to be displayed when there is an error during bulk project deletion."
   },
   "softDeleteSuccessToast": {
-    "message": "Çöpe atılan sır"
+    "message": "Sır çöp kutusuna gönderildi",
+    "description": "Notification to be displayed when a secret is successfully sent to the trash."
   },
-  "searchProjects": {
-    "message": "Projeleri ara"
+  "hardDeleteSuccessToast": {
+    "message": "Sır kalıcı olarak silindi"
   },
   "accessTokens": {
-    "message": "Erişim anahtarları"
+    "message": "Erişim anahtarları",
+    "description": "Title for the section displaying access tokens."
   },
-  "createAccessToken": {
-    "message": "Erişim anahtarı oluşturma"
+  "newAccessToken": {
+    "message": "Yeni erişim belirteci",
+    "description": "Button label for creating a new access token."
   },
   "expires": {
-    "message": "Bitiş tarihi"
+    "message": "Bitiş tarihi",
+    "description": "Label for the expiration date of an access token."
   },
   "canRead": {
-    "message": "Okuyabilir"
+    "message": "Okuyabilir",
+    "description": "Label for the access level of an access token (Read only)."
   },
   "accessTokensNoItemsTitle": {
-    "message": "Gösterilecek erişim anahtarları yok"
+    "message": "Gösterilecek erişim anahtarları yok",
+    "description": "Title to be displayed when there are no access tokens to display in the list."
   },
   "accessTokensNoItemsDesc": {
-    "message": "Başlamak için bir erişim anahtarı oluşturun"
+    "message": "Başlamak için bir erişim anahtarı oluşturun",
+    "description": "Message to be displayed when there are no access tokens to display in the list."
   },
   "downloadAccessToken": {
-    "message": "Kapatmadan önce indirin veya kopyalayın."
+    "message": "Kapatmadan önce indirin veya kopyalayın.",
+    "description": "Message to be displayed before closing an access token, reminding the user to download or copy it."
   },
   "expiresOnAccessToken": {
-    "message": "Bitiş tarihi:"
+    "message": "Bitiş tarihi:",
+    "description": "Label for the expiration date of an access token."
   },
   "accessTokenCallOutTitle": {
-    "message": "Erişim anahtarları saklanmaz ve geri alınamaz"
+    "message": "Erişim anahtarları saklanmaz ve geri alınamaz",
+    "description": "Notification to inform the user that access tokens are only displayed once and cannot be retrieved again."
   },
   "copyToken": {
-    "message": "Erişim anahtarını kopyala"
+    "message": "Erişim anahtarını kopyala",
+    "description": "Copies the generated access token to the user's clipboard."
   },
   "accessToken": {
-    "message": "Erişim anahtarı"
+    "message": "Erişim anahtarı",
+    "description": "A unique string that gives a client application (eg. CLI) access to a secret or set of secrets."
   },
   "accessTokenExpirationRequired": {
-    "message": "Son kullanma tarihi gerekli"
+    "message": "Bitiş tarihi gerekli",
+    "description": "Error message indicating that an expiration date for the access token must be set."
   },
   "accessTokenCreatedAndCopied": {
-    "message": "Erişim anahtarı oluşturuldu ve panoya kopyalandı"
-  },
-  "accessTokenPermissionsBetaNotification": {
-    "message": "İzin yönetimi beta sürümünde kullanılamıyor."
+    "message": "Erişim anahtarı oluşturuldu ve panoya kopyalandı",
+    "description": "Notification to inform the user that the access token has been created and copied to the clipboard."
   },
   "revokeAccessToken": {
-    "message": "Erişim anahtarını İptal Et"
+    "message": "Erişim anahtarını İptal Et",
+    "description": "Invalidates / cancels an access token and as such removes access to secrets for the client application."
+  },
+  "revokeAccessTokens": {
+    "message": "Erişim anahtarını iptal et"
+  },
+  "revokeAccessTokenDesc": {
+    "message": "Erişim belirteçlerini iptal etmek kalıcıdır ve geri alınamaz."
+  },
+  "accessTokenRevoked": {
+    "message": "Erişim belirteçleri iptal edildi",
+    "description": "Toast message after deleting one or multiple access tokens."
+  },
+  "noAccessTokenSelected": {
+    "message": "İptal edilecek erişim belirteci seçilmedi",
+    "description": "Toast error message after trying to delete access tokens but not selecting any access tokens."
   },
   "submenu": {
     "message": "Alt menü"
   },
   "from": {
-    "message": "Kimden"
+    "message": "Başlangıç"
   },
   "to": {
-    "message": "Kime"
+    "message": "Bitiş"
   },
   "member": {
     "message": "Üye"
@@ -5926,7 +6243,7 @@
     "message": "Üyelere grubun atanmış koleksiyonlarına erişim izni verin."
   },
   "editGroupCollectionsDesc": {
-    "message": "Bu gruba ekleyerek koleksiyonlara erişim izni verin."
+    "message": "Kullanıcıları bu gruba ekleyerek koleksiyonlara erişim izni verin."
   },
   "accessAllCollectionsDesc": {
     "message": "Mevcut ve gelecekteki tüm koleksiyonlara erişim izni verin."
@@ -5948,6 +6265,9 @@
   },
   "collection": {
     "message": "Koleksiyon"
+  },
+  "noCollection": {
+    "message": "Koleksiyon yok"
   },
   "canView": {
     "message": "Görüntüleyebilir"
@@ -5978,6 +6298,138 @@
   },
   "memberAccessAll": {
     "message": "Bu kullanıcı tüm kayıtlara erişebilir ve kayıtları değiştirebilir."
+  },
+  "domainVerification": {
+    "message": "Alan adı doğrulama"
+  },
+  "newDomain": {
+    "message": "Yeni alan adı"
+  },
+  "noDomains": {
+    "message": "Alan adı yok"
+  },
+  "noDomainsSubText": {
+    "message": "Bir alan adının bağlanması, üyelerin SSO ile Oturum Açma sırasında SSO tanımlayıcı alanını atlamalarına olanak tanır."
+  },
+  "verifyDomain": {
+    "message": "Alan adını doğrula"
+  },
+  "reverifyDomain": {
+    "message": "Alan adını yeniden doğrula"
+  },
+  "copyDnsTxtRecord": {
+    "message": "DNS TXT kaydını kopyala"
+  },
+  "dnsTxtRecord": {
+    "message": "DNS TXT kaydı"
+  },
+  "dnsTxtRecordInputHint": {
+    "message": "TXT kaydını kopyalayıp DNS sağlayıcınıza yapıştırın."
+  },
+  "domainNameInputHint": {
+    "message": "Örnek: mydomain.com. Alt alan adlarının doğrulanması için ayrı girişler gerekir."
+  },
+  "automaticDomainVerification": {
+    "message": "Otomatik Alan Doğrulaması"
+  },
+  "automaticDomainVerificationProcess": {
+    "message": "Bitwarden, ilk 72 saat içinde etki alanını 3 kez doğrulamaya çalışacak. Alan doğrulanamıyorsa barındırıcınızdaki DNS kaydını kontrol edin ve manuel olarak doğrulayın. Alan adı, doğrulanmamışsa kuruluşunuzdan 7 gün içinde kaldırılacaktır"
+  },
+  "invalidDomainNameMessage": {
+    "message": "Giriş geçerli bir format değil. Biçim: mydomain.com. Alt alan adlarının doğrulanması için ayrı girişler gerekir."
+  },
+  "removeDomain": {
+    "message": "Alan adını kaldır"
+  },
+  "removeDomainWarning": {
+    "message": "Alan adını kaldırma işlemi geri alınamaz. Devam etmek istediğinizden emin misiniz?"
+  },
+  "domainRemoved": {
+    "message": "Alan adı kaldırıldı"
+  },
+  "domainSaved": {
+    "message": "Alan adı kaydedildi"
+  },
+  "domainVerified": {
+    "message": "Alan adı doğrulandı"
+  },
+  "duplicateDomainError": {
+    "message": "Aynı etki alanını iki kez talep edemezsiniz."
+  },
+  "domainNotAvailable": {
+    "message": "Başka biri $DOMAIN$ kullanıyor. Devam etmek için farklı bir etki alanı kullanın.",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "bitwarden.com"
+      }
+    }
+  },
+  "domainNotVerified": {
+    "message": "$DOMAIN$ doğrulanmadı. DNS kaydınızı kontrol edin.",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "bitwarden.com"
+      }
+    }
+  },
+  "domainStatusVerified": {
+    "message": "Doğrulandı"
+  },
+  "domainStatusUnverified": {
+    "message": "Doğrulanmadı"
+  },
+  "domainNameTh": {
+    "message": "İsim"
+  },
+  "domainStatusTh": {
+    "message": "Durum"
+  },
+  "lastChecked": {
+    "message": "Son kontrol"
+  },
+  "editDomain": {
+    "message": "Alan adını düzenle"
+  },
+  "domainFormInvalid": {
+    "message": "İlgilenmeniz gereken form hataları var"
+  },
+  "addedDomain": {
+    "message": "$DOMAIN$ alan adı eklendi",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "bitwarden.com"
+      }
+    }
+  },
+  "removedDomain": {
+    "message": "$DOMAIN$ alan adı kaldırıldı",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "bitwarden.com"
+      }
+    }
+  },
+  "domainVerifiedEvent": {
+    "message": "$DOMAIN$ doğrulandı",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "bitwarden.com"
+      }
+    }
+  },
+  "domainNotVerifiedEvent": {
+    "message": "$DOMAIN$ doğrulanmadı",
+    "placeholders": {
+      "DOMAIN": {
+        "content": "$1",
+        "example": "bitwarden.com"
+      }
+    }
   },
   "membersColumnHeader": {
     "message": "Üye/Grup"
@@ -6053,5 +6505,429 @@
         "example": "2"
       }
     }
+  },
+  "server": {
+    "message": "Sunucu"
+  },
+  "exportData": {
+    "message": "Verileri dışarı aktar"
+  },
+  "exportingOrganizationSecretDataTitle": {
+    "message": "Kuruluş Gizli Verilerini Dışa Aktarma"
+  },
+  "exportingOrganizationSecretDataDescription": {
+    "message": "Yalnızca $ORGANIZATION$ ile ilişkili Secrets Manager verileri dışa aktarılacaktır. Diğer ürünlerdeki veya diğer kuruluşlardaki öğeler dahil edilmeyecektir.",
+    "placeholders": {
+      "ORGANIZATION": {
+        "content": "$1",
+        "example": "My Org Name"
+      }
+    }
+  },
+  "fileUpload": {
+    "message": "Dosya yükleme"
+  },
+  "acceptedFormats": {
+    "message": "Kabul edilen biçimler:"
+  },
+  "copyPasteImportContents": {
+    "message": "İçe aktarılacak içerikleri kopyalayıp yapıştırın:"
+  },
+  "or": {
+    "message": "veya"
+  },
+  "licenseAndBillingManagement": {
+    "message": "Lisans ve fatura yönetimi"
+  },
+  "automaticSync": {
+    "message": "Otomatik eşitleme"
+  },
+  "manualUpload": {
+    "message": "Elle yükleme"
+  },
+  "manualUploadDesc": {
+    "message": "Fatura senkronizasyonunu etkinleştirmek istemiyorsanız, lisansınızı buradan elle yükleyin."
+  },
+  "syncLicense": {
+    "message": "Lisansı eşitle"
+  },
+  "licenseSyncSuccess": {
+    "message": "Lisans başarıyla eşitlendi"
+  },
+  "licenseUploadSuccess": {
+    "message": "Lisans başarıyla yüklendi"
+  },
+  "lastLicenseSync": {
+    "message": "Son lisans eşitlemesi"
+  },
+  "billingSyncHelp": {
+    "message": "Fatura Eşitlemesi yardımı"
+  },
+  "licensePaidFeaturesHelp": {
+    "message": "Lisanslı ücretli özellikler yardımı"
+  },
+  "selfHostGracePeriodHelp": {
+    "message": "Aboneliğiniz sona erdikten sonra, güncellenmiş bir lisans dosyasını kuruluşunuza uygulamak için 60 gününüz vardır. Ek süre $GRACE_PERIOD_END_DATE$ tarihinde sona erer.",
+    "placeholders": {
+      "GRACE_PERIOD_END_DATE": {
+        "content": "$1",
+        "example": "May 12, 2024"
+      }
+    }
+  },
+  "uploadLicense": {
+    "message": "Lisansı yükle"
+  },
+  "projectPeopleDescription": {
+    "message": "Gruplara veya kişilere bu projeye erişim izni verin."
+  },
+  "projectPeopleSelectHint": {
+    "message": "Kişileri veya grupları yazın veya seçin"
+  },
+  "projectServiceAccountsDescription": {
+    "message": "Hizmet hesaplarına bu projeye erişim izni verin."
+  },
+  "projectServiceAccountsSelectHint": {
+    "message": "Hizmet hesaplarını yazın veya seçin"
+  },
+  "projectEmptyPeopleAccessPolicies": {
+    "message": "Ortak çalışmaya başlamak için kişi veya grup ekleyin"
+  },
+  "projectEmptyServiceAccountAccessPolicies": {
+    "message": "Erişim vermek için hizmet hesapları ekleyin"
+  },
+  "serviceAccountPeopleDescription": {
+    "message": "Gruplara veya kişilere bu hizmet hesabına erişim izni verin."
+  },
+  "serviceAccountProjectsDescription": {
+    "message": "Bu hizmet hesabına projeler atayın. "
+  },
+  "serviceAccountEmptyProjectAccesspolicies": {
+    "message": "Erişim izni vermek için proje ekleyin"
+  },
+  "canReadWrite": {
+    "message": "Okuyabilir, yazabilir"
+  },
+  "groupSlashUser": {
+    "message": "Grup/Kullanıcı"
+  },
+  "lowKdfIterations": {
+    "message": "Düşük KDF iterasyonu"
+  },
+  "updateLowKdfIterationsDesc": {
+    "message": "Yeni güvenlik önerilerini karşılamak ve hesap korumasını iyileştirmek için şifreleme ayarlarınızı güncelleyin."
+  },
+  "changeKdfLoggedOutWarning": {
+    "message": "İşlem, tüm aktif oturumlardan çıkış yapmanızı sağlayacaktır. Tekrar oturum açmanız ve iki adımlı oturum açma kurulumunu tamamlamanız gerekecek. Veri kaybını önlemek için şifreleme ayarlarınızı değiştirmeden önce kasanızı dışa aktarmanızı öneririz."
+  },
+  "secretsManagerBeta": {
+    "message": "Sır Yöneticisi Beta"
+  },
+  "secretsManager": {
+    "message": "Sır Yöneticisi"
+  },
+  "secretsManagerAccessDesc": {
+    "message": "Enable user access to Secrets Manager."
+  },
+  "userAccessSecretsManagerGA": {
+    "message": "This user can access Secrets Manager"
+  },
+  "important": {
+    "message": "Önemli:"
+  },
+  "viewAll": {
+    "message": "Tümünü göster"
+  },
+  "showingPortionOfTotal": {
+    "message": "$PORTION$/$TOTAL$ gösteriliyor",
+    "placeholders": {
+      "portion": {
+        "content": "$1",
+        "example": "2"
+      },
+      "total": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "resolveTheErrorsBelowAndTryAgain": {
+    "message": "Aşağıdaki hataları düzeltip yeniden deneyin."
+  },
+  "description": {
+    "message": "Açıklama"
+  },
+  "errorReadingImportFile": {
+    "message": "İçe aktarma dosyası okunurken bir hata oluştu"
+  },
+  "accessedSecret": {
+    "message": "$SECRET_ID$ sırrına erişildi.",
+    "placeholders": {
+      "secret_id": {
+        "content": "$1",
+        "example": "4d34e8a8"
+      }
+    }
+  },
+  "sdk": {
+    "message": "SDK",
+    "description": "Software Development Kit"
+  },
+  "createSecret": {
+    "message": "Sır oluştur"
+  },
+  "createProject": {
+    "message": "Proje oluştur"
+  },
+  "createServiceAccount": {
+    "message": "Hizmet hesabı oluştur"
+  },
+  "downloadThe": {
+    "message": "İndir:",
+    "description": "Link to a downloadable resource. This will be used as part of a larger phrase. Example: Download the Secrets Manager CLI"
+  },
+  "smCLI": {
+    "message": "Sır Yöneticisi CLI"
+  },
+  "importSecrets": {
+    "message": "Sırları içe aktar"
+  },
+  "getStarted": {
+    "message": "Başlayın"
+  },
+  "complete": {
+    "message": "$COMPLETED$/$TOTAL$ tamamlandı",
+    "placeholders": {
+      "COMPLETED": {
+        "content": "$1",
+        "example": "1"
+      },
+      "TOTAL": {
+        "content": "$2",
+        "example": "4"
+      }
+    }
+  },
+  "restoreSecret": {
+    "message": "Sırrı geri yükle"
+  },
+  "restoreSecrets": {
+    "message": "Sırları geri yükle"
+  },
+  "restoreSecretPrompt": {
+    "message": "Bu sırrı geri yüklemek istediğinizden emin misiniz?"
+  },
+  "restoreSecretsPrompt": {
+    "message": "Bu sırları geri yüklemek istediğinizden emin misiniz?"
+  },
+  "secretRestoredSuccessToast": {
+    "message": "Sır geri yüklendi"
+  },
+  "secretsRestoredSuccessToast": {
+    "message": "Sırlar geri yüklendi"
+  },
+  "selectionIsRequired": {
+    "message": "Seçim yapmanız gerekiyor."
+  },
+  "secretsManagerSubscriptionDesc": {
+    "message": "Beta programı boyunca Secrets Manager'a kuruluş erişimini ücretsiz olarak etkinleştirebilirsiniz. Üyeler sayfası üzerinden kullanıcılara Beta'ya erişim izni verebilirsiniz."
+  },
+  "secretsManagerEnable": {
+    "message": "Secrets Manager Beta'yı etkinleştir"
+  },
+  "saPeopleWarningTitle": {
+    "message": "Erişim belirteçleri hala kullanılabilir"
+  },
+  "saPeopleWarningMessage": {
+    "message": "Kişileri bir hizmet hesabından kaldırmak, oluşturdukları erişim belirteçlerini kaldırmaz. En iyi güvenlik uygulaması için, bir hizmet hesabından kaldırılan kişiler tarafından oluşturulan erişim belirteçlerinin iptal edilmesi önerilir."
+  },
+  "smAccessRemovalWarningProjectTitle": {
+    "message": "Bu projeye erişimi kaldır"
+  },
+  "smAccessRemovalWarningProjectMessage": {
+    "message": "Bu eylem, projeye erişiminizi kaldıracaktır."
+  },
+  "smAccessRemovalWarningSaTitle": {
+    "message": "Bu hizmet hesabına erişimi kaldır"
+  },
+  "smAccessRemovalWarningSaMessage": {
+    "message": "Bu işlem, hizmet hesabına erişiminizi kaldıracaktır."
+  },
+  "removeAccess": {
+    "message": "Erişimi kaldır"
+  },
+  "checkForBreaches": {
+    "message": "Bilinen veri ihlallerinde bu parolayı kontrol et"
+  },
+  "exposedMasterPassword": {
+    "message": "Açığa Çıkmış Ana Parola"
+  },
+  "exposedMasterPasswordDesc": {
+    "message": "Bu parola bir veri ihlalinde tespit edildi. Hesabınızı korumak için aynı parolayı farklı yerlerde kullanmayın. Bu parolayı kullanmak istediğinizden emin misiniz?"
+  },
+  "weakAndExposedMasterPassword": {
+    "message": "Zayıf ve Açığa Çıkmış Ana Parola"
+  },
+  "weakAndBreachedMasterPasswordDesc": {
+    "message": "Hem zayıf hem de veri ihlalinde yer alan bir tespit edildi. Hesabınızı korumak için güçlü bir parola seçin ve o parolayı başka yerlerde kullanmayın. Bu parolayı kullanmak istediğinizden emin misiniz?"
+  },
+  "characterMinimum": {
+    "message": "En az $LENGTH$ karakter",
+    "placeholders": {
+      "length": {
+        "content": "$1",
+        "example": "14"
+      }
+    }
+  },
+  "masterPasswordMinimumlength": {
+    "message": "Ana parola en az $LENGTH$ karakter uzunluğunda olmalıdır.",
+    "placeholders": {
+      "length": {
+        "content": "$1",
+        "example": "14"
+      }
+    }
+  },
+  "inputTrimValidator": {
+    "message": "Girdi yalnızca boşluktan ibaret olamaz.",
+    "description": "Notification to inform the user that a form's input can't contain only whitespace."
+  },
+  "dismiss": {
+    "message": "Kapat"
+  },
+  "notAvailableForFreeOrganization": {
+    "message": "Bu özellik ücretsiz kuruluşlar için mevcut değildir. Yükseltmek için kuruluşunuzun sahibiyle iletişime geçin."
+  },
+  "smProjectSecretsNoItemsNoAccess": {
+    "message": "Bu projenin sırlarını yönetmek için kuruluş yöneticinize başvurun.",
+    "description": "The message shown to the user under a project's secrets tab when the user only has read access to the project."
+  },
+  "enforceOnLoginDesc": {
+    "message": "Mevcut üyelerin parolalarını değiştirmelerini zorunlu tut"
+  },
+  "region": {
+    "message": "Bölge"
+  },
+  "eu": {
+    "message": "AB",
+    "description": "European Union"
+  },
+  "us": {
+    "message": "ABD",
+    "description": "United States"
+  },
+  "smProjectDeleteAccessRestricted": {
+    "message": "Bu projeyi silme izniniz yok",
+    "description": "The individual description shown to the user when the user doesn't have access to delete a project."
+  },
+  "smProjectsDeleteBulkConfirmation": {
+    "message": "Aşağıdaki projeler silinemez. Devam etmek istiyor musunuz?",
+    "description": "The message shown to the user when bulk deleting projects and the user doesn't have access to some projects."
+  },
+  "updateKdfSettings": {
+    "message": "KDF ayarlarını güncelle"
+  },
+  "trustedDeviceEncryption": {
+    "message": "Güvenilir cihaz şifrelemesi"
+  },
+  "memberDecryptionTdeDescriptionStart": {
+    "message": "Üyeler kimliklerini doğruladıktan sonra, cihazlarında saklanan anahtarı kullanarak kasa verilerinin şifresini çözebilecektir. Bu seçeneği kullanırsanız",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Once authenticated, members will decrypt vault data using a key stored on their device. The account recovery administration policy with automatic enrollment will turn on when this option is used.'"
+  },
+  "memberDecryptionTdeDescriptionLink": {
+    "message": "hesap kurtarma yönetim ilkesi",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Once authenticated, members will decrypt vault data using a key stored on their device. The account recovery administration policy with automatic enrollment will turn on when this option is used.'"
+  },
+  "memberDecryptionTdeDescriptionEnd": {
+    "message": "otomatik kayıtla birlikte açılacaktır.",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Once authenticated, members will decrypt vault data using a key stored on their device. The master password reset policy with automatic enrollment will turn on when this option is used.'"
+  },
+  "notFound": {
+    "message": "$RESOURCE$ bulunamadı",
+    "placeholders": {
+      "resource": {
+        "content": "$1",
+        "example": "Service Account"
+      }
+    }
+  },
+  "recoverAccount": {
+    "message": "Hesabı kurtar"
+  },
+  "updatedTempPassword": {
+    "message": "Kullanıcı, hesap kurtarma yoluyla verilen bir parolayı güncelledi."
+  },
+  "enabledAccessToSecretsManager": {
+    "message": "Enabled access to Secrets Manager",
+    "description": "Confirmation message that one or more users gained access to Secrets Manager"
+  },
+  "enableAccess": {
+    "message": "Erişimi etkinleştir"
+  },
+  "bulkEnableSecretsManagerDescription": {
+    "message": "Grant the following members access to Secrets Manager. The role granted in the Password Manager will apply to Secrets Manager.",
+    "description": "This description is shown to an admin when they are attempting to add more users to Secrets Manager."
+  },
+  "enableSecretsManager": {
+    "message": "Enable Secrets Manager"
+  },
+  "yourOrganizationsFingerprint": {
+    "message": "Kuruluşunuzun parmak izi ifadesi",
+    "description": "A 'fingerprint phrase' is a unique word phrase (similar to a passphrase) that a user can use to authenticate their organization's public key with another user, for the purposes of sharing."
+  },
+  "deviceApprovals": {
+    "message": "Cihaz onayları"
+  },
+  "deviceApprovalsDesc": {
+    "message": "Aşağıdaki giriş isteklerini onaylayarak istekte bulunan üyelerin giriş yapmasına izin verebilirsiniz. Onaylanmayan isteklerin süresi 1 hafta sonra dolar. Onaylamadan önce üyenin bilgilerini kontrol edin."
+  },
+  "deviceInfo": {
+    "message": "Cihaz bilgileri"
+  },
+  "time": {
+    "message": "Tarih"
+  },
+  "denyAllRequests": {
+    "message": "Tüm istekleri reddet"
+  },
+  "denyRequest": {
+    "message": "İsteği reddet"
+  },
+  "approveRequest": {
+    "message": "İsteği onayla"
+  },
+  "noDeviceRequests": {
+    "message": "Cihaz isteği yok"
+  },
+  "noDeviceRequestsDesc": {
+    "message": "Üye cihaz onay istekleri burada görünecek"
+  },
+  "loginRequestDenied": {
+    "message": "Giriş isteği reddedildi"
+  },
+  "allLoginRequestsDenied": {
+    "message": "Tüm giriş istekleri reddedildi"
+  },
+  "loginRequestApproved": {
+    "message": "Giriş isteği onaylandı"
+  },
+  "removeOrgUserNoMasterPasswordTitle": {
+    "message": "Hesabın ana parolası yok"
+  },
+  "removeOrgUserNoMasterPasswordDesc": {
+    "message": "Removing $USER$ without setting a master password for them may restrict access to their full account. Are you sure you want to continue?",
+    "placeholders": {
+      "user": {
+        "content": "$1",
+        "example": "John Smith"
+      }
+    }
+  },
+  "noMasterPassword": {
+    "message": "Ana parola yok"
+  },
+  "removeMembersWithoutMasterPasswordWarning": {
+    "message": "Removing members who do not have master passwords without setting one for them may restrict access to their full account."
   }
 }

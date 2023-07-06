@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 
 import { ModalService } from "@bitwarden/angular/services/modal.service";
-import { CipherService } from "@bitwarden/common/abstractions/cipher.service";
-import { MessagingService } from "@bitwarden/common/abstractions/messaging.service";
-import { PasswordGenerationService } from "@bitwarden/common/abstractions/passwordGeneration.service";
-import { PasswordRepromptService } from "@bitwarden/common/abstractions/passwordReprompt.service";
-import { CipherType } from "@bitwarden/common/enums/cipherType";
-import { CipherView } from "@bitwarden/common/models/view/cipher.view";
+import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
+import { PasswordStrengthServiceAbstraction } from "@bitwarden/common/tools/password-strength";
+import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
+import { PasswordRepromptService } from "@bitwarden/common/vault/abstractions/password-reprompt.service";
+import { CipherType } from "@bitwarden/common/vault/enums/cipher-type";
+import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
 import { BadgeTypes } from "@bitwarden/components";
 
 import { CipherReportComponent } from "./cipher-report.component";
@@ -22,7 +22,7 @@ export class WeakPasswordsReportComponent extends CipherReportComponent implemen
 
   constructor(
     protected cipherService: CipherService,
-    protected passwordGenerationService: PasswordGenerationService,
+    protected passwordStrengthService: PasswordStrengthServiceAbstraction,
     modalService: ModalService,
     messagingService: MessagingService,
     passwordRepromptService: PasswordRepromptService
@@ -31,9 +31,7 @@ export class WeakPasswordsReportComponent extends CipherReportComponent implemen
   }
 
   async ngOnInit() {
-    if (await this.checkAccess()) {
-      await super.load();
-    }
+    await super.load();
   }
 
   async setCiphers() {
@@ -79,8 +77,9 @@ export class WeakPasswordsReportComponent extends CipherReportComponent implemen
               .filter((i) => i.length >= 3);
           }
         }
-        const result = this.passwordGenerationService.passwordStrength(
+        const result = this.passwordStrengthService.getPasswordStrength(
           c.login.password,
+          null,
           userInput.length > 0 ? userInput : null
         );
         this.passwordStrengthCache.set(cacheKey, result.score);

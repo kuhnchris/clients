@@ -2,8 +2,8 @@ import { Directive, Input, OnDestroy, OnInit, Optional } from "@angular/core";
 import { FormGroupDirective } from "@angular/forms";
 import { BehaviorSubject, catchError, filter, of, Subject, switchMap, takeUntil } from "rxjs";
 
-import { LogService } from "@bitwarden/common/abstractions/log.service";
-import { ValidationService } from "@bitwarden/common/abstractions/validation.service";
+import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
+import { ValidationService } from "@bitwarden/common/platform/abstractions/validation.service";
 
 import { FunctionReturningAwaitable, functionToObservable } from "../utils/function-to-observable";
 
@@ -20,6 +20,8 @@ export class BitSubmitDirective implements OnInit, OnDestroy {
 
   @Input("bitSubmit") protected handler: FunctionReturningAwaitable;
 
+  @Input() allowDisabledFormSubmit?: boolean = false;
+
   readonly loading$ = this._loading$.asObservable();
   readonly disabled$ = this._disabled$.asObservable();
 
@@ -32,7 +34,7 @@ export class BitSubmitDirective implements OnInit, OnDestroy {
       .pipe(
         filter(() => !this.disabled),
         switchMap(() => {
-          // Calling functionToObservable exectues the sync part of the handler
+          // Calling functionToObservable executes the sync part of the handler
           // allowing the function to check form validity before it gets disabled.
           const awaitable = functionToObservable(this.handler);
 
@@ -56,9 +58,13 @@ export class BitSubmitDirective implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.formGroupDirective.statusChanges
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((c) => this._disabled$.next(c === "DISABLED"));
+    this.formGroupDirective.statusChanges.pipe(takeUntil(this.destroy$)).subscribe((c) => {
+      if (this.allowDisabledFormSubmit) {
+        this._disabled$.next(false);
+      } else {
+        this._disabled$.next(c === "DISABLED");
+      }
+    });
   }
 
   get disabled() {

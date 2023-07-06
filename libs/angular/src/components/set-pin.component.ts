@@ -1,9 +1,9 @@
 import { Directive, OnInit } from "@angular/core";
 
-import { CryptoService } from "@bitwarden/common/abstractions/crypto.service";
-import { KeyConnectorService } from "@bitwarden/common/abstractions/keyConnector.service";
-import { StateService } from "@bitwarden/common/abstractions/state.service";
-import { Utils } from "@bitwarden/common/misc/utils";
+import { KeyConnectorService } from "@bitwarden/common/auth/abstractions/key-connector.service";
+import { CryptoService } from "@bitwarden/common/platform/abstractions/crypto.service";
+import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
+import { Utils } from "@bitwarden/common/platform/misc/utils";
 
 import { ModalRef } from "./modal/modal.ref";
 
@@ -36,9 +36,9 @@ export class SetPinComponent implements OnInit {
     }
 
     const kdf = await this.stateService.getKdfType();
-    const kdfIterations = await this.stateService.getKdfIterations();
+    const kdfConfig = await this.stateService.getKdfConfig();
     const email = await this.stateService.getEmail();
-    const pinKey = await this.cryptoService.makePinKey(this.pin, email, kdf, kdfIterations);
+    const pinKey = await this.cryptoService.makePinKey(this.pin, email, kdf, kdfConfig);
     const key = await this.cryptoService.getKey();
     const pinProtectedKey = await this.cryptoService.encrypt(key.key, pinKey);
     if (this.masterPassOnRestart) {

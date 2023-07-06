@@ -6,12 +6,14 @@
       class="tw-my-2 tw-inline-block"
       [routerLink]="breadcrumb.route"
       [queryParams]="breadcrumb.queryParams"
+      [queryParamsHandling]="breadcrumb.queryParamsHandling"
     >
       <ng-container [ngTemplateOutlet]="breadcrumb.content"></ng-container>
     </a>
   </ng-container>
   <ng-container *ngIf="!breadcrumb.route">
     <button
+      type="button"
       bitLink
       linkType="primary"
       class="tw-my-2 tw-inline-block"
@@ -27,6 +29,7 @@
   <i *ngIf="beforeOverflow.length > 0" class="bwi bwi-angle-right tw-mx-1.5 tw-text-main"></i>
 
   <button
+    type="button"
     bitIconButton="bwi-ellipsis-h"
     [bitMenuTriggerFor]="overflowMenu"
     size="small"
@@ -41,12 +44,13 @@
           linkType="primary"
           [routerLink]="breadcrumb.route"
           [queryParams]="breadcrumb.queryParams"
+          [queryParamsHandling]="breadcrumb.queryParamsHandling"
         >
           <ng-container [ngTemplateOutlet]="breadcrumb.content"></ng-container>
         </a>
       </ng-container>
       <ng-container *ngIf="!breadcrumb.route">
-        <button bitMenuItem linkType="primary" (click)="breadcrumb.onClick($event)">
+        <button type="button" bitMenuItem linkType="primary" (click)="breadcrumb.onClick($event)">
           <ng-container [ngTemplateOutlet]="breadcrumb.content"></ng-container>
         </button>
       </ng-container>
@@ -62,12 +66,14 @@
         class="tw-my-2 tw-inline-block"
         [routerLink]="breadcrumb.route"
         [queryParams]="breadcrumb.queryParams"
+        [queryParamsHandling]="breadcrumb.queryParamsHandling"
       >
         <ng-container [ngTemplateOutlet]="breadcrumb.content"></ng-container>
       </a>
     </ng-container>
     <ng-container *ngIf="!breadcrumb.route">
       <button
+        type="button"
         bitLink
         linkType="primary"
         class="tw-my-2 tw-inline-block"
