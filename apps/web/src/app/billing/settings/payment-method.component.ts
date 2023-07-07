@@ -8,6 +8,8 @@ import { OrganizationApiServiceAbstraction } from "@bitwarden/common/admin-conso
 import { OrganizationResponse } from "@bitwarden/common/admin-console/models/response/organization.response";
 import { PaymentMethodType } from "@bitwarden/common/billing/enums";
 import { BillingPaymentResponse } from "@bitwarden/common/billing/models/response/billing-payment.response";
+import { OrganizationSubscriptionResponse } from "@bitwarden/common/billing/models/response/organization-subscription.response";
+import { SubscriptionResponse } from "@bitwarden/common/billing/models/response/subscription.response";
 import { VerifyBankRequest } from "@bitwarden/common/models/request/verify-bank.request";
 import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
@@ -29,8 +31,10 @@ export class PaymentMethodComponent implements OnInit {
   showAddCredit = false;
   billing: BillingPaymentResponse;
   org: OrganizationResponse;
+  sub: SubscriptionResponse | OrganizationSubscriptionResponse;
   paymentMethodType = PaymentMethodType;
   organizationId: string;
+  isUnpaid = false;
 
   verifyBankPromise: Promise<any>;
   taxFormPromise: Promise<any>;
@@ -84,11 +88,21 @@ export class PaymentMethodComponent implements OnInit {
     if (this.forOrganization) {
       const billingPromise = this.organizationApiService.getBilling(this.organizationId);
       const orgPromise = this.organizationApiService.get(this.organizationId);
+      const subPromise = this.organizationApiService.getSubscription(this.organizationId);
 
-      [this.billing, this.org] = await Promise.all([billingPromise, orgPromise]);
+      [this.billing, this.org, this.sub] = await Promise.all([
+        billingPromise,
+        orgPromise,
+        subPromise,
+      ]);
     } else {
-      this.billing = await this.apiService.getUserBillingPayment();
+      const billingPromise = this.apiService.getUserBillingPayment();
+      const subPromise = this.apiService.getUserSubscription();
+
+      [this.billing, this.sub] = await Promise.all([billingPromise, subPromise]);
     }
+
+    this.isUnpaid = this.subscription?.status === "unpaid" ?? false;
 
     this.loading = false;
   }
@@ -127,6 +141,7 @@ export class PaymentMethodComponent implements OnInit {
 
       return;
     }
+
     this.showAdjustPayment = true;
   }
 
@@ -213,5 +228,9 @@ export class PaymentMethodComponent implements OnInit {
       (this.paymentSource.type === PaymentMethodType.AppleInApp ||
         this.paymentSource.type === PaymentMethodType.GoogleInApp)
     );
+  }
+
+  get subscription() {
+    return this.sub != null ? this.sub.subscription : null;
   }
 }
