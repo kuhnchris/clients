@@ -389,6 +389,20 @@
             <div *ngIf="cipher.identity.country">{{ cipher.identity.country }}</div>
           </div>
         </div>
+
+        <!-- Fido2Key -->
+        <div *ngIf="isFido2Key(cipher.fido2Key)">
+          <div class="box-content-row">
+            <div class="row-main">
+              <span class="row-label">{{ "username" | i18n }}</span>
+              {{ cipher.fido2Key.userName }}
+            </div>
+          </div>
+          <div class="box-content-row">
+            <span class="row-label">{{ "typePasskey" | i18n }}</span>
+            {{ "dateCreated" | i18n }} {{ cipher.creationDate | date : "MM/dd/y" }}
+          </div>
+        </div>
       </div>
     </div>
     <div class="box" *ngIf="cipher.login && cipher.login.hasUris">
@@ -463,6 +477,45 @@
       </h2>
       <div class="box-content">
         <div class="box-content-row pre-wrap">{{ cipher.notes }}</div>
+      </div>
+    </div>
+    <div class="box" *ngIf="isFido2Key(cipher.fido2Key) && cipher.fido2Key.canLaunch">
+      <div class="box-content">
+        <div class="box-content-row box-content-row-flex">
+          <div class="row-main">
+            <label
+              class="row-label draggable"
+              draggable="true"
+              (dragstart)="setTextDataOnDrag($event, cipher.fido2Key.launchUri)"
+              >{{ "application" | i18n }}</label
+            >
+            <span title="{{ cipher.fido2Key.launchUri }}">
+              <input type="text" [value]="cipher.fido2Key.rpId" readonly aria-readonly="true" />
+            </span>
+          </div>
+          <div class="action-buttons">
+            <button
+              type="button"
+              class="row-btn"
+              appStopClick
+              (click)="launch(cipher.fido2Key)"
+              attr.aria-label="{{ 'launch' | i18n }} {{ cipher.fido2Key.launchUri }}"
+              [appA11yTitle]="'launch' | i18n"
+            >
+              <i class="bwi bwi-lg bwi-share-square" aria-hidden="true"></i>
+            </button>
+            <button
+              type="button"
+              class="row-btn"
+              appStopClick
+              attr.aria-label="{{ 'copyUri' | i18n }} {{ cipher.fido2Key.launchUri }}"
+              [appA11yTitle]="'copyUri' | i18n"
+              (click)="copy(cipher.fido2Key.launchUri, 'uri', 'URI')"
+            >
+              <i class="bwi bwi-lg bwi-clone" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
     <app-vault-view-custom-fields
