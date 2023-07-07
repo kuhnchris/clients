@@ -131,6 +131,10 @@ export class CipherView implements View, InitializerMetadata {
     return this.item.linkedFieldOptions;
   }
 
+  get isFido2Key() {
+    return Object.keys(this.fido2Key).length > 0;
+  }
+
   linkedFieldValue(id: LinkedIdType) {
     const linkedFieldOption = this.linkedFieldOptions?.get(id);
     if (linkedFieldOption == null) {

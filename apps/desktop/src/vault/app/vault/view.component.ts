@@ -26,7 +26,6 @@ import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.servi
 import { FolderService } from "@bitwarden/common/vault/abstractions/folder/folder.service.abstraction";
 import { PasswordRepromptService } from "@bitwarden/common/vault/abstractions/password-reprompt.service";
 import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
-import { Fido2KeyView } from "@bitwarden/common/vault/models/view/fido2-key.view";
 
 const BroadcasterSubscriptionId = "ViewComponent";
 
@@ -127,9 +126,5 @@ export class ViewComponent extends BaseViewComponent implements OnChanges {
     if (!this.canAccessPremium) {
       this.messagingService.send("premiumRequired");
     }
-  }
-
-  isFido2Key(fido2Key: Fido2KeyView) {
-    return fido2Key && Object.keys(fido2Key).length > 0;
   }
 }

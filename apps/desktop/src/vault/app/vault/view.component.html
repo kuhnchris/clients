@@ -118,6 +118,13 @@
               </button>
             </div>
           </div>
+          <!--Passkey-->
+          <div class="box-content" *ngIf="cipher.login.fido2Key">
+            <div class="box-content-row text-muted">
+              <span class="row-label">{{ "typePasskey" | i18n }}</span>
+              {{ "passkeyTwoStepLogin" | i18n }}
+            </div>
+          </div>
           <div
             class="box-content-row box-content-row-flex totp"
             [ngClass]="{ low: totpLow }"
@@ -389,9 +396,8 @@
             <div *ngIf="cipher.identity.country">{{ cipher.identity.country }}</div>
           </div>
         </div>
-
         <!-- Fido2Key -->
-        <div *ngIf="isFido2Key(cipher.fido2Key)">
+        <div *ngIf="cipher.isFido2Key">
           <div class="box-content-row">
             <div class="row-main">
               <span class="row-label">{{ "username" | i18n }}</span>
@@ -479,7 +485,7 @@
         <div class="box-content-row pre-wrap">{{ cipher.notes }}</div>
       </div>
     </div>
-    <div class="box" *ngIf="isFido2Key(cipher.fido2Key) && cipher.fido2Key.canLaunch">
+    <div class="box" *ngIf="cipher.isFido2Key && cipher.fido2Key.canLaunch">
       <div class="box-content">
         <div class="box-content-row box-content-row-flex">
           <div class="row-main">
