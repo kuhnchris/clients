@@ -63,6 +63,7 @@ export class ViewComponent implements OnDestroy, OnInit {
   fieldType = FieldType;
   checkPasswordPromise: Promise<number>;
   folder: FolderView;
+  cipherType = CipherType;
 
   private totpInterval: any;
   private previousCipherId: string;

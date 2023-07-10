@@ -288,7 +288,7 @@ export class VaultComponent implements OnInit, OnDestroy {
             this.editCipher(cipher);
           }),
       });
-      if (!cipher.organizationId && !cipher.isFido2Key) {
+      if (!cipher.organizationId && !cipher.fido2Key?.rpId) {
         menu.push({
           label: this.i18nService.t("clone"),
           click: () =>
