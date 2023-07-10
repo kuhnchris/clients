@@ -62,7 +62,7 @@ const common = {
 const renderer = {
   mode: NODE_ENV,
   devtool: "source-map",
-  target: "electron-renderer",
+  target: "web",
   node: {
     __dirname: false,
   },
@@ -162,6 +162,12 @@ const renderer = {
       DEV_FLAGS: NODE_ENV === "development" ? envConfig.devFlags : {},
     }),
   ],
+  resolve: {
+    fallback: {
+      fs: false,
+      path: false,
+    },
+  },
 };
 
 module.exports = merge(common, renderer);

@@ -126,7 +126,8 @@ export class WindowMain {
         spellcheck: false,
         nodeIntegration: true,
         backgroundThrottling: false,
-        contextIsolation: false,
+        contextIsolation: true,
+        preload: path.join(__dirname, "preload.js"),
       },
     });
 
