@@ -33,7 +33,7 @@ export interface SecretsManagerSubscriptionOptions {
   /**
    * The current number of additional service accounts the organization subscribes to.
    */
-  serviceAccountCount: number;
+  additionalServiceAccounts: number;
 
   /**
    * Optional auto-scaling limit for the number of additional service accounts the organization can subscribe to.
@@ -61,7 +61,7 @@ export class SecretsManagerAdjustSubscriptionComponent implements OnInit, OnDest
     seatCount: [0, [Validators.required, Validators.min(1)]],
     limitSeats: [false],
     maxAutoscaleSeats: [null as number | null],
-    serviceAccountCount: [0, [Validators.required, Validators.min(0)]],
+    additionalServiceAccounts: [0, [Validators.required, Validators.min(0)]],
     limitServiceAccounts: [false],
     maxAutoscaleServiceAccounts: [null as number | null],
   });
@@ -74,7 +74,7 @@ export class SecretsManagerAdjustSubscriptionComponent implements OnInit, OnDest
 
   get serviceAccountTotal(): number {
     return Math.abs(
-      this.formGroup.value.serviceAccountCount * this.options.additionalServiceAccountPrice
+      this.formGroup.value.additionalServiceAccounts * this.options.additionalServiceAccountPrice
     );
   }
 
@@ -115,7 +115,7 @@ export class SecretsManagerAdjustSubscriptionComponent implements OnInit, OnDest
 
       if (value.limitServiceAccounts) {
         maxAutoscaleServiceAccountsControl.setValidators([
-          Validators.min(value.serviceAccountCount),
+          Validators.min(value.additionalServiceAccounts),
         ]);
         maxAutoscaleServiceAccountsControl.enable({ emitEvent: false });
       } else {
@@ -126,7 +126,7 @@ export class SecretsManagerAdjustSubscriptionComponent implements OnInit, OnDest
     this.formGroup.patchValue({
       seatCount: this.options.seatCount,
       maxAutoscaleSeats: this.options.maxAutoscaleSeats,
-      serviceAccountCount: this.options.serviceAccountCount,
+      additionalServiceAccounts: this.options.additionalServiceAccounts,
       maxAutoscaleServiceAccounts: this.options.maxAutoscaleServiceAccounts,
       limitSeats: this.options.maxAutoscaleSeats != null,
       limitServiceAccounts: this.options.maxAutoscaleServiceAccounts != null,
@@ -143,7 +143,7 @@ export class SecretsManagerAdjustSubscriptionComponent implements OnInit, OnDest
     const request = new OrganizationSmSubscriptionUpdateRequest();
     request.seatAdjustment = this.formGroup.value.seatCount - this.options.seatCount;
     request.serviceAccountAdjustment =
-      this.formGroup.value.serviceAccountCount - this.options.serviceAccountCount;
+      this.formGroup.value.additionalServiceAccounts - this.options.additionalServiceAccounts;
     request.maxAutoscaleSeats = this.formGroup.value.limitSeats
       ? this.formGroup.value.maxAutoscaleSeats
       : null;
