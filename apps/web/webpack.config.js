@@ -213,6 +213,7 @@ const devServer =
             pathRewrite: { "^/notifications": "" },
             secure: false,
             changeOrigin: true,
+            ws: true,
           },
           "/icons": {
             target: envConfig.dev?.proxyIcons,
