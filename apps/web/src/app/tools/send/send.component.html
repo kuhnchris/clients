@@ -9,16 +9,14 @@
           {{ "filters" | i18n }}
         </div>
         <div class="card-body">
-          <input
-            type="search"
-            placeholder="{{ searchPlaceholder || ('searchSends' | i18n) }}"
-            id="search"
-            class="form-control"
-            [(ngModel)]="searchText"
-            (input)="searchTextChanged()"
-            autocomplete="off"
-            appAutofocus
-          />
+          <div class="tw-mb-4">
+            <bit-search
+              [(ngModel)]="searchText"
+              [placeholder]="'searchSends' | i18n"
+              (input)="searchTextChanged()"
+              appAutofocus
+            />
+          </div>
           <div class="filter">
             <ul class="filter-options">
               <li class="filter-option" [ngClass]="{ active: selectedAll }">

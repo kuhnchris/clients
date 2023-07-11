@@ -29,7 +29,6 @@ export class SendComponent implements OnInit, OnDestroy {
   searchText: string;
   selectedType: SendType;
   selectedAll: boolean;
-  searchPlaceholder: string;
   filter: (cipher: SendView) => boolean;
   searchPending = false;
   hasSearched = false; // search() function called - returns true if text qualifies for search
