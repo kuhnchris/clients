@@ -1,9 +1,9 @@
 <div class="container page-content">
-  <app-callout type="warning" title="{{ 'sendDisabled' | i18n }}" *ngIf="disableSend">
-    <span>{{ "sendDisabledWarning" | i18n }}</span>
-  </app-callout>
-  <div class="row">
-    <div class="col-3 groupings">
+  <bit-callout type="warning" title="{{ 'sendDisabled' | i18n }}" *ngIf="disableSend">
+    {{ "sendDisabledWarning" | i18n }}
+  </bit-callout>
+  <div class="tw-grid tw-grid-cols-12 tw-gap-4">
+    <div class="groupings tw-col-span-3">
       <div class="card vault-filters">
         <div class="card-header d-flex">
           {{ "filters" | i18n }}
@@ -64,9 +64,9 @@
         </div>
       </div>
     </div>
-    <div class="col-9">
-      <div class="page-header d-flex">
-        <h1>
+    <div class="tw-col-span-9">
+      <div class="tw-flex">
+        <h1 bitTypography="h1">
           {{ "send" | i18n }}
           <small #actionSpinner [appApiAction]="actionPromise">
             <ng-container *ngIf="$any(actionSpinner).loading">
@@ -79,29 +79,38 @@
             </ng-container>
           </small>
         </h1>
-        <div class="ml-auto d-flex">
+        <div class="tw-ml-auto">
           <button
             type="button"
-            class="btn btn-outline-primary btn-sm"
+            bitButton
+            buttonType="primary"
             (click)="addSend()"
             [disabled]="disableSend"
           >
-            <i class="bwi bwi-plus bwi-fw" aria-hidden="true"></i>{{ "createSend" | i18n }}
+            <i class="bwi bwi-plus bwi-fw" aria-hidden="true"></i>
+            {{ "createSend" | i18n }}
           </button>
         </div>
       </div>
       <!--Listing Table-->
-      <table class="table table-hover table-list" *ngIf="filteredSends && filteredSends.length">
-        <tbody>
-          <tr *ngFor="let s of filteredSends">
-            <td class="table-list-icon">
-              <div class="icon" aria-hidden="true">
+      <bit-table *ngIf="filteredSends && filteredSends.length">
+        <ng-container header>
+          <tr>
+            <th bitCell>{{ "name" | i18n }}</th>
+            <th bitCell>{{ "deletionDate" | i18n }}</th>
+            <th bitCell>{{ "options" | i18n }}</th>
+          </tr>
+        </ng-container>
+        <ng-template body>
+          <tr bitRow *ngFor="let s of filteredSends">
+            <td bitCell (click)="editSend(s)" class="tw-cursor-pointer">
+              <span class="tw-mr-2" aria-hidden="true">
                 <i class="bwi bwi-fw bwi-lg bwi-file" *ngIf="s.type == sendType.File"></i>
                 <i class="bwi bwi-fw bwi-lg bwi-file-text" *ngIf="s.type == sendType.Text"></i>
-              </div>
-            </td>
-            <td class="reduced-lh wrap">
-              <a href="#" appStopClick appStopProp (click)="editSend(s)">{{ s.name }}</a>
+              </span>
+              <button bitLink href="#" appStopClick appStopProp (click)="editSend(s)">
+                {{ s.name }}
+              </button>
               <ng-container *ngIf="s.disabled">
                 <i
                   class="bwi bwi-exclamation-triangle"
@@ -147,19 +156,20 @@
                 ></i>
                 <span class="sr-only">{{ "pendingDeletion" | i18n }}</span>
               </ng-container>
-              <br />
-              <small appStopProp>{{ s.deletionDate | date : "medium" }}</small>
             </td>
-            <td class="table-list-options">
+            <td bitCell class="tw-text-muted" (click)="editSend(s)" class="tw-cursor-pointer">
+              <small bitTypography="body2" appStopProp>{{
+                s.deletionDate | date : "medium"
+              }}</small>
+            </td>
+            <td bitCell class="tw-w-0 tw-text-right">
               <button
                 type="button"
                 [bitMenuTriggerFor]="sendOptions"
-                class="tw-border-none tw-bg-transparent tw-text-main"
-                type="button"
+                bitIconButton="bwi-ellipsis-v"
+                size="small"
                 appA11yTitle="{{ 'options' | i18n }}"
-              >
-                <i class="bwi bwi-ellipsis-v bwi-lg" aria-hidden="true"></i>
-              </button>
+              ></button>
               <bit-menu #sendOptions>
                 <button type="button" bitMenuItem (click)="copy(s)">
                   <i class="bwi bwi-fw bwi-clone" aria-hidden="true"></i>
@@ -183,8 +193,8 @@
               </bit-menu>
             </td>
           </tr>
-        </tbody>
-      </table>
+        </ng-template>
+      </bit-table>
       <div class="no-items" *ngIf="filteredSends && !filteredSends.length">
         <ng-container *ngIf="!loaded">
           <i
@@ -198,9 +208,10 @@
           <bit-icon [icon]="noItemIcon" aria-hidden="true"></bit-icon>
           <p>{{ "noSendsInList" | i18n }}</p>
           <button
+            bitButton
             type="button"
+            buttonType="secondary"
             (click)="addSend()"
-            class="btn btn-outline-primary"
             [disabled]="disableSend"
           >
             <i class="bwi bwi-plus bwi-fw"></i>{{ "createSend" | i18n }}
