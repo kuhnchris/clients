@@ -184,9 +184,9 @@ export class OrganizationSubscriptionCloudComponent implements OnInit, OnDestroy
   get smOptions(): SecretsManagerSubscriptionOptions {
     return {
       seatCount: this.sub.smSeats,
-      seatLimit: this.sub.maxAutoscaleSmSeats,
+      maxAutoscaleSeats: this.sub.maxAutoscaleSmSeats,
       seatPrice: this.sub.secretsManagerPlan.seatPrice,
-      serviceAccountLimit: this.sub.maxAutoscaleSmServiceAccounts,
+      maxAutoscaleServiceAccounts: this.sub.maxAutoscaleSmServiceAccounts,
       serviceAccountCount: this.sub.smServiceAccounts,
       interval: this.sub.secretsManagerPlan.isAnnual ? "year" : "month",
       additionalServiceAccountPrice: this.sub.secretsManagerPlan.additionalPricePerServiceAccount,

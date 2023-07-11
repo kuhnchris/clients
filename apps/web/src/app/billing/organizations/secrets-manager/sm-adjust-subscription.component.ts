@@ -18,7 +18,7 @@ export interface SecretsManagerSubscriptionOptions {
   /**
    * Optional auto-scaling limit for the number of seats the organization can subscribe to.
    */
-  seatLimit: number;
+  maxAutoscaleSeats: number;
 
   /**
    * The price per seat for the subscription.
@@ -38,7 +38,7 @@ export interface SecretsManagerSubscriptionOptions {
   /**
    * Optional auto-scaling limit for the number of additional service accounts the organization can subscribe to.
    */
-  serviceAccountLimit: number;
+  maxAutoscaleServiceAccounts: number;
 
   /**
    * The price per additional service account for the subscription.
@@ -60,10 +60,10 @@ export class SecretsManagerAdjustSubscriptionComponent implements OnInit, OnDest
   formGroup = this.formBuilder.group({
     seatCount: [0, [Validators.required, Validators.min(1)]],
     limitSeats: [false],
-    seatLimit: [null as number | null],
+    maxAutoscaleSeats: [null as number | null],
     serviceAccountCount: [0, [Validators.required, Validators.min(0)]],
     limitServiceAccounts: [false],
-    serviceAccountLimit: [null as number | null],
+    maxAutoscaleServiceAccounts: [null as number | null],
   });
 
   get monthlyServiceAccountPrice(): number {
@@ -84,12 +84,13 @@ export class SecretsManagerAdjustSubscriptionComponent implements OnInit, OnDest
 
   get maxServiceAccountTotal(): number {
     return Math.abs(
-      (this.formGroup.value.serviceAccountLimit ?? 0) * this.options.additionalServiceAccountPrice
+      (this.formGroup.value.maxAutoscaleServiceAccounts ?? 0) *
+        this.options.additionalServiceAccountPrice
     );
   }
 
   get maxSeatTotal(): number {
-    return Math.abs((this.formGroup.value.seatLimit ?? 0) * this.options.seatPrice);
+    return Math.abs((this.formGroup.value.maxAutoscaleSeats ?? 0) * this.options.seatPrice);
   }
 
   constructor(
@@ -101,31 +102,34 @@ export class SecretsManagerAdjustSubscriptionComponent implements OnInit, OnDest
 
   ngOnInit() {
     this.formGroup.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((value) => {
-      const seatLimitControl = this.formGroup.controls.seatLimit;
-      const serviceAccountLimitControl = this.formGroup.controls.serviceAccountLimit;
+      const maxAutoscaleSeatsControl = this.formGroup.controls.maxAutoscaleSeats;
+      const maxAutoscaleServiceAccountsControl =
+        this.formGroup.controls.maxAutoscaleServiceAccounts;
 
       if (value.limitSeats) {
-        seatLimitControl.setValidators([Validators.min(value.seatCount)]);
-        seatLimitControl.enable({ emitEvent: false });
+        maxAutoscaleSeatsControl.setValidators([Validators.min(value.seatCount)]);
+        maxAutoscaleSeatsControl.enable({ emitEvent: false });
       } else {
-        seatLimitControl.disable({ emitEvent: false });
+        maxAutoscaleSeatsControl.disable({ emitEvent: false });
       }
 
       if (value.limitServiceAccounts) {
-        serviceAccountLimitControl.setValidators([Validators.min(value.serviceAccountCount)]);
-        serviceAccountLimitControl.enable({ emitEvent: false });
+        maxAutoscaleServiceAccountsControl.setValidators([
+          Validators.min(value.serviceAccountCount),
+        ]);
+        maxAutoscaleServiceAccountsControl.enable({ emitEvent: false });
       } else {
-        serviceAccountLimitControl.disable({ emitEvent: false });
+        maxAutoscaleServiceAccountsControl.disable({ emitEvent: false });
       }
     });
 
     this.formGroup.patchValue({
       seatCount: this.options.seatCount,
-      seatLimit: this.options.seatLimit,
+      maxAutoscaleSeats: this.options.maxAutoscaleSeats,
       serviceAccountCount: this.options.serviceAccountCount,
-      serviceAccountLimit: this.options.serviceAccountLimit,
-      limitSeats: this.options.seatLimit != null,
-      limitServiceAccounts: this.options.serviceAccountLimit != null,
+      maxAutoscaleServiceAccounts: this.options.maxAutoscaleServiceAccounts,
+      limitSeats: this.options.maxAutoscaleSeats != null,
+      limitServiceAccounts: this.options.maxAutoscaleServiceAccounts != null,
     });
   }
 
@@ -136,16 +140,16 @@ export class SecretsManagerAdjustSubscriptionComponent implements OnInit, OnDest
       return;
     }
 
-    const seatAdjustment = this.formGroup.value.seatCount - this.options.seatCount;
-    const serviceAccountAdjustment =
+    const request = new OrganizationSmSubscriptionUpdateRequest();
+    request.seatAdjustment = this.formGroup.value.seatCount - this.options.seatCount;
+    request.serviceAccountAdjustment =
       this.formGroup.value.serviceAccountCount - this.options.serviceAccountCount;
-
-    const request = new OrganizationSmSubscriptionUpdateRequest(
-      seatAdjustment,
-      serviceAccountAdjustment,
-      this.formGroup.value.seatLimit,
-      this.formGroup.value.serviceAccountLimit
-    );
+    request.maxAutoscaleSeats = this.formGroup.value.limitSeats
+      ? this.formGroup.value.maxAutoscaleSeats
+      : null;
+    request.maxAutoscaleServiceAccounts = this.formGroup.value.limitServiceAccounts
+      ? this.formGroup.value.maxAutoscaleServiceAccounts
+      : null;
 
     await this.organizationApiService.updateSecretsManagerSubscription(
       this.organizationId,

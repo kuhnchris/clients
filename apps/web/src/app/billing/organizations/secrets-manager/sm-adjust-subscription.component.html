@@ -20,15 +20,16 @@
     <input
       bitInput
       id="smSeatLimit"
-      formControlName="seatLimit"
+      formControlName="maxAutoscaleSeats"
       type="number"
       step="1"
       [min]="formGroup.value.seatCount"
     />
     <bit-hint>
       <strong>{{ "maxSeatCost" | i18n }}:</strong>
-      {{ formGroup.value.seatLimit || 0 }} &times; {{ options.seatPrice | currency : "$" }} =
-      {{ maxSeatTotal | currency : "$" }} / {{ options.interval | i18n }}
+      {{ formGroup.value.maxAutoscaleSeats || 0 }} &times;
+      {{ options.seatPrice | currency : "$" }} = {{ maxSeatTotal | currency : "$" }} /
+      {{ options.interval | i18n }}
     </bit-hint>
   </bit-form-field>
   <bit-form-field class="tw-w-2/3">
@@ -73,14 +74,14 @@
     <input
       bitInput
       id="additionalServiceAccountLimit"
-      formControlName="serviceAccountLimit"
+      formControlName="maxAutoscaleServiceAccounts"
       type="number"
       step="1"
       [min]="formGroup.value.serviceAccountCount"
     />
     <bit-hint>
       <strong>{{ "maxServiceAccountCost" | i18n }}:</strong>
-      {{ formGroup.value.serviceAccountLimit || 0 }} &times;
+      {{ formGroup.value.maxAutoscaleServiceAccounts || 0 }} &times;
       {{ options.additionalServiceAccountPrice | currency : "$" }} =
       {{ maxServiceAccountTotal | currency : "$" }} / {{ options.interval | i18n }}
     </bit-hint>
