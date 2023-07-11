@@ -868,7 +868,7 @@
                   class="form-control"
                   type="text"
                   name="Fido2key.CreationDate"
-                  [value]="('dateCreated' | i18n) + ' ' + (cipher.creationDate | date : 'MM/dd/y')"
+                  [value]="('dateCreated' | i18n) + ' ' + (cipher.creationDate | date : 'short')"
                   appInputVerbatim
                   disabled
                   readonly

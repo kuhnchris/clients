@@ -479,7 +479,7 @@
           </div>
           <div class="box-content-row text-muted" appBoxRow>
             <span class="row-label">{{ "typePasskey" | i18n }}</span>
-            {{ "dateCreated" | i18n }} {{ cipher.creationDate | date : "MM/dd/y" }}
+            {{ "dateCreated" | i18n }} {{ cipher.creationDate | date : "short" }}
           </div>
 
           <div class="box" *ngIf="cipher.fido2Key.canLaunch">
