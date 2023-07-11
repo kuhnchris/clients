@@ -205,10 +205,7 @@ export class BrowserApi {
 
   static async closeBitwardenLoginPromptWindow() {
     const url = chrome.extension.getURL("popup/index.html?uilocation=popout");
-    const tabs = await BrowserApi.tabsQuery({
-      url,
-      windowType: "popup",
-    });
+    const tabs = await BrowserApi.tabsQuery({ url });
     tabs.forEach((tab) => chrome.tabs.remove(tab.id));
   }
 
