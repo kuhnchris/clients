@@ -659,16 +659,6 @@ export class VaultComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const confirmed = await this.dialogService.openSimpleDialog({
-      title: { key: "restoreItem" },
-      content: { key: "restoreItemConfirmation" },
-      type: SimpleDialogType.WARNING,
-    });
-
-    if (!confirmed) {
-      return false;
-    }
-
     try {
       const asAdmin = this.organization?.canEditAnyCollection;
       await this.cipherService.restoreWithServer(c.id, asAdmin);
