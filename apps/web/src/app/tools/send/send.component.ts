@@ -26,7 +26,7 @@ const BroadcasterSubscriptionId = "SendComponent";
 export class SendComponent extends BaseSendComponent {
   @ViewChild("sendAddEdit", { read: ViewContainerRef, static: true })
   sendAddEditModalRef: ViewContainerRef;
-  noItemIcon = Icons.Search;
+  noItemIcon = Icons.NoSend;
 
   constructor(
     sendService: SendService,

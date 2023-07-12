@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 
-import { SearchModule } from "@bitwarden/components";
+import { NoItemsModule, SearchModule } from "@bitwarden/components";
 
 import { OrganizationSwitcherComponent } from "../admin-console/components/organization-switcher.component";
 import { OrganizationCreateModule } from "../admin-console/organizations/create/organization-create.module";
@@ -128,6 +128,7 @@ import { SharedModule } from "./shared.module";
     EnvironmentSelectorModule,
     AccountFingerprintComponent,
     SearchModule,
+    NoItemsModule,
   ],
   declarations: [
     AcceptEmergencyComponent,

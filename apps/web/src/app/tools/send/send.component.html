@@ -203,17 +203,22 @@
           <span class="sr-only">{{ "loading" | i18n }}</span>
         </ng-container>
         <ng-container *ngIf="loaded">
-          <bit-icon [icon]="noItemIcon" aria-hidden="true"></bit-icon>
-          <p>{{ "noSendsInList" | i18n }}</p>
-          <button
-            bitButton
-            type="button"
-            buttonType="secondary"
-            (click)="addSend()"
-            [disabled]="disableSend"
-          >
-            <i class="bwi bwi-plus bwi-fw"></i>{{ "createSend" | i18n }}
-          </button>
+          <bit-no-items [icon]="noItemIcon" class="tw-text-main">
+            <ng-container slot="title"
+              ><div class="tw-mt-2">{{ "sendsNoItemsTitle" | i18n }}</div></ng-container
+            >
+            <ng-container slot="description">{{ "sendsNoItemsMessage" | i18n }}</ng-container>
+            <button
+              slot="button"
+              type="button"
+              bitButton
+              buttonType="secondary"
+              (click)="addSend()"
+            >
+              <i class="bwi bwi-plus" aria-hidden="true"></i>
+              {{ "createSend" | i18n }}
+            </button>
+          </bit-no-items>
         </ng-container>
       </div>
     </div>
