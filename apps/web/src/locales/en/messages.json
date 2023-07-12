@@ -3810,20 +3810,11 @@
   "restoreSelected": {
     "message": "Restore selected"
   },
-  "restoreItem": {
-    "message": "Restore item"
-  },
   "restoredItem": {
     "message": "Item restored"
   },
   "restoredItems": {
     "message": "Items restored"
-  },
-  "restoreItemConfirmation": {
-    "message": "Are you sure you want to restore this item?"
-  },
-  "restoreItems": {
-    "message": "Restore items"
   },
   "restoreSelectedItemsDesc": {
     "message": "You have selected $COUNT$ item(s) to restore. Are you sure you want to restore these items?",
