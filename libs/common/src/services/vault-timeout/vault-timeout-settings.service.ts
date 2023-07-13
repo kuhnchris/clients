@@ -2,6 +2,7 @@ import { VaultTimeoutSettingsService as VaultTimeoutSettingsServiceAbstraction }
 import { PolicyService } from "../../admin-console/abstractions/policy/policy.service.abstraction";
 import { PolicyType } from "../../admin-console/enums";
 import { TokenService } from "../../auth/abstractions/token.service";
+import { UserVerificationService } from "../../auth/abstractions/user-verification/user-verification.service.abstraction";
 import { KeySuffixOptions } from "../../enums/key-suffix-options.enum";
 import { VaultTimeoutAction } from "../../enums/vault-timeout-action.enum";
 import { CryptoService } from "../../platform/abstractions/crypto.service";
@@ -19,7 +20,8 @@ export class VaultTimeoutSettingsService implements VaultTimeoutSettingsServiceA
     private cryptoService: CryptoService,
     private tokenService: TokenService,
     private policyService: PolicyService,
-    private stateService: StateService
+    private stateService: StateService,
+    private userVerificationService: UserVerificationService
   ) {}
 
   async setVaultTimeoutOptions(timeout: number, action: VaultTimeoutAction): Promise<void> {
@@ -123,7 +125,18 @@ export class VaultTimeoutSettingsService implements VaultTimeoutSettingsServiceA
   }
 
   async getAvailableVaultTimeoutActions(): Promise<VaultTimeoutAction[]> {
-    return [VaultTimeoutAction.LogOut];
+    const availableActions = [VaultTimeoutAction.LogOut];
+
+    const canLock =
+      (await this.userVerificationService.hasMasterPassword()) ||
+      (await this.isPinLockSet()) !== "DISABLED" ||
+      (await this.isBiometricLockSet());
+
+    if (canLock) {
+      availableActions.push(VaultTimeoutAction.Lock);
+    }
+
+    return availableActions;
   }
 
   async clear(userId?: string): Promise<void> {
