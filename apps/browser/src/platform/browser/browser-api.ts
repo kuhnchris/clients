@@ -17,6 +17,16 @@ export class BrowserApi {
     return chrome.runtime.getManifest().manifest_version;
   }
 
+  static getWindow(windowId?: number): Promise<chrome.windows.Window> | void {
+    if (!windowId) {
+      return;
+    }
+
+    return new Promise((resolve) =>
+      chrome.windows.get(windowId, { populate: true }, (window) => resolve(window))
+    );
+  }
+
   static async getTabFromCurrentWindowId(): Promise<chrome.tabs.Tab> | null {
     return await BrowserApi.tabsQueryFirst({
       active: true,
@@ -169,16 +179,6 @@ export class BrowserApi {
   }
 
   private static registeredMessageListeners: any[] = [];
-
-  static getWindow(windowId?: number): Promise<chrome.windows.Window> | void {
-    if (!windowId) {
-      return;
-    }
-
-    return new Promise((resolve) =>
-      chrome.windows.get(windowId, { populate: true }, (window) => resolve(window))
-    );
-  }
 
   static async openBitwardenLoginPromptWindow(senderWindowId?: number) {
     const senderWindow = await BrowserApi.getWindow(senderWindowId);
