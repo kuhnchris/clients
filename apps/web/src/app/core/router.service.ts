@@ -23,10 +23,10 @@ export class RouterService {
       .subscribe((event: NavigationEnd) => {
         this.currentUrl = event.url;
 
-        let title = i18nService.t("pageTitle", i18nService.t("bitWebVault"));
+        let title = i18nService.t("bitWebVault");
 
         if (this.currentUrl.includes("/sm/")) {
-          title = i18nService.t("pageTitle", i18nService.t("bitSecretsManager"));
+          title = i18nService.t("bitSecretsManager");
         }
 
         let child = this.activatedRoute.firstChild;

@@ -1,6 +1,6 @@
 {
   "pageTitle": {
-    "message": "$APP_NAME$",
+    "message": "$APP_NAME$ Web Vault",
     "description": "The title of the website in the browser window.",
     "placeholders": {
       "app_name": {
