@@ -42,8 +42,8 @@ import { OrganizationUserServiceImplementation } from "@bitwarden/common/service
 import { SearchService } from "@bitwarden/common/services/search.service";
 import { SettingsService } from "@bitwarden/common/services/settings.service";
 import { TotpService } from "@bitwarden/common/services/totp.service";
-import { VaultTimeoutService } from "@bitwarden/common/services/vaultTimeout/vaultTimeout.service";
-import { VaultTimeoutSettingsService } from "@bitwarden/common/services/vaultTimeout/vaultTimeoutSettings.service";
+import { VaultTimeoutSettingsService } from "@bitwarden/common/services/vault-timeout/vault-timeout-settings.service";
+import { VaultTimeoutService } from "@bitwarden/common/services/vault-timeout/vault-timeout.service";
 import {
   PasswordGenerationService,
   PasswordGenerationServiceAbstraction,

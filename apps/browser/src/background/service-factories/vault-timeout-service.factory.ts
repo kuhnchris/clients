@@ -1,4 +1,4 @@
-import { VaultTimeoutService as AbstractVaultTimeoutService } from "@bitwarden/common/abstractions/vaultTimeout/vaultTimeout.service";
+import { VaultTimeoutService as AbstractVaultTimeoutService } from "@bitwarden/common/abstractions/vault-timeout/vault-timeout.service";
 
 import {
   authServiceFactory,
@@ -29,7 +29,7 @@ import {
   StateServiceInitOptions,
   stateServiceFactory,
 } from "../../platform/background/service-factories/state-service.factory";
-import VaultTimeoutService from "../../services/vaultTimeout/vaultTimeout.service";
+import VaultTimeoutService from "../../services/vault-timeout/vault-timeout.service";
 import {
   cipherServiceFactory,
   CipherServiceInitOptions,
