@@ -86,6 +86,8 @@ export class VaultTimeoutSettingsService implements VaultTimeoutSettingsServiceA
         timeout = policy[0].data.minutes;
       }
 
+      // TODO @jlf0dev: Can we move this somwhere else? Maybe add it to the initialization process?
+      // ( Apparently I'm the one that reviewed the original PR that added this :) )
       // We really shouldn't need to set the value here, but multiple services relies on this value being correct.
       if (vaultTimeout !== timeout) {
         await this.stateService.setVaultTimeout(timeout, { userId: userId });
