@@ -358,4 +358,25 @@ describe("Utils Service", () => {
       expect(actual.protocol).toBe("http:");
     });
   });
+
+  describe("daysRemaining", () => {
+    const now = new Date(2023, 9, 2);
+    jest.spyOn(Date, "now").mockReturnValue(now.getTime());
+
+    it("should return 0 for equal dates", () => {
+      expect(Utils.daysRemaining(new Date(2023, 9, 2))).toBe(0);
+    });
+
+    it("should return 0 for dates in the past", () => {
+      expect(Utils.daysRemaining(new Date(2020, 5, 11))).toBe(0);
+      expect(Utils.daysRemaining(new Date(2023, 9, 1))).toBe(0);
+    });
+
+    it("should handle future dates", () => {
+      expect(Utils.daysRemaining(new Date(2023, 9, 3))).toBe(1);
+      expect(Utils.daysRemaining(new Date(2023, 10, 12))).toBe(41);
+      // leap year
+      expect(Utils.daysRemaining(new Date(2024, 9, 2))).toBe(366);
+    });
+  });
 });
