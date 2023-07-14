@@ -3,6 +3,7 @@ import { Component, Inject, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { DialogServiceAbstraction } from "@bitwarden/angular/services/dialog";
+import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { BitValidators } from "@bitwarden/components";
 
 import { ServiceAccountView } from "../../../models/view/service-account.view";
@@ -34,7 +35,8 @@ export class AccessTokenCreateDialogComponent implements OnInit {
     public dialogRef: DialogRef,
     @Inject(DIALOG_DATA) public data: AccessTokenOperation,
     private dialogService: DialogServiceAbstraction,
-    private accessService: AccessService
+    private accessService: AccessService,
+    private i18nService: I18nService
   ) {}
 
   async ngOnInit() {
@@ -51,6 +53,12 @@ export class AccessTokenCreateDialogComponent implements OnInit {
     if (this.formGroup.invalid) {
       return;
     }
+
+    if (this.formGroup.value.expirationDateControl < new Date()) {
+      throw new Error(this.i18nService.t("expirationDateError"));
+      return;
+    }
+
     const accessTokenView = new AccessTokenView();
     accessTokenView.name = this.formGroup.value.name;
     accessTokenView.expireAt = this.formGroup.value.expirationDateControl;
