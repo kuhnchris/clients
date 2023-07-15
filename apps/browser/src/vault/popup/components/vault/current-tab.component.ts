@@ -3,13 +3,13 @@ import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { debounceTime, takeUntil } from "rxjs/operators";
 
-import { BroadcasterService } from "@bitwarden/common/abstractions/broadcaster.service";
-import { I18nService } from "@bitwarden/common/abstractions/i18n.service";
-import { OrganizationService } from "@bitwarden/common/abstractions/organization/organization.service.abstraction";
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
 import { SearchService } from "@bitwarden/common/abstractions/search.service";
-import { StateService } from "@bitwarden/common/abstractions/state.service";
-import { Utils } from "@bitwarden/common/misc/utils";
+import { OrganizationService } from "@bitwarden/common/admin-console/abstractions/organization/organization.service.abstraction";
+import { BroadcasterService } from "@bitwarden/common/platform/abstractions/broadcaster.service";
+import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
+import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
+import { Utils } from "@bitwarden/common/platform/misc/utils";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
 import { PasswordRepromptService } from "@bitwarden/common/vault/abstractions/password-reprompt.service";
 import { SyncService } from "@bitwarden/common/vault/abstractions/sync/sync.service.abstraction";
@@ -18,7 +18,7 @@ import { CipherType } from "@bitwarden/common/vault/enums/cipher-type";
 import { CipherView } from "@bitwarden/common/vault/models/view/cipher.view";
 
 import { AutofillService } from "../../../../autofill/services/abstractions/autofill.service";
-import { BrowserApi } from "../../../../browser/browserApi";
+import { BrowserApi } from "../../../../platform/browser/browser-api";
 import { PopupUtilsService } from "../../../../popup/services/popup-utils.service";
 import { VaultFilterService } from "../../../services/vault-filter.service";
 
@@ -42,6 +42,8 @@ export class CurrentTabComponent implements OnInit, OnDestroy {
   loaded = false;
   isLoading = false;
   showOrganizations = false;
+  showHowToAutofill = false;
+  autofillCalloutText: string;
   protected search$ = new Subject<void>();
   private destroy$ = new Subject<void>();
 
@@ -101,10 +103,12 @@ export class CurrentTabComponent implements OnInit, OnDestroy {
 
     if (!this.syncService.syncInProgress) {
       await this.load();
+      await this.setCallout();
     } else {
       this.loadedTimeout = window.setTimeout(async () => {
         if (!this.isLoading) {
           await this.load();
+          await this.setCallout();
         }
       }, 5000);
     }
@@ -112,6 +116,17 @@ export class CurrentTabComponent implements OnInit, OnDestroy {
     this.search$
       .pipe(debounceTime(500), takeUntil(this.destroy$))
       .subscribe(() => this.searchVault());
+
+    // activate autofill on page load if policy is set
+    if (await this.stateService.getActivateAutoFillOnPageLoadFromPolicy()) {
+      await this.stateService.setEnableAutoFillOnPageLoad(true);
+      await this.stateService.setActivateAutoFillOnPageLoadFromPolicy(false);
+      this.platformUtilsService.showToast(
+        "info",
+        null,
+        this.i18nService.t("autofillPageLoadPolicyActivated")
+      );
+    }
   }
 
   ngOnDestroy() {
@@ -140,7 +155,7 @@ export class CurrentTabComponent implements OnInit, OnDestroy {
     this.router.navigate(["/view-cipher"], { queryParams: { cipherId: cipher.id } });
   }
 
-  async fillCipher(cipher: CipherView) {
+  async fillCipher(cipher: CipherView, closePopupDelay?: number) {
     if (
       cipher.reprompt !== CipherRepromptType.None &&
       !(await this.passwordRepromptService.showPasswordPrompt())
@@ -165,16 +180,21 @@ export class CurrentTabComponent implements OnInit, OnDestroy {
         pageDetails: this.pageDetails,
         doc: window.document,
         fillNewPassword: true,
+        allowTotpAutofill: true,
       });
       if (this.totpCode != null) {
         this.platformUtilsService.copyToClipboard(this.totpCode, { window: window });
       }
       if (this.popupUtilsService.inPopup(window)) {
-        if (this.platformUtilsService.isFirefox() || this.platformUtilsService.isSafari()) {
-          BrowserApi.closePopup(window);
+        if (!closePopupDelay) {
+          if (this.platformUtilsService.isFirefox() || this.platformUtilsService.isSafari()) {
+            BrowserApi.closePopup(window);
+          } else {
+            // Slight delay to fix bug in Chromium browsers where popup closes without copying totp to clipboard
+            setTimeout(() => BrowserApi.closePopup(window), 50);
+          }
         } else {
-          // Slight delay to fix bug in Chromium browsers where popup closes without copying totp to clipboard
-          setTimeout(() => BrowserApi.closePopup(window), 50);
+          setTimeout(() => BrowserApi.closePopup(window), closePopupDelay);
         }
       }
     } catch {
@@ -261,5 +281,34 @@ export class CurrentTabComponent implements OnInit, OnDestroy {
       this.cipherService.sortCiphersByLastUsedThenName(a, b)
     );
     this.isLoading = this.loaded = true;
+  }
+
+  async goToSettings() {
+    this.router.navigate(["autofill"]);
+  }
+
+  async dismissCallout() {
+    await this.stateService.setDismissedAutofillCallout(true);
+    this.showHowToAutofill = false;
+  }
+
+  private async setCallout() {
+    this.showHowToAutofill =
+      this.loginCiphers.length > 0 &&
+      !(await this.stateService.getEnableAutoFillOnPageLoad()) &&
+      !(await this.stateService.getDismissedAutofillCallout());
+
+    if (this.showHowToAutofill) {
+      const autofillCommand = await this.platformUtilsService.getAutofillKeyboardShortcut();
+      await this.setAutofillCalloutText(autofillCommand);
+    }
+  }
+
+  private setAutofillCalloutText(command: string) {
+    if (command) {
+      this.autofillCalloutText = this.i18nService.t("autofillSelectInfoWithCommand", command);
+    } else {
+      this.autofillCalloutText = this.i18nService.t("autofillSelectInfoWithoutCommand");
+    }
   }
 }

@@ -195,6 +195,15 @@
   "helpFeedback": {
     "message": "協助與意見反應"
   },
+  "helpCenter": {
+    "message": "Bitwarden 說明中心"
+  },
+  "communityForums": {
+    "message": "瀏覽 Bitwarden 社群論壇"
+  },
+  "contactSupport": {
+    "message": "連絡 Bitwarden 客戶支援"
+  },
   "sync": {
     "message": "同步"
   },
@@ -430,7 +439,14 @@
     "message": "必須再次輸入主密碼。"
   },
   "masterPasswordMinlength": {
-    "message": "主密碼需要至少 8 個字元。"
+    "message": "主密碼需要至少 $VALUE$ 個字元。",
+    "description": "The Master Password must be at least a specific number of characters long.",
+    "placeholders": {
+      "value": {
+        "content": "$1",
+        "example": "8"
+      }
+    }
   },
   "masterPassDoesntMatch": {
     "message": "兩次填入的主密碼不相符。"
@@ -936,7 +952,7 @@
     "message": "伺服器 URL"
   },
   "apiUrl": {
-    "message": "API 伺服器 URL"
+    "message": "API 伺服器網址"
   },
   "webVaultUrl": {
     "message": "網頁版密碼庫伺服器 URL"
@@ -960,7 +976,10 @@
     "message": "網頁載入時如果偵測到登入表單，則執行自動填入。"
   },
   "experimentalFeature": {
-    "message": "這目前是一項實驗性功能。要使用需自行承擔風險。"
+    "message": "被入侵或不可信任的網站可以利用自動填入功能在網頁載入時竊取資訊。"
+  },
+  "learnMoreAboutAutofill": {
+    "message": "進一步瞭解「自動填入」功能"
   },
   "defaultAutoFillOnPageLoad": {
     "message": "登入項目的預設自動填入設定"
@@ -1442,8 +1461,35 @@
   "autoFillSuccess": {
     "message": "項目已自動填入"
   },
+  "insecurePageWarning": {
+    "message": "警告：這是不安全的 HTTP 頁面，任何您送出的資訊均可能被其他人看見和更改。此登入資訊原先是在安全的 (HTTPS) 頁面儲存的。"
+  },
+  "insecurePageWarningFillPrompt": {
+    "message": "您依然想要填充此登入資訊嗎？"
+  },
+  "autofillIframeWarning": {
+    "message": "這個表單寄放在不同的網域，而非您儲存登入資訊的 URI。選擇「確認」則依然自動填入，「取消」則停止本動作。"
+  },
+  "autofillIframeWarningTip": {
+    "message": "若以後不想再跳出這個警告，請儲存 URI「$HOSTNAME$」到您這個網站的 Bitwarden 登入項目。",
+    "placeholders": {
+      "hostname": {
+        "content": "$1",
+        "example": "www.example.com"
+      }
+    }
+  },
   "setMasterPassword": {
     "message": "設定主密碼"
+  },
+  "currentMasterPass": {
+    "message": "目前的主密碼"
+  },
+  "newMasterPass": {
+    "message": "新的主密碼"
+  },
+  "confirmNewMasterPass": {
+    "message": "確認新主密碼"
   },
   "masterPasswordPolicyInEffect": {
     "message": "一個或多個組織原則要求您的主密碼須符合下列條件："
@@ -1825,6 +1871,9 @@
   "updateMasterPasswordWarning": {
     "message": "您的主密碼最近被您的組織管理者變更過。若要存取密碼庫，您必須立即更新主密碼。繼續操作會登出目前的登入階段，並要求您重新登入。其他裝置上的活動登入階段最多會保持一個小時。"
   },
+  "updateWeakMasterPasswordWarning": {
+    "message": "您的主密碼不符合您的組織政策之一或多個要求。您必須立即更新您的主密碼以存取密碼庫。進行此操作將登出您目前的工作階段，需要您重新登入。其他裝置上的工作階段可能繼續長達一小時。"
+  },
   "resetPasswordPolicyAutoEnroll": {
     "message": "自動註冊"
   },
@@ -1853,6 +1902,32 @@
       "minutes": {
         "content": "$2",
         "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutPolicyWithActionInEffect": {
+    "message": "您的組織原則正在影響您的密碼庫逾時時間。密碼庫逾時時間最多可以設定到 $HOURS$ 小時 $MINUTES$ 分鐘。您密碼庫的逾時動作是設為 $ACTION$。",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      },
+      "action": {
+        "content": "$3",
+        "example": "Lock"
+      }
+    }
+  },
+  "vaultTimeoutActionPolicyInEffect": {
+    "message": "您的組織原則已將密碼庫逾時動作設為 $ACTION$。",
+    "placeholders": {
+      "action": {
+        "content": "$1",
+        "example": "Lock"
       }
     }
   },
@@ -1984,9 +2059,6 @@
   "disabledOrganizationFilterError": {
     "message": "無法存取已停用組織中的項目。請聯絡您組織的擁有者以獲取協助。"
   },
-  "cardBrandMir": {
-    "message": "Mir"
-  },
   "loggingInTo": {
     "message": "正在登入至 $DOMAIN$",
     "placeholders": {
@@ -2047,34 +2119,129 @@
   "rememberEmail": {
     "message": "記住電子郵件地址"
   },
+  "loginWithDevice": {
+    "message": "使用裝置登入"
+  },
+  "loginWithDeviceEnabledInfo": {
+    "message": "裝置登入必須在 Bitwarden 應用程式的設定中啟用。需要其他選項嗎？"
+  },
+  "fingerprintPhraseHeader": {
+    "message": "指紋短語"
+  },
+  "fingerprintMatchInfo": {
+    "message": "請確保您的密碼庫已解鎖，並且指紋短語與其他裝置的一致。"
+  },
+  "resendNotification": {
+    "message": "重新傳送通知"
+  },
+  "viewAllLoginOptions": {
+    "message": "檢視所有登入選項"
+  },
+  "notificationSentDevice": {
+    "message": "已傳送通知至您的裝置。"
+  },
+  "logInInitiated": {
+    "message": "登入已起始"
+  },
   "exposedMasterPassword": {
-    "message": "Exposed Master Password"
+    "message": "已暴露的主密碼"
   },
   "exposedMasterPasswordDesc": {
-    "message": "Password found in a data breach. Use a unique password to protect your account. Are you sure you want to use an exposed password?"
+    "message": "在其他資料庫中找到您的密碼。我們建議您使用一個獨特的密碼來保護您的帳號，您確定要用這個密碼嗎？"
   },
   "weakAndExposedMasterPassword": {
-    "message": "Weak and Exposed Master Password"
+    "message": "強度不足且已暴露的主密碼"
   },
   "weakAndBreachedMasterPasswordDesc": {
-    "message": "Weak password identified and found in a data breach. Use a strong and unique password to protect your account. Are you sure you want to use this password?"
+    "message": "密碼強度不足，且在其他資料庫中找到這個密碼。使用一個強度足夠和獨特的密碼來保護您的帳號。請問您確定要用這個密碼嗎？"
   },
   "checkForBreaches": {
-    "message": "Check known data breaches for this password"
+    "message": "檢查外洩密碼資料庫中是否有此密碼"
   },
   "important": {
-    "message": "Important:"
+    "message": "重要事項："
   },
   "masterPasswordHint": {
-    "message": "Your master password cannot be recovered if you forget it!"
+    "message": "如果您忘記主密碼，沒有復原的方法！"
   },
   "characterMinimum": {
-    "message": "$LENGTH$ character minimum",
+    "message": "$LENGTH$ 個字元以上",
     "placeholders": {
       "length": {
         "content": "$1",
         "example": "14"
       }
     }
+  },
+  "autofillPageLoadPolicyActivated": {
+    "message": "您的組織政策已經開啟了自動填入功能。"
+  },
+  "howToAutofill": {
+    "message": "如何自動填入"
+  },
+  "autofillSelectInfoWithCommand": {
+    "message": "從這個網頁選擇一個項目，或使用快速鍵：$COMMAND$",
+    "placeholders": {
+      "command": {
+        "content": "$1",
+        "example": "CTRL+Shift+L"
+      }
+    }
+  },
+  "autofillSelectInfoWithoutCommand": {
+    "message": "從這個網頁選擇一個項目，或在設定中設定一個快速鍵。"
+  },
+  "gotIt": {
+    "message": "我知道了"
+  },
+  "autofillSettings": {
+    "message": "自動填入設定"
+  },
+  "autofillShortcut": {
+    "message": "自動填入鍵盤快速鍵"
+  },
+  "autofillShortcutNotSet": {
+    "message": "自動填入快速鍵尚未設定。請在瀏覽器的設定中變更。"
+  },
+  "autofillShortcutText": {
+    "message": "自動填入快速鍵是：$COMMAND$。請在瀏覽器的設定中變更。",
+    "placeholders": {
+      "command": {
+        "content": "$1",
+        "example": "CTRL+Shift+L"
+      }
+    }
+  },
+  "autofillShortcutTextSafari": {
+    "message": "預設自動填入快速鍵：$COMMAND$",
+    "placeholders": {
+      "command": {
+        "content": "$1",
+        "example": "CTRL+Shift+L"
+      }
+    }
+  },
+  "region": {
+    "message": "區域"
+  },
+  "opensInANewWindow": {
+    "message": "在新視窗開啟"
+  },
+  "eu": {
+    "message": "歐洲 (EU)",
+    "description": "European Union"
+  },
+  "us": {
+    "message": "美國 (US)",
+    "description": "United States"
+  },
+  "accessDenied": {
+    "message": "拒絕存取。您沒有檢視此頁面的權限。"
+  },
+  "general": {
+    "message": "一般"
+  },
+  "display": {
+    "message": "顯示"
   }
 }

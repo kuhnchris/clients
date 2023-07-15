@@ -36,12 +36,26 @@
   </div>
   <ng-container *ngIf="loaded">
     <app-vault-select (onVaultSelectionChanged)="load()"></app-vault-select>
+    <app-callout *ngIf="showHowToAutofill" type="info" title="{{ 'howToAutofill' | i18n }}">
+      <p>{{ autofillCalloutText }}</p>
+      <button
+        type="button"
+        class="btn primary callout-half"
+        appStopClick
+        (click)="dismissCallout()"
+      >
+        {{ "gotIt" | i18n }}
+      </button>
+      <button type="button" class="btn callout-half" appStopClick (click)="goToSettings()">
+        {{ "autofillSettings" | i18n }}
+      </button>
+    </app-callout>
     <div class="box list" *ngIf="loginCiphers">
       <h2 class="box-header">
         {{ "typeLogins" | i18n }}
         <span class="flex-right">{{ loginCiphers.length }}</span>
       </h2>
-      <div class="box-content no-hover">
+      <div class="box-content">
         <app-cipher-row
           *ngFor="let loginCipher of loginCiphers"
           [cipher]="loginCipher"

@@ -1,19 +1,20 @@
-import { KdfType } from "../../../enums/kdfType";
-import { OrganizationUserStatusType } from "../../../enums/organizationUserStatusType";
-import { OrganizationUserType } from "../../../enums/organizationUserType";
-import { PermissionsApi } from "../../../models/api/permissions.api";
+import { OrganizationUserStatusType, OrganizationUserType } from "../../../admin-console/enums";
+import { PermissionsApi } from "../../../admin-console/models/api/permissions.api";
+import { SelectionReadOnlyResponse } from "../../../admin-console/models/response/selection-read-only.response";
+import { KdfType } from "../../../enums";
 import { BaseResponse } from "../../../models/response/base.response";
-import { SelectionReadOnlyResponse } from "../../../models/response/selection-read-only.response";
 
 export class OrganizationUserResponse extends BaseResponse {
   id: string;
   userId: string;
   type: OrganizationUserType;
   status: OrganizationUserStatusType;
+  externalId: string;
   accessAll: boolean;
   accessSecretsManager: boolean;
   permissions: PermissionsApi;
   resetPasswordEnrolled: boolean;
+  hasMasterPassword: boolean;
   collections: SelectionReadOnlyResponse[] = [];
   groups: string[] = [];
 
@@ -24,9 +25,11 @@ export class OrganizationUserResponse extends BaseResponse {
     this.type = this.getResponseProperty("Type");
     this.status = this.getResponseProperty("Status");
     this.permissions = new PermissionsApi(this.getResponseProperty("Permissions"));
+    this.externalId = this.getResponseProperty("ExternalId");
     this.accessAll = this.getResponseProperty("AccessAll");
     this.accessSecretsManager = this.getResponseProperty("AccessSecretsManager");
     this.resetPasswordEnrolled = this.getResponseProperty("ResetPasswordEnrolled");
+    this.hasMasterPassword = this.getResponseProperty("HasMasterPassword");
 
     const collections = this.getResponseProperty("Collections");
     if (collections != null) {
@@ -42,6 +45,7 @@ export class OrganizationUserResponse extends BaseResponse {
 export class OrganizationUserUserDetailsResponse extends OrganizationUserResponse {
   name: string;
   email: string;
+  avatarColor: string;
   twoFactorEnabled: boolean;
   usesKeyConnector: boolean;
 
@@ -49,6 +53,7 @@ export class OrganizationUserUserDetailsResponse extends OrganizationUserRespons
     super(response);
     this.name = this.getResponseProperty("Name");
     this.email = this.getResponseProperty("Email");
+    this.avatarColor = this.getResponseProperty("AvatarColor");
     this.twoFactorEnabled = this.getResponseProperty("TwoFactorEnabled");
     this.usesKeyConnector = this.getResponseProperty("UsesKeyConnector") ?? false;
   }
@@ -60,7 +65,7 @@ export class OrganizationUserDetailsResponse extends OrganizationUserResponse {
   }
 }
 
-export class OrganizationUserResetPasswordDetailsReponse extends BaseResponse {
+export class OrganizationUserResetPasswordDetailsResponse extends BaseResponse {
   kdf: KdfType;
   kdfIterations: number;
   kdfMemory?: number;
