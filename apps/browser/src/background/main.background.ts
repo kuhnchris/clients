@@ -425,7 +425,8 @@ export default class MainBackground {
       this.cryptoService,
       this.tokenService,
       this.policyService,
-      this.stateService
+      this.stateService,
+      this.userVerificationService
     );
 
     this.vaultTimeoutService = new VaultTimeoutService(
