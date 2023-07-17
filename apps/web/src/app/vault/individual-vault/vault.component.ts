@@ -641,14 +641,16 @@ export class VaultComponent implements OnInit, OnDestroy {
   }
 
   async cloneCipher(cipher: CipherView) {
-    const confirmed = await this.dialogService.openSimpleDialog({
-      title: { key: "passkeyNotCopied" },
-      content: { key: "passkeyNotCopiedAlert" },
-      type: SimpleDialogType.INFO,
-    });
+    if (cipher.login?.fido2Key) {
+      const confirmed = await this.dialogService.openSimpleDialog({
+        title: { key: "passkeyNotCopied" },
+        content: { key: "passkeyNotCopiedAlert" },
+        type: SimpleDialogType.INFO,
+      });
 
-    if (!confirmed) {
-      return false;
+      if (!confirmed) {
+        return false;
+      }
     }
 
     const component = await this.editCipher(cipher);

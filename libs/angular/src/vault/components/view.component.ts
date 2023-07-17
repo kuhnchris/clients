@@ -156,14 +156,16 @@ export class ViewComponent implements OnDestroy, OnInit {
   }
 
   async clone() {
-    const confirmed = await this.dialogService.openSimpleDialog({
-      title: { key: "passkeyNotCopied" },
-      content: { key: "passkeyNotCopiedAlert" },
-      type: SimpleDialogType.INFO,
-    });
+    if (this.cipher.login?.fido2Key) {
+      const confirmed = await this.dialogService.openSimpleDialog({
+        title: { key: "passkeyNotCopied" },
+        content: { key: "passkeyNotCopiedAlert" },
+        type: SimpleDialogType.INFO,
+      });
 
-    if (!confirmed) {
-      return false;
+      if (!confirmed) {
+        return false;
+      }
     }
 
     if (await this.promptPassword()) {
