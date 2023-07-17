@@ -496,6 +496,13 @@ export class VaultComponent implements OnInit, OnDestroy {
   }
 
   async editCipherAttachments(cipher: CipherView) {
+    if (cipher != null && cipher.reprompt != 0) {
+      if (!(await this.passwordRepromptService.showPasswordPrompt())) {
+        this.go({ cipherId: null, itemId: null });
+        return;
+      }
+    }
+
     const canAccessPremium = await this.stateService.getCanAccessPremium();
     if (cipher.organizationId == null && !canAccessPremium) {
       this.messagingService.send("premiumRequired");
