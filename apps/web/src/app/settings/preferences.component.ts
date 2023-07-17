@@ -24,6 +24,8 @@ export class PreferencesComponent implements OnInit {
   // For use in template
   protected readonly VaultTimeoutAction = VaultTimeoutAction;
 
+  protected availableVaultTimeoutActions$: Observable<VaultTimeoutAction[]>;
+
   vaultTimeoutPolicyCallout: Observable<{
     timeout: { hours: number; minutes: number };
     action: VaultTimeoutAction;
@@ -89,6 +91,9 @@ export class PreferencesComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.availableVaultTimeoutActions$ =
+      this.vaultTimeoutSettingsService.availableVaultTimeoutActions$;
+
     this.vaultTimeoutPolicyCallout = this.policyService.get$(PolicyType.MaximumVaultTimeout).pipe(
       filter((policy) => policy != null),
       map((policy) => {
