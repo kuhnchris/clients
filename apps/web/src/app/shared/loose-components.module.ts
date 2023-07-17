@@ -1,7 +1,5 @@
 import { NgModule } from "@angular/core";
 
-import { NoItemsModule, SearchModule } from "@bitwarden/components";
-
 import { OrganizationSwitcherComponent } from "../admin-console/components/organization-switcher.component";
 import { OrganizationCreateModule } from "../admin-console/organizations/create/organization-create.module";
 import { OrganizationLayoutComponent } from "../admin-console/organizations/layouts/organization-layout.component";
@@ -127,8 +125,7 @@ import { SharedModule } from "./shared.module";
     DynamicAvatarComponent,
     EnvironmentSelectorModule,
     AccountFingerprintComponent,
-    SearchModule,
-    NoItemsModule,
+    SendComponent,
   ],
   declarations: [
     AcceptEmergencyComponent,
@@ -199,7 +196,6 @@ import { SharedModule } from "./shared.module";
     SecurityKeysComponent,
     SelectableAvatarComponent,
     SendAddEditComponent,
-    SendComponent,
     SendEffluxDatesComponent,
     SetPasswordComponent,
     SettingsComponent,
