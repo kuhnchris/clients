@@ -114,6 +114,12 @@
                 </button>
               </div>
             </div>
+            <!--Passkey-->
+            <div class="box-content-row text-muted" *ngIf="cipher.login.fido2Key" appBoxRow>
+              <span class="row-label">{{ "typePasskey" | i18n }}</span>
+              {{ "passkeyTwoStepLogin" | i18n }}
+            </div>
+
             <div class="box-content-row" appBoxRow>
               <label for="loginTotp">{{ "authenticatorKeyTotp" | i18n }}</label>
               <input

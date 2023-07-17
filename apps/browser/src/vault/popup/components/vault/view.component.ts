@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, NgZone } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { first } from "rxjs/operators";
 
-import { DialogServiceAbstraction, SimpleDialogType } from "@bitwarden/angular/services/dialog";
+import { DialogServiceAbstraction } from "@bitwarden/angular/services/dialog";
 import { ViewComponent as BaseViewComponent } from "@bitwarden/angular/vault/components/view.component";
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
 import { AuditService } from "@bitwarden/common/abstractions/audit.service";
@@ -154,16 +154,6 @@ export class ViewComponent extends BaseViewComponent {
   }
 
   async clone() {
-    const confirmed = await this.dialogService.openSimpleDialog({
-      title: { key: "passkeyNotCopied" },
-      content: { key: "passkeyNotCopiedAlert" },
-      type: SimpleDialogType.INFO,
-    });
-
-    if (!confirmed) {
-      return false;
-    }
-
     if (this.cipher.isDeleted) {
       return false;
     }

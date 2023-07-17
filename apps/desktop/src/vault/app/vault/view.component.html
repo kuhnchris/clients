@@ -119,11 +119,9 @@
             </div>
           </div>
           <!--Passkey-->
-          <div class="box-content" *ngIf="cipher.login.fido2Key">
-            <div class="box-content-row text-muted">
-              <span class="row-label">{{ "typePasskey" | i18n }}</span>
-              {{ "passkeyTwoStepLogin" | i18n }}
-            </div>
+          <div class="box-content-row text-muted" *ngIf="cipher.login.fido2Key">
+            <span class="row-label">{{ "typePasskey" | i18n }}</span>
+            {{ "passkeyTwoStepLogin" | i18n }}
           </div>
           <div
             class="box-content-row box-content-row-flex totp"
@@ -607,7 +605,7 @@
   <button
     type="button"
     class="primary"
-    *ngIf="!cipher?.organizationId && !cipher.isDeleted"
+    *ngIf="!cipher?.organizationId && !cipher.isDeleted && !cipher.fido2Key?.rpId"
     (click)="clone()"
     appA11yTitle="{{ 'clone' | i18n }}"
   >

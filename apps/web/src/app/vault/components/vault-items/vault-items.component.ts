@@ -168,7 +168,7 @@ export class VaultItemsComponent {
     return (
       ((vaultItem.cipher.organizationId && this.cloneableOrganizationCiphers) ||
         vaultItem.cipher.organizationId == null) &&
-      vaultItem.cipher.fido2Key == null
+      !vaultItem.cipher.fido2Key?.rpId
     );
   }
 
