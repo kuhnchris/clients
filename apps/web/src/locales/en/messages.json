@@ -3503,6 +3503,9 @@
   "vaultTimeoutDesc": {
     "message": "Choose when your vault will take the vault timeout action."
   },
+  "vaultTimeoutLogoutDesc": {
+    "message": "Choose when your vault will be logged out."
+  },
   "oneMinute": {
     "message": "1 minute"
   },

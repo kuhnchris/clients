@@ -1,7 +1,11 @@
+import { Observable } from "rxjs";
+
 import { VaultTimeoutAction } from "../../enums/vault-timeout-action.enum";
 import { PinLockType } from "../../services/vault-timeout/vault-timeout-settings.service";
 
 export abstract class VaultTimeoutSettingsService {
+  availableVaultTimeoutActions$: Observable<VaultTimeoutAction[]>;
+
   setVaultTimeoutOptions: (
     vaultTimeout: number,
     vaultTimeoutAction: VaultTimeoutAction

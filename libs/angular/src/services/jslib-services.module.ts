@@ -444,6 +444,7 @@ import { AbstractThemingService } from "./theming/theming.service.abstraction";
         TokenServiceAbstraction,
         PolicyServiceAbstraction,
         StateServiceAbstraction,
+        UserVerificationServiceAbstraction,
       ],
     },
     {

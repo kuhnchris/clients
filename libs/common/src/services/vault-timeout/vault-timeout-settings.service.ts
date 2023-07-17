@@ -1,3 +1,5 @@
+import { defer } from "rxjs";
+
 import { VaultTimeoutSettingsService as VaultTimeoutSettingsServiceAbstraction } from "../../abstractions/vault-timeout/vault-timeout-settings.service";
 import { PolicyService } from "../../admin-console/abstractions/policy/policy.service.abstraction";
 import { PolicyType } from "../../admin-console/enums";
@@ -16,6 +18,8 @@ import { StateService } from "../../platform/abstractions/state.service";
 export type PinLockType = "DISABLED" | "PERSISTANT" | "TRANSIENT";
 
 export class VaultTimeoutSettingsService implements VaultTimeoutSettingsServiceAbstraction {
+  readonly availableVaultTimeoutActions$ = defer(() => this.getAvailableVaultTimeoutActions());
+
   constructor(
     private cryptoService: CryptoService,
     private tokenService: TokenService,
