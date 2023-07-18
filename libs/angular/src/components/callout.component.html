@@ -1,13 +1,13 @@
-<div
+<aside
   #callout
   class="callout callout-{{ calloutStyle }}"
   [ngClass]="{ clickable: clickable }"
   [attr.role]="useAlertRole ? 'alert' : null"
 >
-  <h3 class="callout-heading" *ngIf="title">
+  <header class="callout-heading" *ngIf="title">
     <i class="bwi {{ icon }}" *ngIf="icon" aria-hidden="true"></i>
     {{ title }}
-  </h3>
+  </header>
   <div class="enforced-policy-options" *ngIf="enforcedPolicyOptions">
     {{ enforcedPolicyMessage }}
     <ul>
@@ -32,4 +32,4 @@
     </ul>
   </div>
   <ng-content></ng-content>
-</div>
+</aside>
