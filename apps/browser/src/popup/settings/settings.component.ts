@@ -1,13 +1,13 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { Router } from "@angular/router";
 import {
   BehaviorSubject,
   concatMap,
-  debounceTime,
   filter,
   map,
   Observable,
+  pairwise,
   Subject,
   switchMap,
   takeUntil,
@@ -62,16 +62,12 @@ export class SettingsComponent implements OnInit {
 
   protected availableVaultTimeoutActions$: Observable<VaultTimeoutAction[]>;
 
-  @ViewChild("vaultTimeoutActionSelect", { read: ElementRef, static: true })
-  vaultTimeoutActionSelectRef: ElementRef;
   vaultTimeoutOptions: any[];
-  vaultTimeoutActionOptions: any[];
   vaultTimeoutPolicyCallout: Observable<{
     timeout: { hours: number; minutes: number };
     action: VaultTimeoutAction;
   }>;
   supportsBiometric: boolean;
-  previousVaultTimeout: number = null;
   showChangeMasterPass = true;
 
   form = this.formBuilder.group({
@@ -150,16 +146,31 @@ export class SettingsComponent implements OnInit {
     this.vaultTimeoutOptions.push({ name: this.i18nService.t("onRestart"), value: -1 });
     this.vaultTimeoutOptions.push({ name: this.i18nService.t("never"), value: null });
 
-    this.vaultTimeoutActionOptions = [
-      { name: this.i18nService.t(VaultTimeoutAction.Lock), value: VaultTimeoutAction.Lock },
-      { name: this.i18nService.t(VaultTimeoutAction.LogOut), value: VaultTimeoutAction.LogOut },
-    ];
-
     let timeout = await this.vaultTimeoutSettingsService.getVaultTimeout();
     if (timeout === -2 && !showOnLocked) {
       timeout = -1;
     }
     const pinStatus = await this.vaultTimeoutSettingsService.isPinLockSet();
+
+    this.form.controls.vaultTimeout.valueChanges
+      .pipe(
+        pairwise(),
+        concatMap(async ([previousValue, newValue]) => {
+          await this.saveVaultTimeout(previousValue, newValue);
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
+
+    this.form.controls.vaultTimeoutAction.valueChanges
+      .pipe(
+        pairwise(),
+        concatMap(async ([previousValue, newValue]) => {
+          await this.saveVaultTimeoutAction(previousValue, newValue);
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
 
     const initialValues = {
       vaultTimeout: timeout,
@@ -168,30 +179,10 @@ export class SettingsComponent implements OnInit {
       biometric: await this.vaultTimeoutSettingsService.isBiometricLockSet(),
       enableAutoBiometricsPrompt: !(await this.stateService.getDisableAutoBiometricsPrompt()),
     };
-    this.form.setValue(initialValues, { emitEvent: false });
+    this.form.setValue(initialValues);
 
-    this.previousVaultTimeout = timeout;
     this.supportsBiometric = await this.platformUtilsService.supportsBiometric();
     this.showChangeMasterPass = !(await this.keyConnectorService.getUsesKeyConnector());
-
-    this.form.controls.vaultTimeout.valueChanges
-      .pipe(
-        debounceTime(250),
-        concatMap(async (value) => {
-          await this.saveVaultTimeout(value);
-        }),
-        takeUntil(this.destroy$)
-      )
-      .subscribe();
-
-    this.form.controls.vaultTimeoutAction.valueChanges
-      .pipe(
-        concatMap(async (action) => {
-          await this.saveVaultTimeoutAction(action);
-        }),
-        takeUntil(this.destroy$)
-      )
-      .subscribe();
 
     this.form.controls.biometric.valueChanges
       .pipe(takeUntil(this.destroy$))
@@ -204,7 +195,7 @@ export class SettingsComponent implements OnInit {
       });
   }
 
-  async saveVaultTimeout(newValue: number) {
+  async saveVaultTimeout(previousValue: number, newValue: number) {
     if (newValue == null) {
       const confirmed = await this.dialogService.openSimpleDialog({
         title: { key: "warning" },
@@ -213,7 +204,7 @@ export class SettingsComponent implements OnInit {
       });
 
       if (!confirmed) {
-        this.form.controls.vaultTimeout.setValue(this.previousVaultTimeout);
+        this.form.controls.vaultTimeout.setValue(previousValue, { emitEvent: false });
         return;
       }
     }
@@ -229,18 +220,16 @@ export class SettingsComponent implements OnInit {
       return;
     }
 
-    this.previousVaultTimeout = this.form.value.vaultTimeout;
-
     await this.vaultTimeoutSettingsService.setVaultTimeoutOptions(
       newValue,
       this.form.value.vaultTimeoutAction
     );
-    if (this.previousVaultTimeout == null) {
+    if (newValue == null) {
       this.messagingService.send("bgReseedStorage");
     }
   }
 
-  async saveVaultTimeoutAction(newValue: VaultTimeoutAction) {
+  async saveVaultTimeoutAction(previousValue: VaultTimeoutAction, newValue: VaultTimeoutAction) {
     if (newValue === VaultTimeoutAction.LogOut) {
       const confirmed = await this.dialogService.openSimpleDialog({
         title: { key: "vaultTimeoutLogOutConfirmationTitle" },
@@ -249,13 +238,7 @@ export class SettingsComponent implements OnInit {
       });
 
       if (!confirmed) {
-        this.vaultTimeoutActionOptions.forEach((option: any, i) => {
-          if (option.value === this.form.value.vaultTimeoutAction) {
-            this.vaultTimeoutActionSelectRef.nativeElement.value =
-              i + ": " + this.form.value.vaultTimeoutAction;
-          }
-        });
-        this.form.controls.vaultTimeoutAction.patchValue(VaultTimeoutAction.Lock, {
+        this.form.controls.vaultTimeoutAction.setValue(previousValue, {
           emitEvent: false,
         });
         return;
