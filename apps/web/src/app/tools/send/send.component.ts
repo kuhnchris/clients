@@ -13,7 +13,7 @@ import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/pl
 import { SendView } from "@bitwarden/common/tools/send/models/view/send.view";
 import { SendApiService } from "@bitwarden/common/tools/send/services/send-api.service.abstraction";
 import { SendService } from "@bitwarden/common/tools/send/services/send.service.abstraction";
-import { NoItemsModule, SearchModule, svgIcon } from "@bitwarden/components";
+import { NoItemsModule, SearchModule, TableDataSource, svgIcon } from "@bitwarden/components";
 
 import { SharedModule } from "../../shared";
 
@@ -41,6 +41,17 @@ export class SendComponent extends BaseSendComponent {
     <path class="tw-stroke-secondary-500 tw-fill-secondary-100" stroke-width="3" d="M89.326 64.022s1.673-.73 2.252.572c.512 1.138-.822 2.033-.822 2.033L56.757 88.133a3.886 3.886 0 0 0-1.583 2.188l-4.732 16.705a2.665 2.665 0 0 0 .059 1.611 2.596 2.596 0 0 0 1.891 1.663c.331.07.673.071 1.004.004.402-.077.78-.25 1.102-.503l10.11-7.88a3.138 3.138 0 0 1 1.92-.663 3.08 3.08 0 0 1 1.905.662l13.926 10.948a2.556 2.556 0 0 0 3.162 0c.301-.238.55-.537.727-.879l31.777-61.762c.231-.448.33-.952.284-1.455a2.606 2.606 0 0 0-1.721-2.226 2.499 2.499 0 0 0-1.457-.06l-81.18 20.418c-.465.12-.888.364-1.223.708a2.672 2.672 0 0 0-.632 2.676c.146.46.417.865.78 1.174L46.2 83.1a4.463 4.463 0 0 0 2.565 1.572 4.489 4.489 0 0 0 2.984-.413l37.578-20.237Z"/>
   </svg>
   `;
+
+  override set filteredSends(filteredSends: SendView[]) {
+    super.filteredSends = filteredSends;
+    this.dataSource.data = filteredSends;
+  }
+
+  override get filteredSends() {
+    return super.filteredSends;
+  }
+
+  protected dataSource = new TableDataSource<SendView>();
 
   constructor(
     sendService: SendService,
