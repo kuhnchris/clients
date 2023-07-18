@@ -18,7 +18,7 @@ import { NoItemsModule, SearchModule, TableDataSource } from "@bitwarden/compone
 import { SharedModule } from "../../shared";
 
 import { AddEditComponent } from "./add-edit.component";
-import { NoSend } from "@bitwarden/web-vault/app/tools/send/icons/no-send.icon";
+import { NoSend } from "./icons/no-send.icon";
 
 const BroadcasterSubscriptionId = "SendComponent";
 
