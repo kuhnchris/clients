@@ -2,6 +2,7 @@ import { mock, MockProxy } from "jest-mock-extended";
 import { firstValueFrom } from "rxjs";
 
 import { PolicyService } from "../../admin-console/abstractions/policy/policy.service.abstraction";
+import { Policy } from "../../admin-console/models/domain/policy";
 import { TokenService } from "../../auth/abstractions/token.service";
 import { UserVerificationService } from "../../auth/abstractions/user-verification/user-verification.service.abstraction";
 import { VaultTimeoutAction } from "../../enums/vault-timeout-action.enum";
@@ -83,6 +84,30 @@ describe("VaultTimeoutSettingsService", () => {
 
       expect(result).not.toContain(VaultTimeoutAction.Lock);
     });
+  });
+
+  describe("vaultTimeoutAction$", () => {
+    it.each`
+      policy                       | hasMasterPassword | userPreference               | expected
+      ${null}                      | ${true}           | ${null}                      | ${VaultTimeoutAction.Lock}
+      ${null}                      | ${true}           | ${VaultTimeoutAction.LogOut} | ${VaultTimeoutAction.LogOut}
+      ${VaultTimeoutAction.LogOut} | ${true}           | ${null}                      | ${VaultTimeoutAction.LogOut}
+      ${VaultTimeoutAction.LogOut} | ${true}           | ${VaultTimeoutAction.Lock}   | ${VaultTimeoutAction.LogOut}
+    `(
+      "returns $expected when policy is $policy, hasMasterPassword is $hasMasterPassword, and userPreference is $userPreference",
+      async ({ policy, hasMasterPassword, userPreference, expected }) => {
+        userVerificationService.hasMasterPassword.mockResolvedValue(hasMasterPassword);
+        policyService.policyAppliesToUser.mockResolvedValue(policy === null ? false : true);
+        policyService.getAll.mockResolvedValue(
+          policy === null ? [] : ([{ data: { action: policy } }] as unknown as Policy[])
+        );
+        stateService.getVaultTimeoutAction.mockResolvedValue(userPreference);
+
+        const result = await firstValueFrom(service.vaultTimeoutAction$);
+
+        expect(result).toBe(expected);
+      }
+    );
   });
 });
 
