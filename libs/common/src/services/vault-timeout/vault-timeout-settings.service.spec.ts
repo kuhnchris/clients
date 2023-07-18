@@ -1,4 +1,5 @@
 import { mock, MockProxy } from "jest-mock-extended";
+import { firstValueFrom } from "rxjs";
 
 import { PolicyService } from "../../admin-console/abstractions/policy/policy.service.abstraction";
 import { TokenService } from "../../auth/abstractions/token.service";
@@ -33,9 +34,9 @@ describe("VaultTimeoutSettingsService", () => {
     );
   });
 
-  describe("getAvailableVaultTimeoutActions", () => {
+  describe("availableVaultTimeoutActions$", () => {
     it("always returns LogOut", async () => {
-      const result = await service.getAvailableVaultTimeoutActions();
+      const result = await firstValueFrom(service.availableVaultTimeoutActions$);
 
       expect(result).toContain(VaultTimeoutAction.LogOut);
     });
@@ -43,7 +44,7 @@ describe("VaultTimeoutSettingsService", () => {
     it("contains Lock when the user has a master password", async () => {
       userVerificationService.hasMasterPassword.mockResolvedValue(true);
 
-      const result = await service.getAvailableVaultTimeoutActions();
+      const result = await firstValueFrom(service.availableVaultTimeoutActions$);
 
       expect(result).toContain(VaultTimeoutAction.Lock);
     });
@@ -51,7 +52,7 @@ describe("VaultTimeoutSettingsService", () => {
     it("contains Lock when the user has a persistent PIN configured", async () => {
       stateService.getUserKeyPin.mockResolvedValue(createEncString());
 
-      const result = await service.getAvailableVaultTimeoutActions();
+      const result = await firstValueFrom(service.availableVaultTimeoutActions$);
 
       expect(result).toContain(VaultTimeoutAction.Lock);
     });
@@ -59,7 +60,7 @@ describe("VaultTimeoutSettingsService", () => {
     it("contains Lock when the user has a transient/ephemeral PIN configured", async () => {
       stateService.getProtectedPin.mockResolvedValue("some-key");
 
-      const result = await service.getAvailableVaultTimeoutActions();
+      const result = await firstValueFrom(service.availableVaultTimeoutActions$);
 
       expect(result).toContain(VaultTimeoutAction.Lock);
     });
@@ -67,7 +68,7 @@ describe("VaultTimeoutSettingsService", () => {
     it("contains Lock when the user has biometrics configured", async () => {
       stateService.getBiometricUnlock.mockResolvedValue(true);
 
-      const result = await service.getAvailableVaultTimeoutActions();
+      const result = await firstValueFrom(service.availableVaultTimeoutActions$);
 
       expect(result).toContain(VaultTimeoutAction.Lock);
     });
@@ -78,7 +79,7 @@ describe("VaultTimeoutSettingsService", () => {
       stateService.getProtectedPin.mockResolvedValue(null);
       stateService.getBiometricUnlock.mockResolvedValue(false);
 
-      const result = await service.getAvailableVaultTimeoutActions();
+      const result = await firstValueFrom(service.availableVaultTimeoutActions$);
 
       expect(result).not.toContain(VaultTimeoutAction.Lock);
     });
