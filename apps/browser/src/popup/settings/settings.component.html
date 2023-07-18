@@ -68,19 +68,28 @@
         ngDefaultControl
       >
       </app-vault-timeout-input>
-      <div class="box-content-row display-block" appBoxRow>
-        <label for="vaultTimeoutAction">{{ "vaultTimeoutAction" | i18n }}</label>
-        <select
-          #vaultTimeoutActionSelect
-          id="vaultTimeoutAction"
-          name="VaultTimeoutActions"
-          formControlName="vaultTimeoutAction"
+      <ng-container *ngIf="availableVaultTimeoutActions$ | async as availableVaultTimeoutActions">
+        <div class="box-content-row display-block" appBoxRow>
+          <label for="vaultTimeoutAction">{{ "vaultTimeoutAction" | i18n }}</label>
+          <select
+            #vaultTimeoutActionSelect
+            id="vaultTimeoutAction"
+            name="VaultTimeoutActions"
+            formControlName="vaultTimeoutAction"
+          >
+            <option *ngFor="let action of availableVaultTimeoutActions" [ngValue]="action">
+              {{ action | i18n }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="!availableVaultTimeoutActions.includes(VaultTimeoutAction.Lock)"
+          id="unlockMethodHelp"
+          class="box-footer"
         >
-          <option *ngFor="let o of vaultTimeoutActionOptions" [ngValue]="o.value">
-            {{ o.name }}
-          </option>
-        </select>
-      </div>
+          {{ "unlockMethodNeededToChangeTimeoutActionDesc" | i18n }}
+        </div>
+      </ng-container>
       <div class="box-content-row box-content-row-checkbox" appBoxRow>
         <label for="pin">{{ "unlockWithPin" | i18n }}</label>
         <input id="pin" type="checkbox" (change)="updatePin()" formControlName="pin" />

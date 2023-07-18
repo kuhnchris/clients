@@ -1,7 +1,18 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { Router } from "@angular/router";
-import { concatMap, debounceTime, filter, map, Observable, Subject, takeUntil, tap } from "rxjs";
+import {
+  BehaviorSubject,
+  concatMap,
+  debounceTime,
+  filter,
+  map,
+  Observable,
+  Subject,
+  switchMap,
+  takeUntil,
+  tap,
+} from "rxjs";
 import Swal from "sweetalert2";
 
 import { DialogServiceAbstraction, SimpleDialogType } from "@bitwarden/angular/services/dialog";
@@ -47,6 +58,10 @@ const RateUrls = {
 })
 // eslint-disable-next-line rxjs-angular/prefer-takeuntil
 export class SettingsComponent implements OnInit {
+  protected readonly VaultTimeoutAction = VaultTimeoutAction;
+
+  protected availableVaultTimeoutActions$: Observable<VaultTimeoutAction[]>;
+
   @ViewChild("vaultTimeoutActionSelect", { read: ElementRef, static: true })
   vaultTimeoutActionSelectRef: ElementRef;
   vaultTimeoutOptions: any[];
@@ -67,6 +82,7 @@ export class SettingsComponent implements OnInit {
     enableAutoBiometricsPrompt: true,
   });
 
+  private refresh$ = new BehaviorSubject<void>(undefined);
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -88,6 +104,9 @@ export class SettingsComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
+    this.availableVaultTimeoutActions$ = this.refresh$.pipe(
+      switchMap(() => this.vaultTimeoutSettingsService.availableVaultTimeoutActions$)
+    );
     this.vaultTimeoutPolicyCallout = this.policyService.get$(PolicyType.MaximumVaultTimeout).pipe(
       filter((policy) => policy != null),
       map((policy) => {
