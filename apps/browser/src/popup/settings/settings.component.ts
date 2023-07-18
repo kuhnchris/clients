@@ -5,6 +5,7 @@ import {
   BehaviorSubject,
   concatMap,
   filter,
+  firstValueFrom,
   map,
   Observable,
   pairwise,
@@ -78,7 +79,7 @@ export class SettingsComponent implements OnInit {
     enableAutoBiometricsPrompt: true,
   });
 
-  private refresh$ = new BehaviorSubject<void>(undefined);
+  private refreshTimeoutSettings$ = new BehaviorSubject<void>(undefined);
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -100,7 +101,7 @@ export class SettingsComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.availableVaultTimeoutActions$ = this.refresh$.pipe(
+    this.availableVaultTimeoutActions$ = this.refreshTimeoutSettings$.pipe(
       switchMap(() => this.vaultTimeoutSettingsService.availableVaultTimeoutActions$)
     );
     this.vaultTimeoutPolicyCallout = this.policyService.get$(PolicyType.MaximumVaultTimeout).pipe(
@@ -174,12 +175,14 @@ export class SettingsComponent implements OnInit {
 
     const initialValues = {
       vaultTimeout: timeout,
-      vaultTimeoutAction: await this.vaultTimeoutSettingsService.getVaultTimeoutAction(),
+      vaultTimeoutAction: await firstValueFrom(
+        this.vaultTimeoutSettingsService.vaultTimeoutAction$
+      ),
       pin: pinStatus !== "DISABLED",
       biometric: await this.vaultTimeoutSettingsService.isBiometricLockSet(),
       enableAutoBiometricsPrompt: !(await this.stateService.getDisableAutoBiometricsPrompt()),
     };
-    this.form.setValue(initialValues);
+    this.form.patchValue(initialValues); // Emit event to initialize `pairwise` operator
 
     this.supportsBiometric = await this.platformUtilsService.supportsBiometric();
     this.showChangeMasterPass = !(await this.keyConnectorService.getUsesKeyConnector());
@@ -192,6 +195,15 @@ export class SettingsComponent implements OnInit {
         } else {
           this.form.controls.enableAutoBiometricsPrompt.disable();
         }
+      });
+
+    this.refreshTimeoutSettings$
+      .pipe(
+        switchMap(() => this.vaultTimeoutSettingsService.vaultTimeoutAction$),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((action) => {
+        this.form.controls.vaultTimeoutAction.setValue(action, { emitEvent: false });
       });
   }
 

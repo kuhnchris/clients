@@ -5,6 +5,7 @@ import { PinLockType } from "../../services/vault-timeout/vault-timeout-settings
 
 export abstract class VaultTimeoutSettingsService {
   availableVaultTimeoutActions$: Observable<VaultTimeoutAction[]>;
+  vaultTimeoutAction$: Observable<VaultTimeoutAction>;
 
   setVaultTimeoutOptions: (
     vaultTimeout: number,

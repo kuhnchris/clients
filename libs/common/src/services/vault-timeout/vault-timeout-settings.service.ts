@@ -19,6 +19,7 @@ export type PinLockType = "DISABLED" | "PERSISTANT" | "TRANSIENT";
 
 export class VaultTimeoutSettingsService implements VaultTimeoutSettingsServiceAbstraction {
   readonly availableVaultTimeoutActions$ = defer(() => this.getAvailableVaultTimeoutActions());
+  readonly vaultTimeoutAction$ = defer(() => this.getVaultTimeoutAction());
 
   constructor(
     private cryptoService: CryptoService,
