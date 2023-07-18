@@ -87,27 +87,57 @@ describe("VaultTimeoutSettingsService", () => {
   });
 
   describe("vaultTimeoutAction$", () => {
-    it.each`
-      policy                       | hasMasterPassword | userPreference               | expected
-      ${null}                      | ${true}           | ${null}                      | ${VaultTimeoutAction.Lock}
-      ${null}                      | ${true}           | ${VaultTimeoutAction.LogOut} | ${VaultTimeoutAction.LogOut}
-      ${VaultTimeoutAction.LogOut} | ${true}           | ${null}                      | ${VaultTimeoutAction.LogOut}
-      ${VaultTimeoutAction.LogOut} | ${true}           | ${VaultTimeoutAction.Lock}   | ${VaultTimeoutAction.LogOut}
-    `(
-      "returns $expected when policy is $policy, hasMasterPassword is $hasMasterPassword, and userPreference is $userPreference",
-      async ({ policy, hasMasterPassword, userPreference, expected }) => {
-        userVerificationService.hasMasterPassword.mockResolvedValue(hasMasterPassword);
-        policyService.policyAppliesToUser.mockResolvedValue(policy === null ? false : true);
-        policyService.getAll.mockResolvedValue(
-          policy === null ? [] : ([{ data: { action: policy } }] as unknown as Policy[])
-        );
-        stateService.getVaultTimeoutAction.mockResolvedValue(userPreference);
+    describe("given the user has a master password", () => {
+      it.each`
+        policy                       | userPreference               | expected
+        ${null}                      | ${null}                      | ${VaultTimeoutAction.Lock}
+        ${null}                      | ${VaultTimeoutAction.LogOut} | ${VaultTimeoutAction.LogOut}
+        ${VaultTimeoutAction.LogOut} | ${null}                      | ${VaultTimeoutAction.LogOut}
+        ${VaultTimeoutAction.LogOut} | ${VaultTimeoutAction.Lock}   | ${VaultTimeoutAction.LogOut}
+      `(
+        "returns $expected when policy is $policy, and user preference is $userPreference",
+        async ({ policy, userPreference, expected }) => {
+          userVerificationService.hasMasterPassword.mockResolvedValue(true);
+          policyService.policyAppliesToUser.mockResolvedValue(policy === null ? false : true);
+          policyService.getAll.mockResolvedValue(
+            policy === null ? [] : ([{ data: { action: policy } }] as unknown as Policy[])
+          );
+          stateService.getVaultTimeoutAction.mockResolvedValue(userPreference);
 
-        const result = await firstValueFrom(service.vaultTimeoutAction$);
+          const result = await firstValueFrom(service.vaultTimeoutAction$);
 
-        expect(result).toBe(expected);
-      }
-    );
+          expect(result).toBe(expected);
+        }
+      );
+    });
+
+    describe("given the user does not have a master password", () => {
+      it.each`
+        unlockMethod | policy                     | userPreference               | expected
+        ${false}     | ${null}                    | ${null}                      | ${VaultTimeoutAction.LogOut}
+        ${false}     | ${null}                    | ${VaultTimeoutAction.Lock}   | ${VaultTimeoutAction.LogOut}
+        ${false}     | ${VaultTimeoutAction.Lock} | ${null}                      | ${VaultTimeoutAction.LogOut}
+        ${true}      | ${null}                    | ${null}                      | ${VaultTimeoutAction.LogOut}
+        ${true}      | ${null}                    | ${VaultTimeoutAction.Lock}   | ${VaultTimeoutAction.Lock}
+        ${true}      | ${VaultTimeoutAction.Lock} | ${null}                      | ${VaultTimeoutAction.Lock}
+        ${true}      | ${VaultTimeoutAction.Lock} | ${VaultTimeoutAction.LogOut} | ${VaultTimeoutAction.Lock}
+      `(
+        "returns $expected when policy is $policy, has unlock method is $unlockMethod, and user preference is $userPreference",
+        async ({ unlockMethod, policy, userPreference, expected }) => {
+          stateService.getBiometricUnlock.mockResolvedValue(unlockMethod);
+          userVerificationService.hasMasterPassword.mockResolvedValue(false);
+          policyService.policyAppliesToUser.mockResolvedValue(policy === null ? false : true);
+          policyService.getAll.mockResolvedValue(
+            policy === null ? [] : ([{ data: { action: policy } }] as unknown as Policy[])
+          );
+          stateService.getVaultTimeoutAction.mockResolvedValue(userPreference);
+
+          const result = await firstValueFrom(service.vaultTimeoutAction$);
+
+          expect(result).toBe(expected);
+        }
+      );
+    });
   });
 });
 
