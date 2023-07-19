@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { Router } from "@angular/router";
 import {
   BehaviorSubject,
+  combineLatest,
   concatMap,
   filter,
   firstValueFrom,
@@ -12,7 +13,6 @@ import {
   Subject,
   switchMap,
   takeUntil,
-  tap,
 } from "rxjs";
 import Swal from "sweetalert2";
 
@@ -61,8 +61,7 @@ const RateUrls = {
 export class SettingsComponent implements OnInit {
   protected readonly VaultTimeoutAction = VaultTimeoutAction;
 
-  protected availableVaultTimeoutActions$: Observable<VaultTimeoutAction[]>;
-
+  availableVaultTimeoutActions: VaultTimeoutAction[] = [];
   vaultTimeoutOptions: any[];
   vaultTimeoutPolicyCallout: Observable<{
     timeout: { hours: number; minutes: number };
@@ -97,13 +96,11 @@ export class SettingsComponent implements OnInit {
     private popupUtilsService: PopupUtilsService,
     private modalService: ModalService,
     private keyConnectorService: KeyConnectorService,
-    private dialogService: DialogServiceAbstraction
+    private dialogService: DialogServiceAbstraction,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   async ngOnInit() {
-    this.availableVaultTimeoutActions$ = this.refreshTimeoutSettings$.pipe(
-      switchMap(() => this.vaultTimeoutSettingsService.availableVaultTimeoutActions$)
-    );
     this.vaultTimeoutPolicyCallout = this.policyService.get$(PolicyType.MaximumVaultTimeout).pipe(
       filter((policy) => policy != null),
       map((policy) => {
@@ -115,13 +112,6 @@ export class SettingsComponent implements OnInit {
           };
         }
         return { timeout: timeout, action: policy.data?.action };
-      }),
-      tap((policy) => {
-        if (policy.action) {
-          this.form.controls.vaultTimeoutAction.disable({ emitEvent: false });
-        } else {
-          this.form.controls.vaultTimeoutAction.enable({ emitEvent: false });
-        }
       })
     );
 
@@ -187,6 +177,16 @@ export class SettingsComponent implements OnInit {
     this.supportsBiometric = await this.platformUtilsService.supportsBiometric();
     this.showChangeMasterPass = !(await this.keyConnectorService.getUsesKeyConnector());
 
+    this.form.controls.pin.valueChanges
+      .pipe(
+        concatMap(async (value) => {
+          await this.updatePin(value);
+          this.refreshTimeoutSettings$.next();
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
+
     this.form.controls.biometric.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((enabled) => {
@@ -199,11 +199,36 @@ export class SettingsComponent implements OnInit {
 
     this.refreshTimeoutSettings$
       .pipe(
-        switchMap(() => this.vaultTimeoutSettingsService.vaultTimeoutAction$),
+        switchMap(() =>
+          combineLatest([
+            this.vaultTimeoutSettingsService.availableVaultTimeoutActions$,
+            this.vaultTimeoutSettingsService.vaultTimeoutAction$,
+          ])
+        ),
         takeUntil(this.destroy$)
       )
-      .subscribe((action) => {
+      .subscribe(([availableActions, action]) => {
+        this.availableVaultTimeoutActions = availableActions;
         this.form.controls.vaultTimeoutAction.setValue(action, { emitEvent: false });
+        this.changeDetectorRef.detectChanges();
+      });
+
+    this.refreshTimeoutSettings$
+      .pipe(
+        switchMap(() =>
+          combineLatest([
+            this.vaultTimeoutSettingsService.availableVaultTimeoutActions$,
+            this.vaultTimeoutPolicyCallout,
+          ])
+        ),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(([availableActions, policy]) => {
+        if (policy.action || availableActions.length <= 1) {
+          this.form.controls.vaultTimeoutAction.disable({ emitEvent: false });
+        } else {
+          this.form.controls.vaultTimeoutAction.enable({ emitEvent: false });
+        }
       });
   }
 
@@ -270,18 +295,19 @@ export class SettingsComponent implements OnInit {
       this.form.value.vaultTimeout,
       newValue
     );
+    this.refreshTimeoutSettings$.next();
   }
 
-  async updatePin() {
-    if (this.form.value.pin) {
+  async updatePin(value: boolean) {
+    if (value) {
       const ref = this.modalService.open(SetPinComponent, { allowMultipleModals: true });
 
       if (ref == null) {
-        this.form.controls.pin.setValue(false);
+        this.form.controls.pin.setValue(false, { emitEvent: false });
         return;
       }
 
-      this.form.controls.pin.setValue(await ref.onClosedPromise());
+      this.form.controls.pin.setValue(await ref.onClosedPromise(), { emitEvent: false });
     } else {
       await this.vaultTimeoutSettingsService.clear();
     }

@@ -23,6 +23,7 @@ export class SetPinComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
+    // TODO Change this!
     this.showMasterPassOnRestart = this.masterPassOnRestart =
       !(await this.keyConnectorService.getUsesKeyConnector());
   }
