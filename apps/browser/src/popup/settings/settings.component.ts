@@ -101,7 +101,8 @@ export class SettingsComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.vaultTimeoutPolicyCallout = this.policyService.get$(PolicyType.MaximumVaultTimeout).pipe(
+    const maximumVaultTimeoutPolicy = this.policyService.get$(PolicyType.MaximumVaultTimeout);
+    this.vaultTimeoutPolicyCallout = maximumVaultTimeoutPolicy.pipe(
       filter((policy) => policy != null),
       map((policy) => {
         let timeout;
@@ -218,13 +219,13 @@ export class SettingsComponent implements OnInit {
         switchMap(() =>
           combineLatest([
             this.vaultTimeoutSettingsService.availableVaultTimeoutActions$,
-            this.vaultTimeoutPolicyCallout,
+            maximumVaultTimeoutPolicy,
           ])
         ),
         takeUntil(this.destroy$)
       )
       .subscribe(([availableActions, policy]) => {
-        if (policy.action || availableActions.length <= 1) {
+        if (policy?.data?.action || availableActions.length <= 1) {
           this.form.controls.vaultTimeoutAction.disable({ emitEvent: false });
         } else {
           this.form.controls.vaultTimeoutAction.enable({ emitEvent: false });
