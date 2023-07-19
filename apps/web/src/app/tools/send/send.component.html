@@ -204,9 +204,7 @@
         </ng-container>
         <ng-container *ngIf="loaded">
           <bit-no-items [icon]="noItemIcon" class="tw-text-main">
-            <ng-container slot="title"
-              ><div class="tw-mt-2">{{ "sendsNoItemsTitle" | i18n }}</div></ng-container
-            >
+            <ng-container slot="title">{{ "sendsNoItemsTitle" | i18n }}</ng-container>
             <ng-container slot="description">{{ "sendsNoItemsMessage" | i18n }}</ng-container>
             <button
               slot="button"
