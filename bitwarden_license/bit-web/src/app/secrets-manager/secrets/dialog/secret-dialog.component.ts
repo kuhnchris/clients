@@ -48,7 +48,7 @@ export class SecretDialogComponent implements OnInit {
     }),
     project: new FormControl("", [Validators.required]),
     newProjectName: new FormControl("", {
-      validators: [BitValidators.trimValidator],
+      validators: [Validators.maxLength(500), BitValidators.trimValidator],
       updateOn: "submit",
     }),
   });
