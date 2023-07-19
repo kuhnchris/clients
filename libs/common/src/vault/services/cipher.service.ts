@@ -537,11 +537,7 @@ export class CipherService implements CipherServiceAbstraction {
     await this.upsert(data);
   }
 
-  async updateWithServer(
-    cipher: Cipher,
-    orgAdmin = false,
-    isNotClone = false
-  ): Promise<any> {
+  async updateWithServer(cipher: Cipher, orgAdmin = false, isNotClone = false): Promise<any> {
     let response: CipherResponse;
     if (orgAdmin && isNotClone) {
       const request = new CipherRequest(cipher);
