@@ -12,8 +12,9 @@ import {
   ValidatorFn,
   Validators,
 } from "@angular/forms";
-import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { Subject, takeUntil } from "rxjs";
+
+import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 
 @Component({
   selector: "sm-expiration-options",
@@ -76,7 +77,9 @@ export class ExpirationOptionsComponent
 
   validate(control: AbstractControl<any, any>): ValidationErrors {
     if (
-      (this.form.value.expires == "custom" && this.form.value.expireDateTime) ||
+      (this.form.value.expires == "custom" &&
+        this.form.value.expireDateTime &&
+        !this.form.invalid) ||
       this.form.value.expires !== "custom"
     ) {
       return null;
@@ -116,17 +119,13 @@ export class ExpirationOptionsComponent
 
   expiresInFutureValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      if (control.value == null) {
-        return null;
-      }
-      debugger;
-      var enteredDate = new Date(control.value);
+      const enteredDate = new Date(control.value);
 
       if (enteredDate > new Date()) {
         return null;
       } else {
         return {
-          expirationDateError: {
+          ValidationError: {
             message: this.i18nService.t("expirationDateError"),
           },
         };
