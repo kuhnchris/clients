@@ -189,14 +189,19 @@ export class SettingsComponent implements OnInit {
       .subscribe();
 
     this.form.controls.biometric.valueChanges
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((enabled) => {
-        if (enabled) {
-          this.form.controls.enableAutoBiometricsPrompt.enable();
-        } else {
-          this.form.controls.enableAutoBiometricsPrompt.disable();
-        }
-      });
+      .pipe(
+        concatMap(async (enabled) => {
+          await this.updateBiometric(enabled);
+          if (enabled) {
+            this.form.controls.enableAutoBiometricsPrompt.enable();
+          } else {
+            this.form.controls.enableAutoBiometricsPrompt.disable();
+          }
+          this.refreshTimeoutSettings$.next();
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
 
     this.refreshTimeoutSettings$
       .pipe(
@@ -314,8 +319,8 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  async updateBiometric() {
-    if (this.form.value.biometric && this.supportsBiometric) {
+  async updateBiometric(enabled: boolean) {
+    if (enabled && this.supportsBiometric) {
       let granted;
       try {
         granted = await BrowserApi.requestPermission({ permissions: ["nativeMessaging"] });
@@ -379,7 +384,7 @@ export class SettingsComponent implements OnInit {
             this.form.controls.biometric.setValue(result);
 
             Swal.close();
-            if (this.form.value.biometric === false) {
+            if (!result) {
               this.platformUtilsService.showToast(
                 "error",
                 this.i18nService.t("errorEnableBiometricTitle"),
