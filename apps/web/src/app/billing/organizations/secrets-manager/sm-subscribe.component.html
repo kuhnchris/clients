@@ -44,25 +44,28 @@
       <bit-hint *ngIf="upgradeOrganization">{{ "addSecretsManagerUpgradeDesc" | i18n }}</bit-hint>
     </bit-form-control>
 
-    <div *ngIf="formGroup.value.enabled && selectedPlan.hasAdditionalSeatsOption" class="tw-w-1/2">
-      <bit-form-field>
-        <bit-label>{{ "userSeats" | i18n }}</bit-label>
-        <input bitInput formControlName="userSeats" type="number" />
-        <bit-hint>{{ "userSeatsHowManyDesc" | i18n }}</bit-hint>
-      </bit-form-field>
-
-      <bit-form-field>
-        <bit-label>{{ "additionalServiceAccounts" | i18n }}</bit-label>
-        <input bitInput formControlName="additionalServiceAccounts" type="number" />
-        <bit-hint>{{
-          "additionalServiceAccountsDesc"
-            | i18n : serviceAccountsIncluded : (monthlyCostPerServiceAccount | currency : "$")
-        }}</bit-hint>
-      </bit-form-field>
+    <ng-container *ngIf="formGroup.value.enabled">
+      <div *ngIf="selectedPlan.hasAdditionalSeatsOption" class="tw-w-1/2">
+        <bit-form-field>
+          <bit-label>{{ "userSeats" | i18n }}</bit-label>
+          <input bitInput formControlName="userSeats" type="number" />
+          <bit-hint>{{ "userSeatsHowManyDesc" | i18n }}</bit-hint>
+        </bit-form-field>
+      </div>
+      <div *ngIf="selectedPlan.hasAdditionalServiceAccountOption" class="tw-w-1/2">
+        <bit-form-field>
+          <bit-label>{{ "additionalServiceAccounts" | i18n }}</bit-label>
+          <input bitInput formControlName="additionalServiceAccounts" type="number" />
+          <bit-hint>{{
+            "additionalServiceAccountsDesc"
+              | i18n : serviceAccountsIncluded : (monthlyCostPerServiceAccount | currency : "$")
+          }}</bit-hint>
+        </bit-form-field>
+      </div>
 
       <button *ngIf="showSubmitButton" type="submit" bitButton buttonType="primary" bitFormButton>
         {{ "save" | i18n }}
       </button>
-    </div>
+    </ng-container>
   </div>
 </div>

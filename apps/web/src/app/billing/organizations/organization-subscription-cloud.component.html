@@ -62,7 +62,7 @@
     </ng-container>
   </dl>
   <ng-container *ngIf="userOrg.canEditSubscription">
-    <div class="tw-mb-7 tw-flex-col">
+    <div class="tw-flex-col">
       <strong class="tw-block tw-border-0 tw-border-b tw-border-solid tw-border-secondary-300">{{
         "details" | i18n
       }}</strong>
@@ -98,29 +98,33 @@
   </ng-container>
 
   <ng-container *ngIf="userOrg.canEditSubscription">
-    <button
-      bitButton
-      buttonType="secondary"
-      type="button"
-      (click)="changePlan()"
-      *ngIf="showChangePlanButton"
-    >
-      {{ "changeBillingPlan" | i18n }}
-    </button>
-    <app-change-plan
-      [organizationId]="organizationId"
-      (onChanged)="closeChangePlan()"
-      (onCanceled)="closeChangePlan()"
-      *ngIf="showChangePlan"
-    ></app-change-plan>
+    <div class="tw-mt-7">
+      <button
+        bitButton
+        buttonType="secondary"
+        type="button"
+        (click)="changePlan()"
+        *ngIf="showChangePlanButton"
+      >
+        {{ "changeBillingPlan" | i18n }}
+      </button>
+      <app-change-plan
+        [organizationId]="organizationId"
+        (onChanged)="closeChangePlan()"
+        (onCanceled)="closeChangePlan()"
+        *ngIf="showChangePlan"
+      ></app-change-plan>
+    </div>
   </ng-container>
 
   <ng-container *ngIf="showSecretsManagerSubscribe">
-    <sm-subscribe-standalone
-      [plan]="sub.secretsManagerPlan"
-      [organization]="userOrg"
-      (onSubscribe)="subscriptionAdjusted()"
-    ></sm-subscribe-standalone>
+    <div class="tw-mt-7">
+      <sm-subscribe-standalone
+        [plan]="sub.secretsManagerPlan"
+        [organization]="userOrg"
+        (onSubscribe)="subscriptionAdjusted()"
+      ></sm-subscribe-standalone>
+    </div>
   </ng-container>
 
   <ng-container *ngIf="userOrg.canEditSubscription">
