@@ -9,8 +9,10 @@ import {
   NG_VALUE_ACCESSOR,
   ValidationErrors,
   Validator,
+  ValidatorFn,
   Validators,
 } from "@angular/forms";
+import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
 import { Subject, takeUntil } from "rxjs";
 
 @Component({
@@ -46,10 +48,10 @@ export class ExpirationOptionsComponent
 
   protected form = new FormGroup({
     expires: new FormControl("never", [Validators.required]),
-    expireDateTime: new FormControl("", [Validators.required]),
+    expireDateTime: new FormControl("", [Validators.required, this.expiresInFutureValidator()]),
   });
 
-  constructor(private datePipe: DatePipe) {}
+  constructor(private datePipe: DatePipe, private i18nService: I18nService) {}
 
   async ngOnInit() {
     this.form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
@@ -110,5 +112,25 @@ export class ExpirationOptionsComponent
     const currentDate = new Date();
     currentDate.setDate(currentDate.getDate() + Number(this.form.value.expires));
     return currentDate;
+  }
+
+  expiresInFutureValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (control.value == null) {
+        return null;
+      }
+      debugger;
+      var enteredDate = new Date(control.value);
+
+      if (enteredDate > new Date()) {
+        return null;
+      } else {
+        return {
+          expirationDateError: {
+            message: this.i18nService.t("expirationDateError"),
+          },
+        };
+      }
+    };
   }
 }

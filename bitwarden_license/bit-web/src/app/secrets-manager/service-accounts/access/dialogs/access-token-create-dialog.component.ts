@@ -54,11 +54,6 @@ export class AccessTokenCreateDialogComponent implements OnInit {
       return;
     }
 
-    if (this.formGroup.value.expirationDateControl < new Date()) {
-      throw new Error(this.i18nService.t("expirationDateError"));
-      return;
-    }
-
     const accessTokenView = new AccessTokenView();
     accessTokenView.name = this.formGroup.value.name;
     accessTokenView.expireAt = this.formGroup.value.expirationDateControl;
