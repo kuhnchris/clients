@@ -34,7 +34,7 @@ export abstract class CipherService {
   updateLastLaunchedDate: (id: string) => Promise<void>;
   saveNeverDomain: (domain: string) => Promise<void>;
   createWithServer: (cipher: Cipher, orgAdmin: boolean) => Promise<any>;
-  updateWithServer: (cipher: Cipher, orgAdmin: boolean, isNotClone?: boolean) => Promise<any>;
+  updateWithServer: (cipher: Cipher, orgAdmin: boolean, isNotClone: boolean) => Promise<any>;
   shareWithServer: (
     cipher: CipherView,
     organizationId: string,

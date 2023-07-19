@@ -519,7 +519,7 @@ export class CipherService implements CipherServiceAbstraction {
     await this.stateService.setNeverDomains(domains);
   }
 
-  async createWithServer(cipher: Cipher, orgAdmin: boolean): Promise<any> {
+  async createWithServer(cipher: Cipher, orgAdmin = false): Promise<any> {
     let response: CipherResponse;
     if (orgAdmin) {
       const request = new CipherCreateRequest(cipher);
@@ -537,7 +537,11 @@ export class CipherService implements CipherServiceAbstraction {
     await this.upsert(data);
   }
 
-  async updateWithServer(cipher: Cipher, orgAdmin: boolean, isNotClone?: boolean): Promise<any> {
+  async updateWithServer(
+    cipher: Cipher,
+    orgAdmin = false,
+    isNotClone = false
+  ): Promise<any> {
     let response: CipherResponse;
     if (orgAdmin && isNotClone) {
       const request = new CipherRequest(cipher);
