@@ -1461,17 +1461,35 @@
   "autoFillSuccess": {
     "message": "Аўтазапоўнены элемент"
   },
+  "insecurePageWarning": {
+    "message": "Папярэджанне: гэта старонка HTTP не абаронена. Любая інфармацыя, якую вы адпраўляеце тэарэтычна можа перахоплена і зменена любым карыстальнікам. Гэты лагін першапачаткова захаваны на абароненай старонцы (HTTPS)."
+  },
+  "insecurePageWarningFillPrompt": {
+    "message": "Вы ўсё яшчэ хочаце запоўніць гэты лагін?"
+  },
+  "autofillIframeWarning": {
+    "message": "Форма размешчана на іншым дамене, які адрозніваецца ад URI вашага захаванага лагіна. Націсніце \"Добра\", каб усё роўна запоўніць або \"Скасаваць\" для спынення."
+  },
+  "autofillIframeWarningTip": {
+    "message": "Каб больш не атрымліваць гэта папярэджанне, захавайце гэты URI, $HOSTNAME$ у свае элементы ўваходу Bitwarden для гэтага сайта.",
+    "placeholders": {
+      "hostname": {
+        "content": "$1",
+        "example": "www.example.com"
+      }
+    }
+  },
   "setMasterPassword": {
     "message": "Прызначыць асноўны пароль"
   },
   "currentMasterPass": {
-    "message": "Current master password"
+    "message": "Бягучы асноўны пароль"
   },
   "newMasterPass": {
-    "message": "New master password"
+    "message": "Новы асноўны пароль"
   },
   "confirmNewMasterPass": {
-    "message": "Confirm new master password"
+    "message": "Пацвердзіць новы асноўны пароль"
   },
   "masterPasswordPolicyInEffect": {
     "message": "Адна або больш палітык арганізацыі патрабуе, каб ваш асноўны пароль адпавядаў наступным патрабаванням:"
@@ -1854,7 +1872,7 @@
     "message": "Ваш асноўны пароль нядаўна быў зменены адміністратарам арганізацыі. Для таго, каб атрымаць доступ да вашага сховішча, вы павінны абнавіць яго зараз. Гэта прывядзе да завяршэння бягучага сеанса і вам неабходна будзе ўвайсці паўторна. Сеансы на іншых прыладах могуць заставацца актыўнымі на працягу адной гадзіны."
   },
   "updateWeakMasterPasswordWarning": {
-    "message": "Your master password does not meet one or more of your organization policies. In order to access the vault, you must update your master password now. Proceeding will log you out of your current session, requiring you to log back in. Active sessions on other devices may continue to remain active for up to one hour."
+    "message": "Ваш асноўны пароль не адпавядае адной або некалькім палітыкам арганізацыі. Для атрымання доступу да сховішча, вы павінны абнавіць яго. Працягваючы, вы выйдзіце з бягучага сеанса і вам неабходна будзе ўвайсці паўторна. Актыўныя сеансы на іншых прыладах могуць заставацца актыўнымі на працягу адной гадзіны."
   },
   "resetPasswordPolicyAutoEnroll": {
     "message": "Аўтаматычная рэгістрацыя"
@@ -1888,7 +1906,7 @@
     }
   },
   "vaultTimeoutPolicyWithActionInEffect": {
-    "message": "Your organization policies are affecting your vault timeout. Maximum allowed vault timeout is $HOURS$ hour(s) and $MINUTES$ minute(s). Your vault timeout action is set to $ACTION$.",
+    "message": "Палітыка вашай арганізацыі ўплывае на час чакання сховішча. Максімальны дазволены час чакання сховішча складае гадзін: $HOURS$; хвілін: $MINUTES$. Для часу чакання вашага сховішча прызначана дзеянне $ACTION$.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -1905,7 +1923,7 @@
     }
   },
   "vaultTimeoutActionPolicyInEffect": {
-    "message": "Your organization policies have set your vault timeout action to $ACTION$.",
+    "message": "Палітыкай вашай арганізацыі прызначана дзеянне $ACTION$ для часу чакання вашага сховішча.",
     "placeholders": {
       "action": {
         "content": "$1",
@@ -2202,5 +2220,28 @@
         "example": "CTRL+Shift+L"
       }
     }
+  },
+  "region": {
+    "message": "Рэгіён"
+  },
+  "opensInANewWindow": {
+    "message": "Адкрываць у новым акне"
+  },
+  "eu": {
+    "message": "ЕС",
+    "description": "European Union"
+  },
+  "us": {
+    "message": "ЗША",
+    "description": "United States"
+  },
+  "accessDenied": {
+    "message": "Доступ забаронены. У вас не дастаткова правоў для прагляду гэтай старонкі."
+  },
+  "general": {
+    "message": "Асноўныя"
+  },
+  "display": {
+    "message": "Адлюстраванне"
   }
 }

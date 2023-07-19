@@ -2,8 +2,8 @@ import { SelectionModel } from "@angular/cdk/collections";
 import { Component, EventEmitter, Input, OnDestroy, Output } from "@angular/core";
 import { Subject, takeUntil } from "rxjs";
 
-import { I18nService } from "@bitwarden/common/abstractions/i18n.service";
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
+import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { TableDataSource } from "@bitwarden/components";
 
 import { SecretListView } from "../models/view/secret-list.view";
@@ -29,6 +29,7 @@ export class SecretsListComponent implements OnDestroy {
 
   @Input()
   set search(search: string) {
+    this.selection.clear();
     this.dataSource.filter = search;
   }
 
@@ -61,15 +62,20 @@ export class SecretsListComponent implements OnDestroy {
   }
 
   isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.secrets.length;
-    return numSelected === numRows;
+    if (this.selection.selected?.length > 0) {
+      const numSelected = this.selection.selected.length;
+      const numRows = this.dataSource.filteredData.length;
+      return numSelected === numRows;
+    }
+    return false;
   }
 
   toggleAll() {
-    this.isAllSelected()
-      ? this.selection.clear()
-      : this.selection.select(...this.secrets.map((s) => s.id));
+    if (this.isAllSelected()) {
+      this.selection.clear();
+    } else {
+      this.selection.select(...this.dataSource.filteredData.map((s) => s.id));
+    }
   }
 
   bulkDeleteSecrets() {

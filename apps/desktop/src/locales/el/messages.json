@@ -542,7 +542,7 @@
     "message": "Απαιτείται επιβεβαίωση του κύριου κωδικού."
   },
   "masterPasswordMinlength": {
-    "message": "Master password must be at least $VALUE$ characters long.",
+    "message": "Ο κύριος κωδικός πρέπει να έχει τουλάχιστον $VALUE$ χαρακτήρες μήκος.",
     "description": "The Master Password must be at least a specific number of characters long.",
     "placeholders": {
       "value": {
@@ -771,7 +771,7 @@
     "message": "Επικοινωνία"
   },
   "helpAndFeedback": {
-    "message": "Help and feedback"
+    "message": "Βοήθεια και σχόλια"
   },
   "getHelp": {
     "message": "Ζητήστε Βοήθεια"
@@ -1417,7 +1417,7 @@
     "message": "Require password or PIN on app start"
   },
   "recommendedForSecurity": {
-    "message": "Recommended for security."
+    "message": "Συνίσταται για ασφάλεια."
   },
   "lockWithMasterPassOnRestart": {
     "message": "Κλείδωμα με τον κύριο κωδικό πρόσβασης κατά την επανεκκίνηση"
@@ -1540,7 +1540,7 @@
     "message": "Για να ολοκληρώσετε τη σύνδεση με SSO, ορίστε έναν κύριο κωδικό πρόσβασης για πρόσβαση και προστασία του vault σας."
   },
   "currentMasterPass": {
-    "message": "Current master password"
+    "message": "Τρέχων κύριος κωδικός"
   },
   "newMasterPass": {
     "message": "Νέος Κύριος Κωδικός"
@@ -2250,14 +2250,23 @@
     "message": "Bitwarden recommends updating your biometric settings to require your master password (or PIN) on the first unlock. Would you like to update your settings now?"
   },
   "windowsBiometricUpdateWarningTitle": {
-    "message": "Recommended Settings Update"
+    "message": "Ενημέρωση Προτεινόμενων Ρυθμίσεων"
   },
-  "windows8SoonDeprecated": {
-    "message": "The operating system you are using will no longer be supported after the 2023.5.0 release. Upgrade to a supported operating system. Continuing without updating your operating system may result in unexpected behavior or security risks.",
-    "description": "Windows 8, 8.1 and Server 2012 R2 are no longer supported by Electron & Chromium. Show a notice on the login and lock screen while 2023.4.0 is the active version."
+  "region": {
+    "message": "Περιοχή"
   },
-  "windows8Deprecated": {
-    "message": "The operating system you are using is no longer supported. Continuing without updating your operating system may result in unexpected behavior.",
-    "description": "Windows 8, 8.1 and Server 2012 R2 are no longer supported by Electron & Chromium. Show a notice on the login and lock screen after 2023.5.0 is released."
+  "eu": {
+    "message": "ΕΕ",
+    "description": "European Union"
+  },
+  "us": {
+    "message": "ΗΠΑ",
+    "description": "United States"
+  },
+  "selfHosted": {
+    "message": "Self-hosted"
+  },
+  "accessDenied": {
+    "message": "Access denied. You do not have permission to view this page."
   }
 }

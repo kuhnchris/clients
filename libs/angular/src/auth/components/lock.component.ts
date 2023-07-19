@@ -4,13 +4,6 @@ import { firstValueFrom, Subject } from "rxjs";
 import { concatMap, take, takeUntil } from "rxjs/operators";
 
 import { ApiService } from "@bitwarden/common/abstractions/api.service";
-import { CryptoService } from "@bitwarden/common/abstractions/crypto.service";
-import { EnvironmentService } from "@bitwarden/common/abstractions/environment.service";
-import { I18nService } from "@bitwarden/common/abstractions/i18n.service";
-import { LogService } from "@bitwarden/common/abstractions/log.service";
-import { MessagingService } from "@bitwarden/common/abstractions/messaging.service";
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
-import { StateService } from "@bitwarden/common/abstractions/state.service";
 import { VaultTimeoutService } from "@bitwarden/common/abstractions/vaultTimeout/vaultTimeout.service";
 import { VaultTimeoutSettingsService } from "@bitwarden/common/abstractions/vaultTimeout/vaultTimeoutSettings.service";
 import { PolicyApiServiceAbstraction } from "@bitwarden/common/admin-console/abstractions/policy/policy-api.service.abstraction";
@@ -21,10 +14,19 @@ import { ForceResetPasswordReason } from "@bitwarden/common/auth/models/domain/f
 import { SecretVerificationRequest } from "@bitwarden/common/auth/models/request/secret-verification.request";
 import { MasterPasswordPolicyResponse } from "@bitwarden/common/auth/models/response/master-password-policy.response";
 import { HashPurpose, KeySuffixOptions } from "@bitwarden/common/enums";
-import { Utils } from "@bitwarden/common/misc/utils";
-import { EncString } from "@bitwarden/common/models/domain/enc-string";
-import { SymmetricCryptoKey } from "@bitwarden/common/models/domain/symmetric-crypto-key";
-import { PasswordGenerationServiceAbstraction } from "@bitwarden/common/tools/generator/password";
+import { CryptoService } from "@bitwarden/common/platform/abstractions/crypto.service";
+import { EnvironmentService } from "@bitwarden/common/platform/abstractions/environment.service";
+import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
+import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
+import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
+import { StateService } from "@bitwarden/common/platform/abstractions/state.service";
+import { Utils } from "@bitwarden/common/platform/misc/utils";
+import { EncString } from "@bitwarden/common/platform/models/domain/enc-string";
+import { SymmetricCryptoKey } from "@bitwarden/common/platform/models/domain/symmetric-crypto-key";
+import { PasswordStrengthServiceAbstraction } from "@bitwarden/common/tools/password-strength";
+
+import { DialogServiceAbstraction, SimpleDialogType } from "../../services/dialog";
 
 @Directive()
 export class LockComponent implements OnInit, OnDestroy {
@@ -67,7 +69,8 @@ export class LockComponent implements OnInit, OnDestroy {
     protected ngZone: NgZone,
     protected policyApiService: PolicyApiServiceAbstraction,
     protected policyService: InternalPolicyService,
-    protected passwordGenerationService: PasswordGenerationServiceAbstraction
+    protected passwordStrengthService: PasswordStrengthServiceAbstraction,
+    protected dialogService: DialogServiceAbstraction
   ) {}
 
   async ngOnInit() {
@@ -95,12 +98,13 @@ export class LockComponent implements OnInit, OnDestroy {
   }
 
   async logOut() {
-    const confirmed = await this.platformUtilsService.showDialog(
-      this.i18nService.t("logOutConfirmation"),
-      this.i18nService.t("logOut"),
-      this.i18nService.t("logOut"),
-      this.i18nService.t("cancel")
-    );
+    const confirmed = await this.dialogService.openSimpleDialog({
+      title: { key: "logOut" },
+      content: { key: "logOutConfirmation" },
+      acceptButtonText: { key: "logOut" },
+      type: SimpleDialogType.WARNING,
+    });
+
     if (confirmed) {
       this.messagingService.send("logout");
     }
@@ -260,8 +264,6 @@ export class LockComponent implements OnInit, OnDestroy {
 
   private async doContinue(evaluatePasswordAfterUnlock: boolean) {
     await this.stateService.setEverBeenUnlocked(true);
-    const disableFavicon = await this.stateService.getDisableFavicon();
-    await this.stateService.setDisableFavicon(!!disableFavicon);
     this.messagingService.send("unlocked");
 
     if (evaluatePasswordAfterUnlock) {
@@ -331,7 +333,7 @@ export class LockComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    const passwordStrength = this.passwordGenerationService.passwordStrength(
+    const passwordStrength = this.passwordStrengthService.getPasswordStrength(
       this.masterPassword,
       this.email
     )?.score;

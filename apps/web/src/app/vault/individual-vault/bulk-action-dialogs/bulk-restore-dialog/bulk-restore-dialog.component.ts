@@ -1,11 +1,11 @@
 import { DialogConfig, DialogRef, DIALOG_DATA } from "@angular/cdk/dialog";
 import { Component, Inject } from "@angular/core";
 
-import { I18nService } from "@bitwarden/common/abstractions/i18n.service";
-import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
+import { DialogServiceAbstraction } from "@bitwarden/angular/services/dialog";
 import { Organization } from "@bitwarden/common/admin-console/models/domain/organization";
+import { I18nService } from "@bitwarden/common/platform/abstractions/i18n.service";
+import { PlatformUtilsService } from "@bitwarden/common/platform/abstractions/platform-utils.service";
 import { CipherService } from "@bitwarden/common/vault/abstractions/cipher.service";
-import { DialogService } from "@bitwarden/components";
 
 export interface BulkRestoreDialogParams {
   cipherIds: string[];
@@ -23,7 +23,7 @@ export enum BulkRestoreDialogResult {
  * @param config Configuration for the dialog
  */
 export const openBulkRestoreDialog = (
-  dialogService: DialogService,
+  dialogService: DialogServiceAbstraction,
   config: DialogConfig<BulkRestoreDialogParams>
 ) => {
   return dialogService.open<BulkRestoreDialogResult, BulkRestoreDialogParams>(
@@ -33,7 +33,6 @@ export const openBulkRestoreDialog = (
 };
 
 @Component({
-  selector: "vault-bulk-restore-dialog",
   templateUrl: "bulk-restore-dialog.component.html",
 })
 export class BulkRestoreDialogComponent {

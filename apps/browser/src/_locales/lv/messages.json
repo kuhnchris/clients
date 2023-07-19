@@ -841,10 +841,10 @@
     "message": "Ir nepieciešama Premium dalība, lai izmantotu šo iespēju."
   },
   "enterVerificationCodeApp": {
-    "message": "Ievadi 6 ciparu apstiprinājuma kodu no autentificētāja lietotnes!"
+    "message": "Jāievada 6 ciparu apstiprinājuma kods no autentificētāja lietotnes."
   },
   "enterVerificationCodeEmail": {
-    "message": "Ievadi 6 ciparu apstiprinājuma kodu, kas tika nosūtīts uz $EMAIL$.",
+    "message": "Jāievada 6 ciparu apstiprinājuma kods, kas tika nosūtīts uz $EMAIL$.",
     "placeholders": {
       "email": {
         "content": "$1",
@@ -1460,6 +1460,24 @@
   },
   "autoFillSuccess": {
     "message": "Automātiski aizpildīts vienums"
+  },
+  "insecurePageWarning": {
+    "message": "Brīdinājums: šī ir nedroša HTTP lapa, un ir iespējams, ka citi var redzēt vai mainīt visu tajā iesniegto informāciju. Šis pieteikšanās vienums sākotnēji tika saglabāts drošā (HTTPS) lapā."
+  },
+  "insecurePageWarningFillPrompt": {
+    "message": "Vai tiešām joprojām aizpildīt šo pieteikšanās vienumu?"
+  },
+  "autofillIframeWarning": {
+    "message": "Veidne ir izvietota citā domēnā, nekā saglabātā pieteikšanās vienuma URI. Jāizvēlas \"Labi\", lai vienalga automātiski aizpildītu, vai \"Atcelt\", lai apturētu."
+  },
+  "autofillIframeWarningTip": {
+    "message": "Lai novērstu šī brīdinājuma turpmāku rādīšanu, jāsaglabā šis URI, $HOSTNAME$, šīs vietnes Bitwarde pieteikšanās vienumā.",
+    "placeholders": {
+      "hostname": {
+        "content": "$1",
+        "example": "www.example.com"
+      }
+    }
   },
   "setMasterPassword": {
     "message": "Uzstādīt galveno paroli"
@@ -2202,5 +2220,28 @@
         "example": "CTRL+Shift+L"
       }
     }
+  },
+  "region": {
+    "message": "Apgabals"
+  },
+  "opensInANewWindow": {
+    "message": "Atver jaunā logā"
+  },
+  "eu": {
+    "message": "ES",
+    "description": "European Union"
+  },
+  "us": {
+    "message": "ASV",
+    "description": "United States"
+  },
+  "accessDenied": {
+    "message": "Piekļuve liegta. Nav nepieciešamo atļauju, lai skatītu šo lapu."
+  },
+  "general": {
+    "message": "Vispārīgi"
+  },
+  "display": {
+    "message": "Attēlojums"
   }
 }

@@ -1461,17 +1461,35 @@
   "autoFillSuccess": {
     "message": "Element avto-dolduruldu"
   },
+  "insecurePageWarning": {
+    "message": "Xəbərdarlıq: Bu, güvənli olmayan bir HTTP səhifəsidir və göndərdiyiniz istənilən məlumat başqaları tərəfindən görünə və dəyişdirilə bilər. Bu Giriş, orijinal olaraq güvənli (HTTPS) bir səhifədə saxlanılmışdır."
+  },
+  "insecurePageWarningFillPrompt": {
+    "message": "Hələ də bu girişi doldurmaq istəyirsiniz?"
+  },
+  "autofillIframeWarning": {
+    "message": "Form sahibliyi, saxlanılmış girişinizin URI-ından fərqli bir domen tərəfindən həyata keçirilir. Yenə də avto-doldurmaq üçün \"Oldu\"ya, dayandırmaq üçün \"İmtina\"ya basın."
+  },
+  "autofillIframeWarningTip": {
+    "message": "Gələcəkdə bu xəbərdarlığın qarşısını almaq üçün, $HOSTNAME$ URI-nı bu sayt üçün Bitwarden giriş elementinizdə saxlayın.",
+    "placeholders": {
+      "hostname": {
+        "content": "$1",
+        "example": "www.example.com"
+      }
+    }
+  },
   "setMasterPassword": {
     "message": "Ana parolu tənzimlə"
   },
   "currentMasterPass": {
-    "message": "Current master password"
+    "message": "Hazırkı ana parol"
   },
   "newMasterPass": {
-    "message": "New master password"
+    "message": "Yeni ana parol"
   },
   "confirmNewMasterPass": {
-    "message": "Confirm new master password"
+    "message": "Yeni ana parolu təsdiqlə"
   },
   "masterPasswordPolicyInEffect": {
     "message": "Bir və ya daha çox təşkilat siyasəti, aşağıdakı tələbləri qarşılamaq üçün ana parolunuzu tələb edir:"
@@ -1854,7 +1872,7 @@
     "message": "Ana parolunuz təzəlikcə təşkilatınızdakı bir administrator tərəfindən dəyişdirildi. Anbara müraciət üçün indi güncəlləməlisiniz. Davam etsəniz, hazırkı seansdan çıxış etmiş və təkrar giriş etməli olacaqsınız. Digər cihazlardakı aktiv seanslar bir saata qədər aktiv qalmağa davam edə bilər."
   },
   "updateWeakMasterPasswordWarning": {
-    "message": "Your master password does not meet one or more of your organization policies. In order to access the vault, you must update your master password now. Proceeding will log you out of your current session, requiring you to log back in. Active sessions on other devices may continue to remain active for up to one hour."
+    "message": "Ana parolunuz təşkilatınızdakı siyasətlərdən birinə və ya bir neçəsinə uyğun gəlmir. Anbara müraciət üçün ana parolunuzu indi güncəlləməlisiniz. Davam etsəniz, hazırkı seansdan çıxış etmiş və təkrar giriş etməli olacaqsınız. Digər cihazlardakı aktiv seanslar bir saata qədər aktiv qalmağa davam edə bilər."
   },
   "resetPasswordPolicyAutoEnroll": {
     "message": "Avtomatik qeydiyyat"
@@ -1888,7 +1906,7 @@
     }
   },
   "vaultTimeoutPolicyWithActionInEffect": {
-    "message": "Your organization policies are affecting your vault timeout. Maximum allowed vault timeout is $HOURS$ hour(s) and $MINUTES$ minute(s). Your vault timeout action is set to $ACTION$.",
+    "message": "Təşkilatınızın siyasətləri, anbarınızın vaxt bitişinə təsir edir. Anbar vaxt bitişi üçün icazə verilən maksimum vaxt $HOURS$ saat $MINUTES$ dəqiqədir. Anbar vaxt bitişi əməliyyatı $ACTION$ olaraq tənzimləndi.",
     "placeholders": {
       "hours": {
         "content": "$1",
@@ -1905,7 +1923,7 @@
     }
   },
   "vaultTimeoutActionPolicyInEffect": {
-    "message": "Your organization policies have set your vault timeout action to $ACTION$.",
+    "message": "Təşkilatınızın siyasətləri, anbar vaxt bitişi əməliyyatınızı $ACTION$ olaraq tənzimlədi.",
     "placeholders": {
       "action": {
         "content": "$1",
@@ -2202,5 +2220,28 @@
         "example": "CTRL+Shift+L"
       }
     }
+  },
+  "region": {
+    "message": "Bölgə"
+  },
+  "opensInANewWindow": {
+    "message": "Yeni bir pəncərədə açılır"
+  },
+  "eu": {
+    "message": "AB",
+    "description": "European Union"
+  },
+  "us": {
+    "message": "ABŞ",
+    "description": "United States"
+  },
+  "accessDenied": {
+    "message": "Müraciət rədd edildi. Bu səhifəyə baxmaq üçün icazəniz yoxdur."
+  },
+  "general": {
+    "message": "General"
+  },
+  "display": {
+    "message": "Display"
   }
 }

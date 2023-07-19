@@ -196,13 +196,13 @@
     "message": "Ajuda & Feedback"
   },
   "helpCenter": {
-    "message": "Bitwarden Help center"
+    "message": "Central de Ajuda"
   },
   "communityForums": {
-    "message": "Explore Bitwarden community forums"
+    "message": "Explore os fóruns da comunidade"
   },
   "contactSupport": {
-    "message": "Contact Bitwarden support"
+    "message": "Contate o suporte Bitwarden"
   },
   "sync": {
     "message": "Sincronizar"
@@ -1461,6 +1461,24 @@
   "autoFillSuccess": {
     "message": "Item Auto-Preenchido"
   },
+  "insecurePageWarning": {
+    "message": "Aviso: Esta é uma página HTTP não segura, e qualquer informação que você enviar poderá ser interceptada e modificada por outras pessoas. Este login foi originalmente salvo em uma página segura (HTTPS)."
+  },
+  "insecurePageWarningFillPrompt": {
+    "message": "Você ainda deseja preencher esse login?"
+  },
+  "autofillIframeWarning": {
+    "message": "O formulário está hospedado em um domínio diferente do URI do seu login salvo. Escolha OK para preencher automaticamente mesmo assim ou Cancelar para parar."
+  },
+  "autofillIframeWarningTip": {
+    "message": "Para evitar este aviso no futuro, salve este URI, $HOSTNAME$, no seu item de login no Bitwarden para este site.",
+    "placeholders": {
+      "hostname": {
+        "content": "$1",
+        "example": "www.example.com"
+      }
+    }
+  },
   "setMasterPassword": {
     "message": "Definir Senha Mestra"
   },
@@ -1471,7 +1489,7 @@
     "message": "New master password"
   },
   "confirmNewMasterPass": {
-    "message": "Confirm new master password"
+    "message": "Confirme a nova senha mestre"
   },
   "masterPasswordPolicyInEffect": {
     "message": "Uma ou mais políticas da organização exigem que a sua senha mestra cumpra aos seguintes requisitos:"
@@ -2171,7 +2189,7 @@
     }
   },
   "autofillSelectInfoWithoutCommand": {
-    "message": "Select an item from this page or set a shortcut in settings."
+    "message": "Selecione um item desta página ou defina um atalho nas configurações."
   },
   "gotIt": {
     "message": "Entendi"
@@ -2202,5 +2220,28 @@
         "example": "CTRL+Shift+L"
       }
     }
+  },
+  "region": {
+    "message": "Região"
+  },
+  "opensInANewWindow": {
+    "message": "Abrir em uma nova janela"
+  },
+  "eu": {
+    "message": "EU",
+    "description": "European Union"
+  },
+  "us": {
+    "message": "US",
+    "description": "United States"
+  },
+  "accessDenied": {
+    "message": "Acesso negado. Você não tem permissão para ver esta página."
+  },
+  "general": {
+    "message": "General"
+  },
+  "display": {
+    "message": "Display"
   }
 }

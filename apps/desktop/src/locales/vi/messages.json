@@ -542,7 +542,7 @@
     "message": "Yêu cầu nhập lại mật khẩu chính."
   },
   "masterPasswordMinlength": {
-    "message": "Master password must be at least $VALUE$ characters long.",
+    "message": "Mật khẩu chính phải có ít nhất $VALUE$ kí tự.",
     "description": "The Master Password must be at least a specific number of characters long.",
     "placeholders": {
       "value": {
@@ -771,7 +771,7 @@
     "message": "Liên hệ với chúng tôi"
   },
   "helpAndFeedback": {
-    "message": "Help and feedback"
+    "message": "Trợ giúp và phản hồi"
   },
   "getHelp": {
     "message": "Trợ giúp"
@@ -962,19 +962,19 @@
     "message": "Tự động bắt đầu khi đăng nhập"
   },
   "openAtLoginDesc": {
-    "message": "Start the Bitwarden desktop application automatically on login."
+    "message": "Tự động chạy ứng dụng máy tính Bitwarden khi đăng nhập."
   },
   "alwaysShowDock": {
-    "message": "Always show in the Dock"
+    "message": "Luôn hiện ở thanh Dock"
   },
   "alwaysShowDockDesc": {
-    "message": "Show the Bitwarden icon in the Dock even when minimized to the menu bar."
+    "message": "Hiện biểu tượng Bitwarden trong Dock ngày cả khi thu nhỏ về thanh hệ thống."
   },
   "confirmTrayTitle": {
     "message": "Xác nhận ẩn khay"
   },
   "confirmTrayDesc": {
-    "message": "Turning off this setting will also turn off all other tray related settings."
+    "message": "Việc tắt cài đặt này cũng sẽ tắt tất cả các cài đặt liên quan khác."
   },
   "language": {
     "message": "Ngôn ngữ"
@@ -1298,7 +1298,7 @@
     "description": "hCaptcha is the name of a website, should not be translated"
   },
   "loadAccessibilityCookie": {
-    "message": "Load accessibility cookie"
+    "message": "Tải cookie hỗ trợ tiếp cận"
   },
   "registerAccessibilityUser": {
     "message": "Register as an accessibility user at",
@@ -2252,12 +2252,21 @@
   "windowsBiometricUpdateWarningTitle": {
     "message": "Recommended Settings Update"
   },
-  "windows8SoonDeprecated": {
-    "message": "The operating system you are using will no longer be supported after the 2023.5.0 release. Upgrade to a supported operating system. Continuing without updating your operating system may result in unexpected behavior or security risks.",
-    "description": "Windows 8, 8.1 and Server 2012 R2 are no longer supported by Electron & Chromium. Show a notice on the login and lock screen while 2023.4.0 is the active version."
+  "region": {
+    "message": "Region"
   },
-  "windows8Deprecated": {
-    "message": "The operating system you are using is no longer supported. Continuing without updating your operating system may result in unexpected behavior.",
-    "description": "Windows 8, 8.1 and Server 2012 R2 are no longer supported by Electron & Chromium. Show a notice on the login and lock screen after 2023.5.0 is released."
+  "eu": {
+    "message": "EU",
+    "description": "European Union"
+  },
+  "us": {
+    "message": "US",
+    "description": "United States"
+  },
+  "selfHosted": {
+    "message": "Self-hosted"
+  },
+  "accessDenied": {
+    "message": "Access denied. You do not have permission to view this page."
   }
 }

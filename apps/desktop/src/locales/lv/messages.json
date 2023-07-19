@@ -594,10 +594,10 @@
     "message": "Turpināt"
   },
   "enterVerificationCodeApp": {
-    "message": "Ievadi 6 ciparu apstiprinājuma kodu no autentificētāja lietotnes!"
+    "message": "Jāievada 6 ciparu apstiprinājuma kods no autentificētāja lietotnes."
   },
   "enterVerificationCodeEmail": {
-    "message": "Ievadi 6 ciparu apstiprinājuma kodu, kas tika nosūtīts uz $EMAIL$!",
+    "message": "Jāievada 6 ciparu apstiprinājuma kods, kas tika nosūtīts uz $EMAIL$.",
     "placeholders": {
       "email": {
         "content": "$1",
@@ -2095,7 +2095,7 @@
     "message": "Atcerēties e-pasta adresi"
   },
   "notYou": {
-    "message": "Tas neesat Jūs?"
+    "message": "Tas neesi Tu?"
   },
   "newAroundHere": {
     "message": "Jauns šeit?"
@@ -2252,12 +2252,21 @@
   "windowsBiometricUpdateWarningTitle": {
     "message": "Ieteicamie iestatījumu atjauninājumi"
   },
-  "windows8SoonDeprecated": {
-    "message": "Pašreiz izmantotā operētājsistēma vairs netiks atbalstīta pēc laidiena 2023.5.0. Nepieciešams uzlabot uz atbalstītu operētājsistēmu. Izmantošanas turpināšana bez operētājsistēmas atjaunināšanas var beigties ar neparedzētu uzvedību vai drošības bīstamībām.",
-    "description": "Windows 8, 8.1 and Server 2012 R2 are no longer supported by Electron & Chromium. Show a notice on the login and lock screen while 2023.4.0 is the active version."
+  "region": {
+    "message": "Apgabals"
   },
-  "windows8Deprecated": {
-    "message": "Pašreiz izmantotā operētājsistēma vairs netiek atbalstīta. Izmantošanas turpināšana bez operētājsistēmas atjaunināšanas var beigties ar neparedzētu uzvedību.",
-    "description": "Windows 8, 8.1 and Server 2012 R2 are no longer supported by Electron & Chromium. Show a notice on the login and lock screen after 2023.5.0 is released."
+  "eu": {
+    "message": "ES",
+    "description": "European Union"
+  },
+  "us": {
+    "message": "ASV",
+    "description": "United States"
+  },
+  "selfHosted": {
+    "message": "Pašizvietots"
+  },
+  "accessDenied": {
+    "message": "Piekļuve liegta. Nav nepieciešamo atļauju, lai skatītu šo lapu."
   }
 }
