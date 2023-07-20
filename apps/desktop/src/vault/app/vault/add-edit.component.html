@@ -115,7 +115,11 @@
               </div>
             </div>
             <!--Passkey-->
-            <div class="box-content-row text-muted" *ngIf="cipher.login.fido2Key" appBoxRow>
+            <div
+              class="box-content-row text-muted"
+              *ngIf="cipher.login.fido2Key && !cloneMode"
+              appBoxRow
+            >
               <span class="row-label">{{ "typePasskey" | i18n }}</span>
               {{ "passkeyTwoStepLogin" | i18n }}
             </div>
